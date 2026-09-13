@@ -4,7 +4,8 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-import { problems } from "@/content/problems";
+import type { Problem } from "@/content/types";
+import type { Dictionary } from "@/i18n/dictionaries/en";
 import { Section } from "@/components/ui/Section";
 import { cn } from "@/lib/utils";
 
@@ -13,11 +14,18 @@ import { cn } from "@/lib/utils";
  *
  * Implements the WAI-ARIA tabs pattern with manual activation on arrow keys,
  * so a keyboard user can traverse the list without triggering a panel change
- * on every keypress. All six panels are rendered; inactive ones are hidden
- * with the `hidden` attribute, which keeps the copy in the DOM for crawlers
- * while removing it from the accessibility tree.
+ * on every keypress. All panels are rendered; inactive ones are hidden with
+ * the `hidden` attribute, which keeps the copy in the DOM for crawlers while
+ * removing it from the accessibility tree.
  */
-export function ProblemMatrix() {
+export function ProblemMatrix({
+  problems,
+  labels,
+}: {
+  /** `href` is the public URL of the expertise page that answers it. */
+  problems: (Problem & { href: string })[];
+  labels: Dictionary["home"]["problems"];
+}) {
   const [active, setActive] = useState(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -38,18 +46,13 @@ export function ProblemMatrix() {
     <Section
       id="problems"
       index="01"
-      label="The stakes"
-      title="Your technology should never become your business risk."
-      standfirst="Six failure modes account for most of what goes wrong. Each has a recognisable symptom, a cost, and a response that is well understood."
+      label={labels.label}
+      title={labels.title}
+      standfirst={labels.standfirst}
       className="border-b border-line"
     >
       <div className="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
-        <div
-          role="tablist"
-          aria-label="Common technology risks"
-          aria-orientation="vertical"
-          className="border-t border-line"
-        >
+        <div role="tablist" aria-label={labels.tablist} aria-orientation="vertical" className="border-t border-line">
           {problems.map((p, i) => {
             const isActive = i === active;
             return (
@@ -71,18 +74,14 @@ export function ProblemMatrix() {
                 )}
               >
                 <span className={cn("rail-index shrink-0", !isActive && "text-ink-faint")}>
-                  {p.index}
+                  {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="flex-1 text-(length:--text-h4) font-semibold tracking-[-0.02em]">
-                  {p.label}
-                </span>
+                <span className="flex-1 text-(length:--text-h4) font-semibold tracking-[-0.02em]">{p.label}</span>
                 <span
                   aria-hidden="true"
                   className={cn(
                     "size-1.5 shrink-0 rotate-45 self-center transition-all duration-(--duration-normal) ease-(--ease-out-expo)",
-                    isActive
-                      ? "scale-100 bg-primary"
-                      : "scale-0 bg-line-strong group-hover:scale-100",
+                    isActive ? "scale-100 bg-primary" : "scale-0 bg-line-strong group-hover:scale-100",
                   )}
                 />
               </button>
@@ -103,26 +102,24 @@ export function ProblemMatrix() {
             >
               <dl className="grid gap-7">
                 <div>
-                  <dt className="rail-label text-ink-faint">Symptom</dt>
-                  <dd className="mt-2 text-(length:--text-lead) leading-snug font-medium">
-                    {p.symptom}
-                  </dd>
+                  <dt className="rail-label text-ink-faint">{labels.symptom}</dt>
+                  <dd className="mt-2 text-(length:--text-lead) leading-snug font-medium">{p.symptom}</dd>
                 </div>
                 <div className="border-l-2 border-risk/50 pl-5">
-                  <dt className="rail-label text-risk">Consequence</dt>
+                  <dt className="rail-label text-risk">{labels.consequence}</dt>
                   <dd className="mt-2 text-(length:--text-base) text-ink-muted">{p.consequence}</dd>
                 </div>
                 <div className="border-l-2 border-primary pl-5">
-                  <dt className="rail-label text-primary">D’Yvix response</dt>
+                  <dt className="rail-label text-primary">{labels.response}</dt>
                   <dd className="mt-2 text-(length:--text-base) text-ink-muted">{p.response}</dd>
                 </div>
               </dl>
 
               <Link
-                href={`/solutions/${p.solution}`}
+                href={p.href}
                 className="mt-8 inline-flex items-center gap-2 text-(length:--text-sm) font-medium text-primary hover:underline"
               >
-                See how we approach this
+                {labels.seeHow}
                 <ArrowRight size={13} aria-hidden="true" />
               </Link>
             </div>

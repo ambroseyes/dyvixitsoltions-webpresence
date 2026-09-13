@@ -1,20 +1,24 @@
 /**
  * Enquiry field rules — the single source of truth for both validators.
  *
- * Zero dependencies by design. The client form imports this module for inline
- * validation; the server derives a Zod schema from the same constants in
- * lib/validation.ts. Keeping them in one place means the two validators cannot
- * drift, while keeping Zod (67 kB gzipped) out of the browser bundle entirely.
+ * Zero dependencies and no language: the client form imports this module for
+ * inline validation and the server derives a Zod schema from the same
+ * constants in lib/validation.ts. Errors are codes, not sentences — the form
+ * turns them into copy from the dictionary of the page it is on, so the rules
+ * cannot drift between validators or between languages.
  */
 
+/** One per expertise domain, plus the two engagement entry points. */
 export const SCOPES = [
-  "software-engineering",
-  "infrastructure-cloud",
+  "digital-engineering",
+  "cloud-infrastructure",
   "cybersecurity",
-  "data-documents",
-  "applied-ai",
+  "ai-data",
+  "networks-telecom",
+  "iot-edge",
+  "product-engineering",
+  "consulting-rd",
   "managed-services",
-  "technical-training",
   "audit",
   "discovery",
 ] as const;
@@ -23,25 +27,6 @@ export const TIMELINES = ["urgent", "quarter", "half-year", "exploring"] as cons
 
 export type Scope = (typeof SCOPES)[number];
 export type Timeline = (typeof TIMELINES)[number];
-
-export const SCOPE_LABELS: Record<Scope, string> = {
-  "software-engineering": "Software engineering",
-  "infrastructure-cloud": "Infrastructure & cloud",
-  cybersecurity: "Cybersecurity",
-  "data-documents": "Data, geospatial & documents",
-  "applied-ai": "Applied AI",
-  "managed-services": "Managed services",
-  "technical-training": "Technical training",
-  audit: "Audit / assessment",
-  discovery: "Not sure yet",
-};
-
-export const TIMELINE_LABELS: Record<Timeline, string> = {
-  urgent: "Urgent — we have a live problem",
-  quarter: "This quarter",
-  "half-year": "Within six months",
-  exploring: "Exploring options",
-};
 
 export const LIMITS = {
   name: { min: 2, max: 120 },
@@ -52,18 +37,21 @@ export const LIMITS = {
   website: { max: 200 },
 } as const;
 
-export const MESSAGES = {
-  name: "Please enter your name.",
-  nameLong: "That name is too long.",
-  organisation: "Please enter your organisation.",
-  organisationLong: "That organisation name is too long.",
-  email: "Please enter a valid email address.",
-  phoneLong: "That phone number is too long.",
-  scopes: "Select at least one area.",
-  timeline: "Please choose a timeline.",
-  message: "A sentence or two about the situation helps us route this properly.",
-  messageLong: "Please keep this under 4000 characters.",
-} as const;
+/** Field error codes; each is a key of the dictionary's `form.errors`. */
+export type ErrorCode =
+  | "name"
+  | "nameLong"
+  | "organisation"
+  | "organisationLong"
+  | "email"
+  | "phoneLong"
+  | "scopes"
+  | "timeline"
+  | "message"
+  | "messageLong";
+
+export const isScope = (value: string): value is Scope => (SCOPES as readonly string[]).includes(value);
+export const isTimeline = (value: string): value is Timeline => (TIMELINES as readonly string[]).includes(value);
 
 /**
  * Pragmatic email shape check for inline feedback only.
@@ -83,9 +71,9 @@ export type EnquiryInput = {
   website?: string;
 };
 
-export type FieldErrors = Partial<Record<keyof EnquiryInput, string>>;
+export type FieldErrors = Partial<Record<keyof EnquiryInput, ErrorCode>>;
 
-/** Returns a map of field to first error. Empty object means valid. */
+/** Returns a map of field to first error code. Empty object means valid. */
 export function validateEnquiry(v: EnquiryInput): FieldErrors {
   const e: FieldErrors = {};
   const name = v.name.trim();
@@ -93,25 +81,22 @@ export function validateEnquiry(v: EnquiryInput): FieldErrors {
   const email = v.email.trim();
   const message = v.message.trim();
 
-  if (name.length < LIMITS.name.min) e.name = MESSAGES.name;
-  else if (name.length > LIMITS.name.max) e.name = MESSAGES.nameLong;
+  if (name.length < LIMITS.name.min) e.name = "name";
+  else if (name.length > LIMITS.name.max) e.name = "nameLong";
 
-  if (organisation.length < LIMITS.organisation.min) e.organisation = MESSAGES.organisation;
-  else if (organisation.length > LIMITS.organisation.max)
-    e.organisation = MESSAGES.organisationLong;
+  if (organisation.length < LIMITS.organisation.min) e.organisation = "organisation";
+  else if (organisation.length > LIMITS.organisation.max) e.organisation = "organisationLong";
 
-  if (!EMAIL_SHAPE.test(email) || email.length > LIMITS.email.max) e.email = MESSAGES.email;
+  if (!EMAIL_SHAPE.test(email) || email.length > LIMITS.email.max) e.email = "email";
 
-  if ((v.phone ?? "").trim().length > LIMITS.phone.max) e.phone = MESSAGES.phoneLong;
+  if ((v.phone ?? "").trim().length > LIMITS.phone.max) e.phone = "phoneLong";
 
-  if (v.scopes.length === 0) e.scopes = MESSAGES.scopes;
-  else if (!v.scopes.every((s) => (SCOPES as readonly string[]).includes(s)))
-    e.scopes = MESSAGES.scopes;
+  if (v.scopes.length === 0 || !v.scopes.every(isScope)) e.scopes = "scopes";
 
-  if (!(TIMELINES as readonly string[]).includes(v.timeline)) e.timeline = MESSAGES.timeline;
+  if (!isTimeline(v.timeline)) e.timeline = "timeline";
 
-  if (message.length < LIMITS.message.min) e.message = MESSAGES.message;
-  else if (message.length > LIMITS.message.max) e.message = MESSAGES.messageLong;
+  if (message.length < LIMITS.message.min) e.message = "message";
+  else if (message.length > LIMITS.message.max) e.message = "messageLong";
 
   return e;
 }

@@ -1,46 +1,55 @@
-import { site, knowsAbout, founder, standards, FOUNDED_YEAR, team } from "./site";
-import { solutions } from "@/content/solutions";
-import type { FAQ } from "@/content/types";
+import { HTML_LANG, localePath, type Locale } from "@/i18n/config";
+import { getCompany } from "@/content/company";
+import { getExpertise, getExpertiseBySlug } from "@/content/expertise";
+import type { FAQ, Product } from "@/content/types";
+import { FOUNDED_YEAR, founder, site } from "./site";
 
 const BASE = site.url;
-const ORG_ID = `${BASE}/#organization`;
-const SITE_ID = `${BASE}/#website`;
+
+/** One organisation, whatever the page language: the @id never varies. */
+export const ORG_ID = `${BASE}/#organization`;
+
+const url = (lang: Locale, path: string) => `${BASE}${localePath(lang, path)}`;
+const siteId = (lang: Locale) => `${url(lang, "/")}#website`;
+
+const areaServed = (lang: Locale) => {
+  const names = getCompany(lang).areaServed;
+  return site.areaServed.map((a, i) => ({ "@type": a.type, name: names[i] }));
+};
 
 /**
- * Structured data (§59).
+ * Structured data (§59), per locale.
  *
  * Deliberately NOT emitted:
  *  - LocalBusiness — requires a confirmed postal address. site.address.street
  *    is null, so emitting it would mean inventing one.
- *  - Review / AggregateRating — no legitimate reviews exist. The previous
- *    site's testimonials were lorem-ipsum placeholders and were discarded.
- *  - ISO/IEC 27001 as a credential — the company describes itself as aligned
- *    to the standard, not certified against it. See hasCredential below.
+ *  - Review / AggregateRating — no legitimate reviews exist.
+ *  - ISO/IEC 27001 as a credential — the company is aligned to the standard,
+ *    not certified against it. See hasCredential below.
  */
-export function organizationSchema() {
+export function organizationSchema(lang: Locale) {
+  const company = getCompany(lang);
   return {
     "@type": "Organization",
     "@id": ORG_ID,
     name: site.legalName,
     alternateName: [...site.alternateNames],
     url: BASE,
-    description: site.entityStatement,
-    slogan: site.tagline,
+    description: company.entityStatement,
+    slogan: company.tagline,
     foundingDate: String(FOUNDED_YEAR),
     founder: {
       "@type": "Person",
       name: founder.name,
-      jobTitle: founder.role,
-      description: founder.title,
+      jobTitle: company.founder.role,
+      description: company.founder.title,
     },
-    numberOfEmployees: { "@type": "QuantitativeValue", value: team.length + 1 },
+    numberOfEmployees: { "@type": "QuantitativeValue", value: company.team.length + 1 },
     /**
-     * Only standards that are actually certified are emitted as credentials.
-     * ISO/IEC 27001 is "aligned", not certified, so it is described in prose
-     * on the site and deliberately NOT claimed here — a schema credential is
+     * Only certified standards become credentials. A schema credential is
      * exactly the assertion a procurement process would check.
      */
-    hasCredential: standards
+    hasCredential: company.standards
       .filter((s) => s.qualifier === "certified")
       .map((s) => ({
         "@type": "EducationalOccupationalCredential",
@@ -61,14 +70,10 @@ export function organizationSchema() {
     location: [site.address.locality, site.address.secondaryLocality].map((city) => ({
       "@type": "Place",
       name: city,
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: city,
-        addressCountry: site.address.country,
-      },
+      address: { "@type": "PostalAddress", addressLocality: city, addressCountry: site.address.country },
     })),
-    areaServed: site.areaServed.map((a) => ({ "@type": a.type, name: a.name })),
-    knowsAbout: [...knowsAbout],
+    areaServed: areaServed(lang),
+    knowsAbout: [...company.knowsAbout],
     contactPoint: [
       {
         "@type": "ContactPoint",
@@ -80,48 +85,49 @@ export function organizationSchema() {
       },
     ],
     // Explicit service catalogue — makes the org -> service edge unambiguous.
-    makesOffer: solutions.map((s) => ({
+    makesOffer: getExpertise(lang).map((e) => ({
       "@type": "Offer",
       itemOffered: {
         "@type": "Service",
-        name: s.name,
-        description: s.definition,
-        url: `${BASE}/solutions/${s.slug}`,
+        name: e.name,
+        description: e.definition,
+        url: url(lang, `/expertise/${e.slug}`),
       },
     })),
   };
 }
 
-export function websiteSchema() {
+export function websiteSchema(lang: Locale) {
   return {
     "@type": "WebSite",
-    "@id": SITE_ID,
-    url: BASE,
+    "@id": siteId(lang),
+    url: url(lang, "/"),
     name: site.legalName,
-    description: site.entityStatement,
+    description: getCompany(lang).entityStatement,
     publisher: { "@id": ORG_ID },
-    inLanguage: "en",
+    inLanguage: HTML_LANG[lang],
   };
 }
 
-/** Service node linked back to the org so the provider edge is explicit. */
-export function serviceSchema(slug: string) {
-  const s = solutions.find((x) => x.slug === slug);
-  if (!s) return null;
+/** Service node for an expertise domain, linked back to the organisation. */
+export function serviceSchema(lang: Locale, slug: string) {
+  const e = getExpertiseBySlug(lang, slug);
+  if (!e) return null;
+  const pageUrl = url(lang, `/expertise/${e.slug}`);
   return {
     "@type": "Service",
-    "@id": `${BASE}/solutions/${s.slug}/#service`,
-    name: s.name,
-    serviceType: s.name,
-    description: s.definition,
-    url: `${BASE}/solutions/${s.slug}`,
+    "@id": `${pageUrl}#service`,
+    name: e.name,
+    serviceType: e.name,
+    description: e.definition,
+    url: pageUrl,
     provider: { "@id": ORG_ID },
-    areaServed: site.areaServed.map((a) => ({ "@type": a.type, name: a.name })),
-    audience: { "@type": "Audience", audienceType: s.whoNeedsIt[0] },
+    areaServed: areaServed(lang),
+    audience: { "@type": "Audience", audienceType: e.whoNeedsIt[0] },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: `${s.name} capabilities`,
-      itemListElement: s.capabilities.map((c) => ({
+      name: e.name,
+      itemListElement: e.capabilities.map((c) => ({
         "@type": "Offer",
         itemOffered: { "@type": "Service", name: c.title, description: c.description },
       })),
@@ -129,6 +135,26 @@ export function serviceSchema(slug: string) {
   };
 }
 
+/**
+ * A D’Yvix platform. No offers or ratings: none are published, and a node
+ * that implied either would be an unsupported claim.
+ */
+export function softwareSchema(lang: Locale, product: Product) {
+  if (!product.description) return null;
+  const pageUrl = url(lang, `/solutions/${product.slug}`);
+  return {
+    "@type": "SoftwareApplication",
+    "@id": `${pageUrl}#software`,
+    name: product.name,
+    description: product.description,
+    applicationCategory: "BusinessApplication",
+    url: pageUrl,
+    creator: { "@id": ORG_ID },
+    inLanguage: HTML_LANG[lang],
+  };
+}
+
+/** `trail` paths are public, already-localised paths. */
 export function breadcrumbSchema(trail: { name: string; path: string }[]) {
   return {
     "@type": "BreadcrumbList",
@@ -154,27 +180,32 @@ export function faqSchema(faqs: FAQ[]) {
   };
 }
 
-export function articleSchema(a: {
-  title: string;
-  description: string;
-  slug: string;
-  published: string;
-  updated?: string;
-  authorName: string;
-  authorPath: string;
-}) {
+export function articleSchema(
+  lang: Locale,
+  a: {
+    title: string;
+    description: string;
+    slug: string;
+    published: string;
+    updated?: string;
+    authorName: string;
+    /** Public, already-localised path. */
+    authorPath: string;
+  },
+) {
+  const pageUrl = url(lang, `/insights/${a.slug}`);
   return {
     "@type": "BlogPosting",
-    "@id": `${BASE}/insights/${a.slug}/#article`,
+    "@id": `${pageUrl}#article`,
     headline: a.title,
     description: a.description,
-    url: `${BASE}/insights/${a.slug}`,
+    url: pageUrl,
     datePublished: a.published,
     dateModified: a.updated ?? a.published,
-    author: { "@type": "Person", name: a.authorName, url: `${BASE}${a.authorPath}` },
+    author: { "@type": "Organization", name: a.authorName, url: `${BASE}${a.authorPath}` },
     publisher: { "@id": ORG_ID },
-    isPartOf: { "@id": SITE_ID },
-    inLanguage: "en",
+    isPartOf: { "@id": siteId(lang) },
+    inLanguage: HTML_LANG[lang],
   };
 }
 

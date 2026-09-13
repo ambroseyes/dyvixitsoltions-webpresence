@@ -1,113 +1,106 @@
-import { solutions } from "@/content/solutions";
-import { industries } from "@/content/industries";
-import { articles } from "@/content/insights";
+import { localePath, type Locale } from "@/i18n/config";
+import { getDictionary } from "@/i18n/get-dictionary";
+import { getExpertise } from "@/content/expertise";
+import { getIndustries } from "@/content/industries";
+import { getArticles } from "@/content/insights";
+import { getProducts } from "@/content/products";
+import { productHref } from "./nav";
+import { normalizeText, type SearchEntry } from "./search";
 
-export type SearchEntry = {
-  label: string;
-  href: string;
-  group: string;
-  /** Pre-lowercased haystack. Never rendered. */
-  keywords: string;
-};
+type Part = string | null | undefined | readonly string[];
+
+const words = (...parts: Part[]) =>
+  normalizeText(
+    parts
+      .flat()
+      .filter((p): p is string => typeof p === "string" && p.length > 0)
+      .join(" "),
+  );
 
 /**
- * Static search index for the command palette.
- *
- * Built at module load from content — no network request, so the palette
- * works on a stalled connection (§42).
- *
- * Keywords deliberately include capability descriptions and the problems each
- * solution solves. People search for the thing they need — "firewall",
- * "backup", "disaster recovery" — not for the name of a service line, and an
- * index built only from titles returns nothing for any of those.
+ * Keywords for actions and pages carry both languages: a bilingual reader
+ * types whichever word comes first, and these entries are few.
  */
-export function buildSearchIndex(): SearchEntry[] {
-  return [
-    ...solutions.map((s) => ({
-      label: s.name,
-      href: `/solutions/${s.slug}`,
-      group: "Solutions",
-      keywords: [
-        s.name,
-        s.summary,
-        s.definition,
-        s.technologies.join(" "),
-        s.capabilities.map((c) => `${c.title} ${c.description}`).join(" "),
-        s.problemsSolved.join(" "),
-        s.approach.map((a) => `${a.title} ${a.description}`).join(" "),
-        s.outcomes.join(" "),
-      ]
-        .join(" ")
-        .toLowerCase(),
-    })),
-    ...industries.map((i) => ({
-      label: i.name,
-      href: `/industries/${i.slug}`,
-      group: "Industries",
-      keywords: [i.name, i.summary, i.pressures.join(" "), i.risks.join(" ")]
-        .join(" ")
-        .toLowerCase(),
-    })),
-    ...articles.map((a) => ({
-      label: a.title,
-      href: `/insights/${a.slug}`,
-      group: "Insights",
-      keywords: [a.title, a.description, a.topics.join(" ")].join(" ").toLowerCase(),
-    })),
-    {
-      label: "Request an Assessment",
-      href: "/request-audit",
-      group: "Actions",
-      keywords: "audit assessment security infrastructure review posture scan",
-    },
-    {
-      label: "Start a Project",
-      href: "/contact",
-      group: "Actions",
-      keywords: "contact project quote enquiry brief email phone talk",
-    },
-    {
-      label: "Find my solution",
-      href: "/#solution-finder",
-      group: "Actions",
-      keywords: "finder recommend help where to start unsure advice",
-    },
-    {
-      label: "Expertise",
-      href: "/expertise",
-      group: "Pages",
-      keywords: "technologies stack skills capabilities tools vendors",
-    },
-    {
-      label: "Projects",
-      href: "/projects",
-      group: "Pages",
-      keywords: "case studies work evidence portfolio references clients",
-    },
-    {
-      label: "Insights",
-      href: "/insights",
-      group: "Pages",
-      keywords: "articles blog engineering writing guides",
-    },
-    {
-      label: "About",
-      href: "/about",
-      group: "Pages",
-      keywords: "company who we are method team history",
-    },
-    {
-      label: "Contact",
-      href: "/contact",
-      group: "Pages",
-      keywords: "email phone whatsapp reach us address location",
-    },
-  ];
-}
+const KEYWORDS = {
+  assessment: "audit assessment security infrastructure review posture scan evaluation diagnostic",
+  project: "contact project quote enquiry brief email phone projet devis demande",
+  finder: "finder recommend help where to start unsure advice recommandation aide commencer",
+  expertise: "expertise domains capabilities services poles domaines competences",
+  solutions: "solutions products platforms back-node sacrecheici lexora aegis produits plateformes",
+  projects: "case studies work evidence portfolio references clients realisations",
+  insights: "articles blog engineering writing guides publications analyses",
+  about: "company who we are team history entreprise equipe histoire",
+  contact: "email phone whatsapp reach us address location telephone adresse",
+} as const;
 
-/** Case-insensitive substring match. Empty query returns the whole index. */
-export function searchIndex(index: SearchEntry[], query: string): SearchEntry[] {
-  const q = query.trim().toLowerCase();
-  if (!q) return index;
-  return index.filter((e) => e.keywords.includes(q) || e.label.toLowerCase().includes(q));
+/**
+ * Search index for the command palette, per locale.
+ *
+ * Keywords include capability descriptions and the problems each domain
+ * solves. People search for the thing they need — "firewall", "backup",
+ * "disaster recovery" — not for the name of a service line.
+ */
+export function buildSearchIndex(lang: Locale): SearchEntry[] {
+  const dict = getDictionary(lang);
+  const L = (href: string) => localePath(lang, href);
+
+  const expertise: SearchEntry[] = getExpertise(lang).map((e) => ({
+    label: e.name,
+    href: L(`/expertise/${e.slug}`),
+    group: "expertise",
+    keywords: words(
+      e.name,
+      e.shortName,
+      e.summary,
+      e.definition,
+      e.technologies,
+      e.capabilities.map((c) => `${c.title} ${c.description}`),
+      e.problemsSolved,
+      e.approach.map((a) => `${a.title} ${a.description}`),
+      e.outcomes,
+    ),
+  }));
+
+  const products: SearchEntry[] = getProducts(lang).map((p) => ({
+    label: p.name,
+    href: L(productHref(p)),
+    group: "solutions",
+    keywords: words(
+      p.name,
+      p.tagline,
+      p.description,
+      p.stack,
+      p.capabilities.map((c) => `${c.title} ${c.description}`),
+    ),
+  }));
+
+  const industries: SearchEntry[] = getIndustries(lang).map((i) => ({
+    label: i.name,
+    href: L(`/industries/${i.slug}`),
+    group: "industries",
+    keywords: words(i.name, i.summary, i.pressures, i.risks),
+  }));
+
+  const articles: SearchEntry[] = getArticles(lang).map((a) => ({
+    label: a.title,
+    href: L(`/insights/${a.slug}`),
+    group: "insights",
+    keywords: words(a.title, a.description, a.topics),
+  }));
+
+  const a = dict.command.actions;
+  const n = dict.nav;
+  const fixed: SearchEntry[] = [
+    { label: a.assessment, href: L("/request-audit"), group: "actions", keywords: words(a.assessment, KEYWORDS.assessment) },
+    { label: a.project, href: L("/contact"), group: "actions", keywords: words(a.project, KEYWORDS.project) },
+    { label: a.finder, href: L("/#solution-finder"), group: "actions", keywords: words(a.finder, KEYWORDS.finder) },
+    { label: n.expertise, href: L("/expertise"), group: "pages", keywords: words(n.expertise, KEYWORDS.expertise) },
+    { label: n.solutions, href: L("/solutions"), group: "pages", keywords: words(n.solutions, KEYWORDS.solutions) },
+    { label: n.projects, href: L("/projects"), group: "pages", keywords: words(n.projects, KEYWORDS.projects) },
+    { label: n.insights, href: L("/insights"), group: "pages", keywords: words(n.insights, KEYWORDS.insights) },
+    { label: n.about, href: L("/about"), group: "pages", keywords: words(n.about, KEYWORDS.about) },
+    { label: n.contact, href: L("/contact"), group: "pages", keywords: words(n.contact, KEYWORDS.contact) },
+  ];
+
+  return [...expertise, ...products, ...industries, ...articles, ...fixed];
 }
