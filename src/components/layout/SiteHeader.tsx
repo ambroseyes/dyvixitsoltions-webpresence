@@ -5,17 +5,35 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ChevronDown, Menu, Search, X } from "lucide-react";
 
-import { primaryNav } from "@/lib/nav";
+import { LOCALES, alternatePath, localePath, stripLocale, type Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n/dictionaries/en";
+import type { NavGroup } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 import { CommandMenu, openCommandMenu } from "./CommandMenu";
 
-export function SiteHeader() {
+type Props = {
+  lang: Locale;
+  nav: NavGroup[];
+  labels: Dictionary["nav"];
+  theme: Dictionary["theme"];
+  command: Dictionary["command"];
+  homeLabel: string;
+};
+
+export function SiteHeader({ lang, nav, labels, theme, command, homeLabel }: Props) {
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const navRef = useRef<HTMLDivElement>(null);
+
+  // Locale-agnostic, so it is the same whether the router reports the public
+  // URL (/about) or the internal rewrite target (/en/about).
+  const path = stripLocale(pathname);
+  const other = LOCALES.find((l) => l !== lang) ?? lang;
+  const languageHref = alternatePath(path, other);
+  const isActive = (match: string) => path === match || path.startsWith(`${match}/`);
 
   // Route change closes everything — without this the panel survives
   // navigation. Adjusted during render rather than in an effect so the open
@@ -64,15 +82,15 @@ export function SiteHeader() {
           ref={navRef}
           className="mx-auto flex h-16 max-w-(--container-rail) items-center justify-between gap-6 px-(--spacing-gutter)"
         >
-          <Logo />
+          <Logo href={localePath(lang, "/")} label={homeLabel} />
 
-          <nav aria-label="Main navigation" className="hidden lg:flex lg:items-center lg:gap-0.5">
-            {primaryNav.map((group) => {
-              const active = pathname.startsWith(group.href) && group.href !== "/";
+          <nav aria-label={labels.mainLabel} className="hidden lg:flex lg:items-center lg:gap-0.5">
+            {nav.map((group) => {
+              const active = isActive(group.match);
               if (!group.children) {
                 return (
                   <Link
-                    key={group.href}
+                    key={group.match}
                     href={group.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
@@ -85,20 +103,20 @@ export function SiteHeader() {
                 );
               }
 
-              const isOpen = openGroup === group.label;
-              const panelId = `menu-${group.label.toLowerCase()}`;
+              const isOpen = openGroup === group.match;
+              const panelId = `menu-${group.match.slice(1)}`;
               return (
                 <div
-                  key={group.href}
+                  key={group.match}
                   className="relative"
-                  onMouseEnter={() => setOpenGroup(group.label)}
+                  onMouseEnter={() => setOpenGroup(group.match)}
                   onMouseLeave={() => setOpenGroup(null)}
                 >
                   <button
                     type="button"
                     aria-expanded={isOpen}
                     aria-controls={panelId}
-                    onClick={() => setOpenGroup(isOpen ? null : group.label)}
+                    onClick={() => setOpenGroup(isOpen ? null : group.match)}
                     className={cn(
                       "inline-flex items-center gap-1.5 rounded-(--radius-sm) px-3 py-2 text-(length:--text-sm) transition-colors duration-(--duration-fast)",
                       active || isOpen ? "text-primary" : "text-ink-muted hover:text-ink",
@@ -109,18 +127,12 @@ export function SiteHeader() {
                       size={13}
                       strokeWidth={2}
                       aria-hidden="true"
-                      className={cn(
-                        "transition-transform duration-(--duration-fast)",
-                        isOpen && "rotate-180",
-                      )}
+                      className={cn("transition-transform duration-(--duration-fast)", isOpen && "rotate-180")}
                     />
                   </button>
 
                   {isOpen && (
-                    <div
-                      id={panelId}
-                      className="absolute top-full left-1/2 w-[min(46rem,calc(100vw-3rem))] -translate-x-1/2 pt-2"
-                    >
+                    <div id={panelId} className="absolute top-full left-1/2 w-[min(46rem,calc(100vw-3rem))] -translate-x-1/2 pt-2">
                       <div className="brackets border border-line bg-surface-raised p-2 shadow-[0_18px_50px_-24px_rgb(0_0_0/0.4)]">
                         <ul className="grid grid-cols-2 gap-0.5">
                           {group.children.map((leaf) => (
@@ -149,13 +161,10 @@ export function SiteHeader() {
 
                         <div className="mt-2 flex items-center justify-between gap-4 border-t border-line px-3 pt-3 pb-1">
                           <Link href={group.href} className="rail-label hover:text-primary">
-                            All {group.label} →
+                            {group.allLabel ?? group.label} →
                           </Link>
                           {group.feature && (
-                            <Link
-                              href={group.feature.href}
-                              className="text-(length:--text-sm) text-primary hover:underline"
-                            >
+                            <Link href={group.feature.href} className="text-(length:--text-sm) text-primary hover:underline">
                               {group.feature.label}
                             </Link>
                           )}
@@ -172,21 +181,33 @@ export function SiteHeader() {
             <button
               type="button"
               onClick={openCommandMenu}
-              aria-label="Search — press Command K or Control K"
+              aria-label={labels.searchAria}
               className="hidden items-center gap-2 rounded-(--radius-sm) border border-line px-3 py-2 text-(length:--text-sm) text-ink-faint transition-colors duration-(--duration-fast) hover:border-line-strong hover:text-ink md:inline-flex"
             >
               <Search size={13} strokeWidth={1.75} aria-hidden="true" />
-              <span>Search</span>
+              <span>{labels.search}</span>
               <kbd className="ml-3 font-mono text-(length:--text-micro) text-ink-faint">⌘K</kbd>
             </button>
 
-            <ThemeToggle />
+            {/* A full navigation, not a client transition: <html lang> is set by
+                the root layout, which a client-side route change never re-renders. */}
+            <a
+              href={languageHref}
+              lang={other}
+              hrefLang={other}
+              aria-label={labels.languageLinkAria}
+              className="hidden min-h-11 items-center rounded-(--radius-sm) px-3 font-mono text-(length:--text-micro) tracking-(--tracking-label) text-ink-muted uppercase transition-colors duration-(--duration-fast) hover:text-primary md:inline-flex"
+            >
+              {labels.languageLink}
+            </a>
+
+            <ThemeToggle labels={theme} />
 
             <Link
-              href="/contact"
+              href={localePath(lang, "/contact")}
               className="hidden min-h-11 items-center rounded-(--radius-sm) border border-primary bg-primary px-4 text-(length:--text-sm) font-medium text-surface transition-colors duration-(--duration-fast) hover:border-ink hover:bg-ink sm:inline-flex dark:hover:bg-ink-inverse dark:hover:text-surface"
             >
-              Start a Project
+              {labels.startProject}
             </Link>
 
             <button
@@ -194,35 +215,54 @@ export function SiteHeader() {
               onClick={() => setMobileOpen((v) => !v)}
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav"
-              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-label={mobileOpen ? labels.closeMenu : labels.openMenu}
               className="inline-flex size-11 items-center justify-center rounded-(--radius-sm) border border-line text-ink lg:hidden"
             >
-              {mobileOpen ? (
-                <X size={17} aria-hidden="true" />
-              ) : (
-                <Menu size={17} aria-hidden="true" />
-              )}
+              {mobileOpen ? <X size={17} aria-hidden="true" /> : <Menu size={17} aria-hidden="true" />}
             </button>
           </div>
         </div>
       </header>
 
-      {mobileOpen && <MobileNav onNavigate={() => setMobileOpen(false)} />}
-      <CommandMenu />
+      {mobileOpen && (
+        <MobileNav
+          nav={nav}
+          labels={labels}
+          lang={lang}
+          other={other}
+          languageHref={languageHref}
+          onNavigate={() => setMobileOpen(false)}
+        />
+      )}
+      <CommandMenu lang={lang} labels={command} />
     </>
   );
 }
 
 /** Full-height drawer. Groups are plain lists — no nested disclosure to fight. */
-function MobileNav({ onNavigate }: { onNavigate: () => void }) {
+function MobileNav({
+  nav,
+  labels,
+  lang,
+  other,
+  languageHref,
+  onNavigate,
+}: {
+  nav: NavGroup[];
+  labels: Dictionary["nav"];
+  lang: Locale;
+  other: Locale;
+  languageHref: string;
+  onNavigate: () => void;
+}) {
   return (
     <div
       id="mobile-nav"
       className="fixed inset-x-0 top-16 bottom-0 z-(--z-overlay) overflow-y-auto overscroll-contain border-t border-line bg-surface lg:hidden"
     >
-      <nav aria-label="Mobile navigation" className="px-(--spacing-gutter) py-8">
-        {primaryNav.map((group) => (
-          <div key={group.href} className="border-b border-line py-5 first:pt-0">
+      <nav aria-label={labels.mobileLabel} className="px-(--spacing-gutter) py-8">
+        {nav.map((group) => (
+          <div key={group.match} className="border-b border-line py-5 first:pt-0">
             <Link
               href={group.href}
               onClick={onNavigate}
@@ -251,19 +291,28 @@ function MobileNav({ onNavigate }: { onNavigate: () => void }) {
 
         <div className="mt-8 grid gap-3">
           <Link
-            href="/request-audit"
+            href={localePath(lang, "/request-audit")}
             onClick={onNavigate}
             className="inline-flex min-h-12 items-center justify-center rounded-(--radius-sm) border border-primary bg-primary px-5 font-medium text-surface"
           >
-            Request an Assessment
+            {labels.requestAssessment}
           </Link>
           <Link
-            href="/contact"
+            href={localePath(lang, "/contact")}
             onClick={onNavigate}
             className="inline-flex min-h-12 items-center justify-center rounded-(--radius-sm) border border-line-strong px-5 font-medium"
           >
-            Start a Project
+            {labels.startProject}
           </Link>
+          <a
+            href={languageHref}
+            lang={other}
+            hrefLang={other}
+            aria-label={labels.languageLinkAria}
+            className="inline-flex min-h-12 items-center justify-center font-mono text-(length:--text-micro) tracking-(--tracking-label) text-ink-muted uppercase"
+          >
+            {labels.languageLink}
+          </a>
         </div>
       </nav>
     </div>

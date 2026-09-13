@@ -1,4 +1,6 @@
-import { techCategories } from "@/content/technologies";
+import type { Locale } from "@/i18n/config";
+import { getDictionary } from "@/i18n/get-dictionary";
+import { getHome } from "@/content/home";
 import { Section } from "@/components/ui/Section";
 
 /**
@@ -12,29 +14,28 @@ import { Section } from "@/components/ui/Section";
  * These are working technologies. No partner tiers, badges or certification
  * claims are implied — §15 forbids stating any that are unconfirmed.
  */
-export function TechnologyEcosystem() {
+export function TechnologyEcosystem({ lang, index = "05" }: { lang: Locale; index?: string }) {
+  const t = getDictionary(lang).home.technology;
+  const categories = getHome(lang).techCategories;
+
   return (
     <Section
       id="technology"
-      index="05"
-      label="Technology"
-      title="What we actually work with."
-      standfirst="Tools we deploy and operate. Listed as capability, not as partnership or certification."
+      index={index}
+      label={t.label}
+      title={t.title}
+      standfirst={t.standfirst}
       className="border-b border-line"
     >
       <dl className="border-t border-line">
-        {techCategories.map((cat) => (
+        {categories.map((cat) => (
           <div
             key={cat.id}
             className="group grid gap-4 border-b border-line py-7 transition-colors duration-(--duration-normal) hover:bg-surface-raised md:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] md:gap-10"
           >
             <dt>
-              <h3 className="text-(length:--text-h4) font-semibold tracking-[-0.02em]">
-                {cat.label}
-              </h3>
-              <p className="mt-1.5 text-(length:--text-sm) leading-snug text-ink-faint">
-                {cat.note}
-              </p>
+              <h3 className="text-(length:--text-h4) font-semibold tracking-[-0.02em]">{cat.label}</h3>
+              <p className="mt-1.5 text-(length:--text-sm) leading-snug text-ink-faint">{cat.note}</p>
             </dt>
             <dd className="flex flex-wrap items-start gap-2 self-center">
               {cat.items.map((item) => (

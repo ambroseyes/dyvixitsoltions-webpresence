@@ -6,11 +6,17 @@ export const runtime = "nodejs";
 /** Never cached, never prerendered — this route only ever handles POST. */
 export const dynamic = "force-dynamic";
 
+/**
+ * Error codes, not sentences: the form renders them from the dictionary of
+ * the page that submitted, so one endpoint serves every locale.
+ */
+type ApiError = "rateLimited" | "rejected" | "review" | "generic";
+
 /** Consistent envelope, per the API response format rule. */
 type ApiResponse = {
   success: boolean;
   data: { reference: string } | null;
-  error: string | null;
+  error: ApiError | null;
   fieldErrors?: Record<string, string[]>;
 };
 
@@ -22,11 +28,9 @@ export async function POST(request: Request) {
   const key = clientKey(request.headers);
   const limit = rateLimit(key);
   if (!limit.ok) {
-    return json(
-      { success: false, data: null, error: "Too many submissions. Please try again shortly." },
-      429,
-      { "Retry-After": String(limit.retryAfter) },
-    );
+    return json({ success: false, data: null, error: "rateLimited" }, 429, {
+      "Retry-After": String(limit.retryAfter),
+    });
   }
 
   // 2. Same-origin check. Complements CSP form-action and blocks trivial
@@ -35,14 +39,14 @@ export async function POST(request: Request) {
   const origin = request.headers.get("origin");
   const host = request.headers.get("host");
   if (origin && host && new URL(origin).host !== host) {
-    return json({ success: false, data: null, error: "Rejected." }, 403);
+    return json({ success: false, data: null, error: "rejected" }, 403);
   }
 
   let body: unknown;
   try {
     body = await request.json();
   } catch {
-    return json({ success: false, data: null, error: "Malformed request." }, 400);
+    return json({ success: false, data: null, error: "generic" }, 400);
   }
 
   // 3. Server-side validation is the trust boundary, not the client's.
@@ -50,12 +54,7 @@ export async function POST(request: Request) {
   if (!parsed.success) {
     const { fieldErrors } = parsed.error.flatten();
     return json(
-      {
-        success: false,
-        data: null,
-        error: "Please correct the highlighted fields.",
-        fieldErrors: fieldErrors as Record<string, string[]>,
-      },
+      { success: false, data: null, error: "review", fieldErrors: fieldErrors as Record<string, string[]> },
       422,
     );
   }
@@ -80,14 +79,12 @@ export async function POST(request: Request) {
    * Deliberately NOT logging the submission body: it contains personal data,
    * and application logs are the wrong place for it.
    */
-  console.info(
-    `[enquiry] ${reference} scopes=${parsed.data.scopes.join(",")} timeline=${parsed.data.timeline}`,
-  );
+  console.info(`[enquiry] ${reference} scopes=${parsed.data.scopes.join(",")} timeline=${parsed.data.timeline}`);
 
   return json({ success: true, data: { reference }, error: null }, 200);
 }
 
-/** Anything other than POST is a client error, answered without a body. */
+/** Anything other than POST is a client error. */
 export async function GET() {
-  return json({ success: false, data: null, error: "Method not allowed." }, 405);
+  return json({ success: false, data: null, error: "generic" }, 405);
 }

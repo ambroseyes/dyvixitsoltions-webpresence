@@ -5,87 +5,58 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+export type DiagramNode = {
+  id: string;
+  /** Short label for the ring. */
+  label: string;
+  /** Full domain name for the detail panel. */
+  name: string;
+  description: string;
+  tech: string[];
+  /** Public, localised href. */
+  href: string;
+};
+
 /**
  * The D’Yvix capability graph.
  *
- * Structure: a hub with six domain nodes on a hexagon. Nodes are real HTML
- * buttons layered over an aria-hidden SVG that draws only the connecting
- * lines — so the diagram is keyboard operable and every label is real text
- * rather than SVG paint (§73: interactive visuals must not be the only
- * carrier of the information).
+ * Structure: a hub with one node per expertise domain, evenly spaced on a
+ * ring starting at twelve o’clock. Nodes are real HTML buttons layered over
+ * an aria-hidden SVG that draws only the connecting lines — so the diagram is
+ * keyboard operable and every label is real text rather than SVG paint (§73:
+ * interactive visuals must not be the only carrier of the information).
  *
- * Coordinates are percentages of a square box, at 38% radius from centre.
+ * Coordinates are percentages of a square box. Positions are rounded so the
+ * server and client render byte-identical style attributes.
  */
-const NODES = [
-  {
-    id: "software-engineering",
-    labelAbove: true,
-    label: "Software",
-    x: 50,
-    y: 12,
-    description:
-      "Web platforms, REST APIs and microservices — built around how the organisation actually works, and documented so your team can change them.",
-    tech: ["Python", "FastAPI", "React", "Laravel"],
-  },
-  {
-    id: "infrastructure-cloud",
-    labelAbove: false,
-    label: "Infrastructure",
-    x: 82.9,
-    y: 31,
-    description:
-      "Networks, servers, virtualisation, storage and the pipelines that keep them current — designed so a single failure does not become an outage.",
-    tech: ["VMware", "TrueNAS", "Docker", "Zabbix"],
-  },
-  {
-    id: "cybersecurity",
-    labelAbove: false,
-    label: "Security",
-    x: 82.9,
-    y: 69,
-    description:
-      "Assess, protect, detect, respond and recover, run as a cycle. Continuous network security for a European diplomatic mission since 2019.",
-    tech: ["FortiGate", "Kaspersky", "EDR", "ISO 27001"],
-  },
-  {
-    id: "data-documents",
-    labelAbove: false,
-    label: "Data",
-    x: 50,
-    y: 88,
-    description:
-      "PostgreSQL and PostGIS, electronic document management and large-scale digitisation. Our most evidenced technical strength.",
-    tech: ["PostGIS", "Dokmee", "SQL Server", "NAS"],
-  },
-  {
-    id: "managed-services",
-    labelAbove: false,
-    label: "Managed",
-    x: 17.1,
-    y: 69,
-    description:
-      "L1/L2/L3 support and infrastructure monitoring. Several of these relationships have run past eight years.",
-    tech: ["Grafana", "Prometheus", "UniFi", "MikroTik"],
-  },
-  {
-    id: "applied-ai",
-    labelAbove: false,
-    label: "Applied AI",
-    x: 17.1,
-    y: 31,
-    description:
-      "Business automation, document processing and AI-assisted monitoring — with human review that is mandatory, not advisory.",
-    tech: ["Self-hosted LLMs", "vLLM", "RAG", "Automation"],
-  },
-] as const;
-
+const RADIUS = 36;
 const CENTER = { x: 50, y: 50 };
 
-export function EcosystemDiagram() {
-  // Derived, not a hardcoded slug: a taxonomy change silently repointed this
-  // once already.
-  const [activeId, setActiveId] = useState<string>(NODES[0].id);
-  const active = NODES.find((n) => n.id === activeId) ?? NODES[0];
+const round = (n: number) => Math.round(n * 100) / 100;
+
+function place(nodes: DiagramNode[]) {
+  return nodes.map((n, i) => {
+    const angle = ((-90 + (360 / nodes.length) * i) * Math.PI) / 180;
+    const sin = Math.sin(angle);
+    return {
+      ...n,
+      x: round(CENTER.x + RADIUS * Math.cos(angle)),
+      y: round(CENTER.y + RADIUS * sin),
+      // Label placed away from centre so it never sits on its own spoke.
+      labelAbove: sin < -0.2,
+    };
+  });
+}
+
+export function EcosystemDiagram({ nodes, exploreLabel }: { nodes: DiagramNode[]; exploreLabel: string }) {
+  const placed = place(nodes);
+  const [activeId, setActiveId] = useState<string>(placed[0]?.id ?? "");
+  const activeIndex = Math.max(
+    0,
+    placed.findIndex((n) => n.id === activeId),
+  );
+  const active = placed[activeIndex];
+  if (!active) return null;
 
   return (
     <div className="w-full">
@@ -94,22 +65,13 @@ export function EcosystemDiagram() {
             in the node list and the detail panel below. */}
         <svg viewBox="0 0 100 100" className="absolute inset-0 size-full" aria-hidden="true">
           <g className="stroke-line-strong" strokeWidth="0.22" fill="none">
-            {NODES.map((n, i) => {
-              const next = NODES[(i + 1) % NODES.length];
-              return (
-                <line
-                  key={`ring-${n.id}`}
-                  x1={n.x}
-                  y1={n.y}
-                  x2={next.x}
-                  y2={next.y}
-                  opacity="0.5"
-                />
-              );
+            {placed.map((n, i) => {
+              const next = placed[(i + 1) % placed.length]!;
+              return <line key={`ring-${n.id}`} x1={n.x} y1={n.y} x2={next.x} y2={next.y} opacity="0.5" />;
             })}
           </g>
           <g strokeWidth="0.28" fill="none">
-            {NODES.map((n) => (
+            {placed.map((n) => (
               <line
                 key={`spoke-${n.id}`}
                 x1={CENTER.x}
@@ -118,7 +80,7 @@ export function EcosystemDiagram() {
                 y2={n.y}
                 className={cn(
                   "transition-[stroke,stroke-width] duration-(--duration-normal) ease-(--ease-out-expo)",
-                  n.id === activeId ? "stroke-primary [stroke-width:0.55]" : "stroke-line-strong",
+                  n.id === active.id ? "stroke-primary [stroke-width:0.55]" : "stroke-line-strong",
                 )}
               />
             ))}
@@ -130,7 +92,7 @@ export function EcosystemDiagram() {
           className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center justify-center"
           style={{ left: `${CENTER.x}%`, top: `${CENTER.y}%` }}
         >
-          <div className="node-bar flex size-16 items-center justify-center border-2 border-primary bg-surface-raised sm:size-20">
+          <div className="node-bar flex size-14 items-center justify-center border-2 border-primary bg-surface-raised sm:size-20">
             <span className="skew-x-[14deg] font-display text-(length:--text-sm) font-bold tracking-[-0.01em]">
               D<span className="text-primary">’</span>Y
             </span>
@@ -139,8 +101,8 @@ export function EcosystemDiagram() {
 
         {/* Domain nodes */}
         <ul>
-          {NODES.map((n) => {
-            const isActive = n.id === activeId;
+          {placed.map((n) => {
+            const isActive = n.id === active.id;
             return (
               <li
                 key={n.id}
@@ -155,14 +117,13 @@ export function EcosystemDiagram() {
                   aria-pressed={isActive}
                   aria-describedby="ecosystem-detail"
                   className={cn(
-                    "group flex items-center gap-2.5 rounded-(--radius-sm) p-1",
-                    // Label placed away from centre so it never sits on its own spoke.
+                    "group flex items-center gap-2 rounded-(--radius-sm) p-1",
                     n.labelAbove ? "flex-col-reverse" : "flex-col",
                   )}
                 >
                   <span
                     className={cn(
-                      "node-bar size-9 sm:size-11",
+                      "node-bar size-7 sm:size-9",
                       isActive
                         ? "border-primary bg-primary"
                         : "bg-surface-sunken group-hover:border-primary group-hover:bg-primary-soft",
@@ -170,7 +131,7 @@ export function EcosystemDiagram() {
                   />
                   <span
                     className={cn(
-                      "w-28 text-center font-mono text-(length:--text-micro) leading-[1.35] tracking-(--tracking-label) uppercase transition-colors duration-(--duration-fast)",
+                      "w-20 text-center font-mono text-(length:--text-micro) leading-[1.3] tracking-(--tracking-label) uppercase transition-colors duration-(--duration-fast) sm:w-24",
                       isActive ? "text-primary" : "text-ink-faint group-hover:text-ink",
                     )}
                   >
@@ -185,21 +146,14 @@ export function EcosystemDiagram() {
 
       {/* Detail panel. aria-live is deliberately omitted: the change is driven
           by the user's own hover or focus, so announcing it would be noise. */}
-      <div
-        id="ecosystem-detail"
-        className="brackets mt-8 border border-line bg-surface-raised p-5 sm:p-6"
-      >
+      <div id="ecosystem-detail" className="brackets mt-8 border border-line bg-surface-raised p-5 sm:p-6">
         <div className="flex items-center gap-3">
-          <span className="rail-index">{String(NODES.indexOf(active) + 1).padStart(2, "0")}</span>
+          <span className="rail-index">{String(activeIndex + 1).padStart(2, "0")}</span>
           <span className="h-px w-6 bg-line-strong" aria-hidden="true" />
-          <h3 className="font-mono text-(length:--text-label) tracking-(--tracking-label) uppercase">
-            {active.label}
-          </h3>
+          <h3 className="font-mono text-(length:--text-label) tracking-(--tracking-label) uppercase">{active.name}</h3>
         </div>
 
-        <p className="mt-4 text-(length:--text-sm) leading-relaxed text-ink-muted">
-          {active.description}
-        </p>
+        <p className="mt-4 text-(length:--text-sm) leading-relaxed text-ink-muted">{active.description}</p>
 
         <ul className="mt-5 flex flex-wrap gap-1.5">
           {active.tech.map((t) => (
@@ -213,10 +167,10 @@ export function EcosystemDiagram() {
         </ul>
 
         <Link
-          href={`/solutions/${active.id}`}
+          href={active.href}
           className="mt-6 inline-flex items-center gap-2 text-(length:--text-sm) font-medium text-primary hover:underline"
         >
-          Explore {active.label}
+          {exploreLabel}
           <ArrowRight size={13} aria-hidden="true" />
         </Link>
       </div>

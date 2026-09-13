@@ -3,6 +3,9 @@
 import { useCallback, useSyncExternalStore } from "react";
 import { Monitor, Moon, Sun } from "lucide-react";
 
+import type { Dictionary } from "@/i18n/dictionaries/en";
+import { format } from "@/i18n/format";
+
 type Mode = "light" | "dark" | "system";
 
 const STORAGE_KEY = "dyvix-theme";
@@ -34,10 +37,7 @@ const getServerSnapshot = (): Mode => "system";
 
 function applyMode(mode: Mode) {
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  document.documentElement.classList.toggle(
-    "dark",
-    mode === "dark" || (mode === "system" && prefersDark),
-  );
+  document.documentElement.classList.toggle("dark", mode === "dark" || (mode === "system" && prefersDark));
   if (mode === "system") localStorage.removeItem(STORAGE_KEY);
   else localStorage.setItem(STORAGE_KEY, mode);
   window.dispatchEvent(new Event(CHANGE_EVENT));
@@ -45,18 +45,13 @@ function applyMode(mode: Mode) {
 
 const NEXT_MODE: Record<Mode, Mode> = { light: "dark", dark: "system", system: "light" };
 const ICONS: Record<Mode, typeof Sun> = { light: Sun, dark: Moon, system: Monitor };
-const DESCRIPTION: Record<Mode, string> = {
-  light: "Light theme",
-  dark: "Dark theme",
-  system: "Theme follows your system setting",
-};
 
-export function ThemeToggle() {
+export function ThemeToggle({ labels }: { labels: Dictionary["theme"] }) {
   const mode = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const cycle = useCallback(() => applyMode(NEXT_MODE[mode]), [mode]);
 
   const Icon = ICONS[mode];
-  const label = `${DESCRIPTION[mode]}. Activate to switch to ${NEXT_MODE[mode]}.`;
+  const label = `${labels[mode]}. ${format(labels.switchTo, { next: labels.names[NEXT_MODE[mode]] })}`;
 
   return (
     <button

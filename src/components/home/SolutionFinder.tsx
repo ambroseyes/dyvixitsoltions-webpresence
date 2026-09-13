@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Check, RotateCcw } from "lucide-react";
 
-import { finderOptions } from "@/content/problems";
+import type { FinderOption } from "@/content/types";
+import type { Dictionary } from "@/i18n/dictionaries/en";
 import { Section } from "@/components/ui/Section";
 import { cn } from "@/lib/utils";
 
@@ -16,23 +17,30 @@ import { cn } from "@/lib/utils";
  * is a consequence of a deliberate choice and is the answer the user asked
  * for, so announcing it is correct rather than noisy.
  */
-export function SolutionFinder() {
+export function SolutionFinder({
+  options,
+  labels,
+}: {
+  /** `href` is the public, localised CTA target. */
+  options: (FinderOption & { href: string })[];
+  labels: Dictionary["home"]["finder"];
+}) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const selected = finderOptions.find((o) => o.id === selectedId) ?? null;
+  const selected = options.find((o) => o.id === selectedId) ?? null;
 
   return (
     <Section
       id="solution-finder"
       index="03"
-      label="Solution finder"
-      title="What are you trying to solve?"
-      standfirst="Pick the statement closest to your situation. You will get a specific engagement with named deliverables — not a brochure."
+      label={labels.label}
+      title={labels.title}
+      standfirst={labels.standfirst}
       className="border-b border-line"
     >
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14">
         <div>
           <ul className="grid gap-2">
-            {finderOptions.map((o) => {
+            {options.map((o) => {
               const isSelected = o.id === selectedId;
               return (
                 <li key={o.id}>
@@ -51,9 +59,7 @@ export function SolutionFinder() {
                       aria-hidden="true"
                       className={cn(
                         "size-2 shrink-0 rotate-45 border transition-colors duration-(--duration-fast)",
-                        isSelected
-                          ? "border-primary bg-primary"
-                          : "border-line-strong group-hover:border-primary",
+                        isSelected ? "border-primary bg-primary" : "border-line-strong group-hover:border-primary",
                       )}
                     />
                     <span className="text-(length:--text-base)">{o.prompt}</span>
@@ -67,38 +73,27 @@ export function SolutionFinder() {
         <div aria-live="polite" className="lg:sticky lg:top-24 lg:self-start">
           {!selected && (
             <div className="flex h-full min-h-72 flex-col justify-center border border-dashed border-line-strong p-8 text-center">
-              <p className="rail-label">Awaiting selection</p>
-              <p className="mt-4 text-(length:--text-base) text-ink-faint">
-                Choose a statement and a scoped recommendation appears here.
-              </p>
+              <p className="rail-label">{labels.awaiting}</p>
+              <p className="mt-4 text-(length:--text-base) text-ink-faint">{labels.awaitingBody}</p>
             </div>
           )}
 
           {selected && (
             <div className="brackets border border-line bg-surface-raised p-6 sm:p-8">
-              <p className="rail-label">You selected</p>
+              <p className="rail-label">{labels.youSelected}</p>
               <p className="mt-2 text-(length:--text-base) text-ink-muted">“{selected.prompt}”</p>
 
               <div className="dimension-rule my-6" aria-hidden="true" />
 
-              <p className="rail-label text-primary">Recommended engagement</p>
-              <h3 className="mt-2 text-(length:--text-h3) font-semibold tracking-[-0.025em]">
-                {selected.recommendation}
-              </h3>
-              <p className="mt-4 text-(length:--text-sm) leading-relaxed text-ink-muted">
-                {selected.rationale}
-              </p>
+              <p className="rail-label text-primary">{labels.recommended}</p>
+              <h3 className="mt-2 text-(length:--text-h3) font-semibold tracking-[-0.025em]">{selected.recommendation}</h3>
+              <p className="mt-4 text-(length:--text-sm) leading-relaxed text-ink-muted">{selected.rationale}</p>
 
-              <p className="rail-label mt-8">You will receive</p>
+              <p className="rail-label mt-8">{labels.youReceive}</p>
               <ul className="mt-3 grid gap-2">
                 {selected.deliverables.map((d) => (
                   <li key={d} className="flex items-start gap-2.5 text-(length:--text-sm)">
-                    <Check
-                      size={14}
-                      strokeWidth={2.25}
-                      aria-hidden="true"
-                      className="mt-1 shrink-0 text-verified"
-                    />
+                    <Check size={14} strokeWidth={2.25} aria-hidden="true" className="mt-1 shrink-0 text-verified" />
                     {d}
                   </li>
                 ))}
@@ -106,10 +101,10 @@ export function SolutionFinder() {
 
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Link
-                  href={selected.cta.href}
+                  href={selected.href}
                   className="inline-flex min-h-11 items-center gap-2 rounded-(--radius-sm) border border-primary bg-primary px-5 text-(length:--text-sm) font-medium text-surface transition-colors duration-(--duration-fast) hover:border-ink hover:bg-ink dark:hover:bg-ink-inverse dark:hover:text-surface"
                 >
-                  {selected.cta.label}
+                  {selected.ctaLabel}
                   <ArrowRight size={14} aria-hidden="true" />
                 </Link>
 
@@ -119,7 +114,7 @@ export function SolutionFinder() {
                   className="inline-flex min-h-11 items-center gap-2 text-(length:--text-sm) text-ink-faint transition-colors hover:text-ink"
                 >
                   <RotateCcw size={13} aria-hidden="true" />
-                  Reset
+                  {labels.reset}
                 </button>
               </div>
             </div>

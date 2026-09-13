@@ -1,7 +1,10 @@
 import { z } from "zod";
-import { LIMITS, MESSAGES, SCOPES, TIMELINES } from "./enquiry-rules";
+import { LIMITS, SCOPES, TIMELINES, type ErrorCode } from "./enquiry-rules";
 
 export * from "./enquiry-rules";
+
+/** Zod messages are the same language-free codes the client uses. */
+const code = (c: ErrorCode) => c;
 
 /**
  * Server-side enquiry schema — the actual trust boundary.
@@ -11,25 +14,21 @@ export * from "./enquiry-rules";
  * handler, which keeps Zod out of the browser bundle.
  */
 export const enquirySchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(LIMITS.name.min, MESSAGES.name)
-    .max(LIMITS.name.max, MESSAGES.nameLong),
+  name: z.string().trim().min(LIMITS.name.min, code("name")).max(LIMITS.name.max, code("nameLong")),
   organisation: z
     .string()
     .trim()
-    .min(LIMITS.organisation.min, MESSAGES.organisation)
-    .max(LIMITS.organisation.max, MESSAGES.organisationLong),
-  email: z.email(MESSAGES.email).max(LIMITS.email.max),
-  phone: z.string().trim().max(LIMITS.phone.max, MESSAGES.phoneLong).optional().or(z.literal("")),
-  scopes: z.array(z.enum(SCOPES)).min(1, MESSAGES.scopes).max(SCOPES.length),
-  timeline: z.enum(TIMELINES, { message: MESSAGES.timeline }),
+    .min(LIMITS.organisation.min, code("organisation"))
+    .max(LIMITS.organisation.max, code("organisationLong")),
+  email: z.email(code("email")).max(LIMITS.email.max, code("email")),
+  phone: z.string().trim().max(LIMITS.phone.max, code("phoneLong")).optional().or(z.literal("")),
+  scopes: z.array(z.enum(SCOPES)).min(1, code("scopes")).max(SCOPES.length, code("scopes")),
+  timeline: z.enum(TIMELINES, { message: code("timeline") }),
   message: z
     .string()
     .trim()
-    .min(LIMITS.message.min, MESSAGES.message)
-    .max(LIMITS.message.max, MESSAGES.messageLong),
+    .min(LIMITS.message.min, code("message"))
+    .max(LIMITS.message.max, code("messageLong")),
   /**
    * Honeypot. Real users never see this field, so any value means a bot.
    * Preferred over a CAPTCHA, which taxes every legitimate visitor —

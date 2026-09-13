@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { site } from "@/lib/site";
 
 /**
  * Wordmark + mark.
@@ -13,21 +12,20 @@ import { site } from "@/lib/site";
  * hook of the stem) is dropped deliberately: it disappears below ~40px and
  * only muddies the silhouette in a 26px header.
  */
-export function Logo({ className }: { className?: string }) {
+export function Logo({
+  href,
+  label,
+  className,
+}: {
+  /** Localised home href. */
+  href: string;
+  /** Accessible name, e.g. "D’Yvix IT Solutions — Home". */
+  label: string;
+  className?: string;
+}) {
   return (
-    <Link
-      href="/"
-      className={`group inline-flex items-center gap-2.5 ${className ?? ""}`}
-      aria-label={`${site.legalName} — home`}
-    >
-      <svg
-        width="26"
-        height="26"
-        viewBox="0 0 26 26"
-        fill="none"
-        aria-hidden="true"
-        className="shrink-0"
-      >
+    <Link href={href} className={`group inline-flex items-center gap-2.5 ${className ?? ""}`} aria-label={label}>
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true" className="shrink-0">
         {/* Upright stem of the Y */}
         <rect x="18.1" y="1" width="3.5" height="24" className="fill-brand" />
 

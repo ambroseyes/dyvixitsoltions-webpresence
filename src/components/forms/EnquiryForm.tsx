@@ -3,24 +3,33 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, CircleAlert, Loader2 } from "lucide-react";
 
+import { localePath, type Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n/dictionaries/en";
 // Imports the dependency-free rules module, never lib/validation — pulling in
 // the Zod schema here would ship 67 kB gzipped of validator to the browser.
 import {
   SCOPES,
-  SCOPE_LABELS,
   TIMELINES,
-  TIMELINE_LABELS,
   STEP_FIELDS,
+  isScope,
   validateEnquiry,
+  type ErrorCode,
   type Scope,
   type Timeline,
 } from "@/lib/enquiry-rules";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-type Errors = Partial<Record<string, string>>;
+type Labels = Dictionary["form"];
+type FormErrorCode = keyof Labels["errors"];
+type Errors = Partial<Record<string, ErrorCode>>;
 
-const STEPS = ["Scope", "Context", "Contact"] as const;
+/** Server error codes arrive over the network; unknown ones fall back to "generic". */
+const isFormErrorCode = (labels: Labels, value: unknown): value is FormErrorCode =>
+  typeof value === "string" && Object.hasOwn(labels.errors, value);
+
+const field = (body: unknown, key: string): unknown =>
+  typeof body === "object" && body !== null ? (body as Record<string, unknown>)[key] : undefined;
 
 /**
  * Three-step enquiry form (§31).
@@ -35,16 +44,18 @@ const STEPS = ["Scope", "Context", "Contact"] as const;
  * summary error region is role="alert".
  */
 export function EnquiryForm({
+  lang,
+  labels,
   defaultScope,
   variant = "project",
 }: {
+  lang: Locale;
+  labels: Labels;
   defaultScope?: string;
   variant?: "project" | "audit";
 }) {
   const [step, setStep] = useState(0);
-  const [scopes, setScopes] = useState<Scope[]>(
-    SCOPES.includes(defaultScope as Scope) ? [defaultScope as Scope] : [],
-  );
+  const [scopes, setScopes] = useState<Scope[]>(defaultScope && isScope(defaultScope) ? [defaultScope] : []);
   const [timeline, setTimeline] = useState<Timeline | "">("");
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
@@ -56,7 +67,7 @@ export function EnquiryForm({
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "failed">("idle");
   const [reference, setReference] = useState<string | null>(null);
-  const [formError, setFormError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<FormErrorCode | null>(null);
 
   const headingRef = useRef<HTMLLegendElement>(null);
   const didMount = useRef(false);
@@ -74,21 +85,22 @@ export function EnquiryForm({
     setScopes((prev) => (prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]));
 
   const values = { name, organisation, email, phone, scopes, timeline, message, website };
+  const lastStep = labels.steps.length - 1;
 
   /** Validates only the fields belonging to `which`, so step 1 is not blocked by step 3. */
   const validateStep = (which: number): boolean => {
     const all = validateEnquiry(values);
     const stepErrors: Errors = {};
-    for (const field of STEP_FIELDS[which]!) {
-      const msg = all[field];
-      if (msg) stepErrors[field] = msg;
+    for (const key of STEP_FIELDS[which]!) {
+      const code = all[key];
+      if (code) stepErrors[key] = code;
     }
     setErrors(stepErrors);
     return Object.keys(stepErrors).length === 0;
   };
 
   const next = () => {
-    if (validateStep(step)) setStep((s) => Math.min(s + 1, STEPS.length - 1));
+    if (validateStep(step)) setStep((s) => Math.min(s + 1, lastStep));
   };
   const back = () => {
     setErrors({});
@@ -97,12 +109,12 @@ export function EnquiryForm({
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateStep(2)) return;
+    if (!validateStep(lastStep)) return;
 
     // Full-form check: the step validators only cover their own fields, so a
     // value edited after passing an earlier step would otherwise slip through.
     if (Object.keys(validateEnquiry(values)).length > 0) {
-      setFormError("Please review your answers.");
+      setFormError("review");
       return;
     }
 
@@ -114,19 +126,23 @@ export function EnquiryForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       });
-      const body = await res.json();
-      if (!res.ok || !body.success) {
+      const body: unknown = await res.json();
+      if (!res.ok || field(body, "success") !== true) {
+        const code = field(body, "error");
         setStatus("failed");
-        setFormError(body.error ?? "Something went wrong. Please email us directly.");
+        setFormError(isFormErrorCode(labels, code) ? code : "generic");
         return;
       }
-      setReference(body.data?.reference ?? null);
+      const ref = field(field(body, "data"), "reference");
+      setReference(typeof ref === "string" ? ref : null);
       setStatus("sent");
     } catch {
       setStatus("failed");
-      setFormError("We could not reach the server. Please email us directly.");
+      setFormError("network");
     }
   };
+
+  const errorText = (code?: ErrorCode) => (code ? labels.errors[code] : undefined);
 
   if (status === "sent") {
     return (
@@ -134,21 +150,15 @@ export function EnquiryForm({
         <div className="flex size-11 items-center justify-center rounded-(--radius-sm) border border-verified/50">
           <Check size={20} strokeWidth={2} aria-hidden="true" className="text-verified" />
         </div>
-        <h2 className="mt-6 text-(length:--text-h3) font-semibold tracking-[-0.025em]">
-          Received. We will come back to you.
-        </h2>
-        <p className="mt-4 max-w-[52ch] text-(length:--text-base) leading-relaxed text-ink-muted">
-          An engineer reads every enquiry — this does not go into a queue for a sales team to
-          qualify. Expect a reply proposing a scoping conversation, or a note telling you this is
-          not something we should take on.
-        </p>
+        <h2 className="mt-6 text-(length:--text-h3) font-semibold tracking-[-0.025em]">{labels.sentTitle}</h2>
+        <p className="mt-4 max-w-[52ch] text-(length:--text-base) leading-relaxed text-ink-muted">{labels.sentBody}</p>
         {reference && (
           <p className="rail-label mt-6">
-            Reference <span className="text-primary">{reference}</span>
+            {labels.reference} <span className="text-primary">{reference}</span>
           </p>
         )}
         <p className="mt-8 text-(length:--text-sm) text-ink-faint">
-          Something urgent in the meantime?{" "}
+          {labels.urgent}{" "}
           <a href={`mailto:${site.contact.email}`} className="link-inline">
             {site.contact.email}
           </a>
@@ -160,8 +170,8 @@ export function EnquiryForm({
   return (
     <form onSubmit={submit} noValidate className="brackets border border-line bg-surface-raised">
       {/* Step indicator */}
-      <ol className="flex border-b border-line" aria-label="Form progress">
-        {STEPS.map((s, i) => (
+      <ol className="flex border-b border-line" aria-label={labels.progressLabel}>
+        {labels.steps.map((s, i) => (
           <li
             key={s}
             aria-current={i === step ? "step" : undefined}
@@ -170,9 +180,7 @@ export function EnquiryForm({
               i === step ? "bg-primary-soft/40" : i < step ? "text-ink-muted" : "text-ink-faint",
             )}
           >
-            <span className={cn("rail-index", i > step && "text-ink-faint")}>
-              {String(i + 1).padStart(2, "0")}
-            </span>
+            <span className={cn("rail-index", i > step && "text-ink-faint")}>{String(i + 1).padStart(2, "0")}</span>
             <span className="rail-label truncate">{s}</span>
           </li>
         ))}
@@ -186,11 +194,9 @@ export function EnquiryForm({
               tabIndex={-1}
               className="text-(length:--text-h3) font-semibold tracking-[-0.025em] outline-none"
             >
-              What do you need?
+              {labels.step1Legend}
             </legend>
-            <p className="mt-3 text-(length:--text-sm) text-ink-muted">
-              Select everything that applies. “Not sure yet” is a valid answer.
-            </p>
+            <p className="mt-3 text-(length:--text-sm) text-ink-muted">{labels.step1Hint}</p>
 
             <div
               className="mt-7 grid gap-2 sm:grid-cols-2"
@@ -204,17 +210,10 @@ export function EnquiryForm({
                     key={s}
                     className={cn(
                       "flex min-h-12 cursor-pointer items-center gap-3 border px-4 py-3 text-(length:--text-sm) transition-colors duration-(--duration-fast)",
-                      checked
-                        ? "border-primary bg-primary-soft/50"
-                        : "border-line hover:border-line-strong",
+                      checked ? "border-primary bg-primary-soft/50" : "border-line hover:border-line-strong",
                     )}
                   >
-                    <input
-                      type="checkbox"
-                      checked={checked}
-                      onChange={() => toggleScope(s)}
-                      className="sr-only"
-                    />
+                    <input type="checkbox" checked={checked} onChange={() => toggleScope(s)} className="sr-only" />
                     <span
                       aria-hidden="true"
                       className={cn(
@@ -222,12 +221,12 @@ export function EnquiryForm({
                         checked ? "border-primary bg-primary" : "border-line-strong",
                       )}
                     />
-                    {SCOPE_LABELS[s]}
+                    {labels.scopes[s]}
                   </label>
                 );
               })}
             </div>
-            <FieldError id="err-scopes" message={errors.scopes} />
+            <FieldError id="err-scopes" message={errorText(errors.scopes)} />
           </fieldset>
         )}
 
@@ -238,15 +237,15 @@ export function EnquiryForm({
               tabIndex={-1}
               className="text-(length:--text-h3) font-semibold tracking-[-0.025em] outline-none"
             >
-              Give us the context.
+              {labels.step2Legend}
             </legend>
 
             <div className="mt-7">
-              <p className="rail-label mb-3">What is your timeline?</p>
+              <p className="rail-label mb-3">{labels.timelineLabel}</p>
               <div
                 className="grid gap-2 sm:grid-cols-2"
                 role="radiogroup"
-                aria-label="Timeline"
+                aria-label={labels.timelineGroup}
                 aria-describedby={errors.timeline ? "err-timeline" : undefined}
               >
                 {TIMELINES.map((t) => (
@@ -254,9 +253,7 @@ export function EnquiryForm({
                     key={t}
                     className={cn(
                       "flex min-h-12 cursor-pointer items-center gap-3 border px-4 py-3 text-(length:--text-sm) transition-colors duration-(--duration-fast)",
-                      timeline === t
-                        ? "border-primary bg-primary-soft/50"
-                        : "border-line hover:border-line-strong",
+                      timeline === t ? "border-primary bg-primary-soft/50" : "border-line hover:border-line-strong",
                     )}
                   >
                     <input
@@ -273,23 +270,19 @@ export function EnquiryForm({
                         timeline === t ? "border-primary bg-primary" : "border-line-strong",
                       )}
                     />
-                    {TIMELINE_LABELS[t]}
+                    {labels.timelines[t]}
                   </label>
                 ))}
               </div>
-              <FieldError id="err-timeline" message={errors.timeline} />
+              <FieldError id="err-timeline" message={errorText(errors.timeline)} />
             </div>
 
             <div className="mt-8">
               <Field
                 id="message"
-                label="What should we know?"
-                error={errors.message}
-                hint={
-                  variant === "audit"
-                    ? "Roughly what you operate — sites, users, servers — and what prompted this."
-                    : "What breaks, what it costs, or what you are trying to build."
-                }
+                label={labels.messageLabel}
+                error={errorText(errors.message)}
+                hint={variant === "audit" ? labels.hintAudit : labels.hintProject}
               >
                 <textarea
                   id="message"
@@ -312,20 +305,14 @@ export function EnquiryForm({
               tabIndex={-1}
               className="text-(length:--text-h3) font-semibold tracking-[-0.025em] outline-none"
             >
-              Who should we reply to?
+              {labels.step3Legend}
             </legend>
 
             <div className="mt-7 grid gap-5 sm:grid-cols-2">
-              <Field id="name" label="Your name" error={errors.name}>
-                <Input
-                  id="name"
-                  value={name}
-                  onChange={setName}
-                  autoComplete="name"
-                  error={!!errors.name}
-                />
+              <Field id="name" label={labels.name} error={errorText(errors.name)}>
+                <Input id="name" value={name} onChange={setName} autoComplete="name" error={!!errors.name} />
               </Field>
-              <Field id="organisation" label="Organisation" error={errors.organisation}>
+              <Field id="organisation" label={labels.organisation} error={errorText(errors.organisation)}>
                 <Input
                   id="organisation"
                   value={organisation}
@@ -334,31 +321,17 @@ export function EnquiryForm({
                   error={!!errors.organisation}
                 />
               </Field>
-              <Field id="email" label="Work email" error={errors.email}>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={setEmail}
-                  autoComplete="email"
-                  error={!!errors.email}
-                />
+              <Field id="email" label={labels.email} error={errorText(errors.email)}>
+                <Input id="email" type="email" value={email} onChange={setEmail} autoComplete="email" error={!!errors.email} />
               </Field>
-              <Field id="phone" label="Phone" optional error={errors.phone}>
-                <Input
-                  id="phone"
-                  type="tel"
-                  value={phone}
-                  onChange={setPhone}
-                  autoComplete="tel"
-                  error={!!errors.phone}
-                />
+              <Field id="phone" label={labels.phone} optional={labels.optional} error={errorText(errors.phone)}>
+                <Input id="phone" type="tel" value={phone} onChange={setPhone} autoComplete="tel" error={!!errors.phone} />
               </Field>
             </div>
 
             {/* Honeypot: hidden from people, offered to bots. */}
             <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
-              <label htmlFor="website">Website (leave blank)</label>
+              <label htmlFor="website">{labels.honeypot}</label>
               <input
                 id="website"
                 name="website"
@@ -371,10 +344,9 @@ export function EnquiryForm({
             </div>
 
             <p className="mt-6 max-w-[56ch] text-(length:--text-sm) text-ink-faint">
-              We use these details to reply to this enquiry. We do not sell them, and we do not add
-              you to a mailing list. See our{" "}
-              <a href="/privacy" className="link-inline">
-                privacy notice
+              {labels.privacyBefore}{" "}
+              <a href={localePath(lang, "/privacy")} className="link-inline">
+                {labels.privacyLink}
               </a>
               .
             </p>
@@ -386,13 +358,8 @@ export function EnquiryForm({
             role="alert"
             className="mt-6 flex items-start gap-2.5 border-l-2 border-risk py-1 pl-4 text-(length:--text-sm) text-risk"
           >
-            <CircleAlert
-              size={15}
-              strokeWidth={1.75}
-              aria-hidden="true"
-              className="mt-0.5 shrink-0"
-            />
-            {formError}
+            <CircleAlert size={15} strokeWidth={1.75} aria-hidden="true" className="mt-0.5 shrink-0" />
+            {labels.errors[formError]}
           </p>
         )}
 
@@ -404,16 +371,16 @@ export function EnquiryForm({
             className="inline-flex min-h-11 items-center gap-2 text-(length:--text-sm) text-ink-muted transition-colors hover:text-ink disabled:invisible"
           >
             <ArrowLeft size={14} aria-hidden="true" />
-            Back
+            {labels.back}
           </button>
 
-          {step < STEPS.length - 1 ? (
+          {step < lastStep ? (
             <button
               type="button"
               onClick={next}
               className="inline-flex min-h-11 items-center gap-2 rounded-(--radius-sm) border border-primary bg-primary px-6 text-(length:--text-sm) font-medium text-surface transition-colors duration-(--duration-fast) hover:border-ink hover:bg-ink dark:hover:bg-ink-inverse dark:hover:text-surface"
             >
-              Continue
+              {labels.continue}
               <ArrowRight size={14} aria-hidden="true" />
             </button>
           ) : (
@@ -425,11 +392,11 @@ export function EnquiryForm({
               {status === "sending" ? (
                 <>
                   <Loader2 size={14} aria-hidden="true" className="animate-spin" />
-                  Sending
+                  {labels.sending}
                 </>
               ) : (
                 <>
-                  Send enquiry
+                  {labels.send}
                   <ArrowRight size={14} aria-hidden="true" />
                 </>
               )}
@@ -453,14 +420,15 @@ function Field({
   label: string;
   error?: string;
   hint?: string;
-  optional?: boolean;
+  /** Text of the "(optional)" marker, when the field is optional. */
+  optional?: string;
   children: React.ReactNode;
 }) {
   return (
     <div>
       <label htmlFor={id} className="rail-label mb-2.5 block">
         {label}
-        {optional && <span className="ml-2 normal-case text-ink-faint">(optional)</span>}
+        {optional && <span className="ml-2 text-ink-faint normal-case">{optional}</span>}
       </label>
       {hint && (
         <p id={`hint-${id}`} className="mb-2.5 text-(length:--text-sm) text-ink-faint">
@@ -476,11 +444,7 @@ function Field({
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
   return (
-    <p
-      id={id}
-      role="alert"
-      className="mt-2 flex items-start gap-2 text-(length:--text-sm) text-risk"
-    >
+    <p id={id} role="alert" className="mt-2 flex items-start gap-2 text-(length:--text-sm) text-risk">
       <CircleAlert size={13} strokeWidth={2} aria-hidden="true" className="mt-1 shrink-0" />
       {message}
     </p>
@@ -512,7 +476,7 @@ function Input({
       aria-invalid={error}
       aria-describedby={error ? `err-${id}` : undefined}
       className={cn(
-        "h-12 w-full border bg-surface px-4 text-(length:--text-base) outline-none transition-colors duration-(--duration-fast) focus-visible:border-primary",
+        "h-12 w-full border bg-surface px-4 text-(length:--text-base) transition-colors duration-(--duration-fast) outline-none focus-visible:border-primary",
         error ? "border-risk" : "border-line",
       )}
     />

@@ -3,12 +3,8 @@ import { headers } from "next/headers";
 import { Quattrocento, Quattrocento_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
+import { DEFAULT_LOCALE, HTML_LANG, isLocale } from "@/i18n/config";
 import { site } from "@/lib/site";
-import { pageMeta } from "@/lib/seo";
-import { graph, organizationSchema, websiteSchema } from "@/lib/schema";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { SiteHeader } from "@/components/layout/SiteHeader";
-import { SiteFooter } from "@/components/layout/SiteFooter";
 
 /**
  * Typography is taken from the company's own materials rather than chosen:
@@ -18,7 +14,8 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
  * technical rail.
  *
  * All three are self-hosted by next/font at build time — no runtime request
- * to a font CDN, which also keeps the CSP free of a third-party origin.
+ * to a font CDN, which also keeps the CSP free of a third-party origin. The
+ * latin subset covers French accents and typographic spaces.
  */
 const quattrocento = Quattrocento({
   subsets: ["latin"],
@@ -41,13 +38,9 @@ const jetbrains = JetBrains_Mono({
   weight: ["400", "500", "600"],
 });
 
+/** Locale-independent defaults. Titles, descriptions and alternates are set per locale in [lang]. */
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  ...pageMeta({
-    title: `${site.legalName} — ${site.tagline}`,
-    description: site.entityStatement,
-    path: "/",
-  }),
   applicationName: site.legalName,
   authors: [{ name: site.legalName, url: site.url }],
   creator: site.legalName,
@@ -82,33 +75,29 @@ if(t==='dark'||(t!=='light'&&m)){d.classList.add('dark')}
 }catch(e){}})();
 `;
 
+/**
+ * The root layout owns <html>, so it owns `lang`. The locale comes from the
+ * `x-locale` header set by proxy.ts, because the root layout sits above the
+ * [lang] segment and never receives its params — and an unmatched URL, which
+ * renders here without [lang] at all, still needs the right language.
+ */
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  // Set by middleware.ts. Lets the boot script run under a nonce CSP.
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
+  const requestHeaders = await headers();
+  // Set by proxy.ts. Lets the boot script run under a nonce CSP.
+  const nonce = requestHeaders.get("x-nonce") ?? undefined;
+  const requested = requestHeaders.get("x-locale") ?? DEFAULT_LOCALE;
+  const lang = isLocale(requested) ? requested : DEFAULT_LOCALE;
 
   return (
     <html
-      lang="en"
+      lang={HTML_LANG[lang]}
       className={`${quattrocento.variable} ${quattrocentoSans.variable} ${jetbrains.variable} no-js`}
       suppressHydrationWarning
     >
       <head>
         <script nonce={nonce} dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="min-h-dvh antialiased">
-        <JsonLd data={graph(organizationSchema(), websiteSchema())} />
-
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-(--z-toast) focus:rounded-(--radius-sm) focus:border focus:border-primary focus:bg-surface focus:px-4 focus:py-2.5 focus:text-(length:--text-sm) focus:font-medium"
-        >
-          Skip to main content
-        </a>
-
-        <SiteHeader />
-        <main id="main">{children}</main>
-        <SiteFooter />
-      </body>
+      <body className="min-h-dvh antialiased">{children}</body>
     </html>
   );
 }

@@ -5,10 +5,11 @@ import { Container } from "./Container";
 /**
  * Breadcrumb trail. Rendered visually AND emitted as BreadcrumbList schema by
  * the page — §72 wants the hierarchy discoverable, not just decorative.
+ * `trail` paths are public, already-localised paths.
  */
-export function Breadcrumbs({ trail }: { trail: { name: string; path: string }[] }) {
+export function Breadcrumbs({ trail, label }: { trail: { name: string; path: string }[]; label: string }) {
   return (
-    <nav aria-label="Breadcrumb" className="border-b border-line">
+    <nav aria-label={label} className="border-b border-line">
       <Container>
         <ol className="flex flex-wrap items-center gap-1.5 py-3.5">
           {trail.map((t, i) => {
