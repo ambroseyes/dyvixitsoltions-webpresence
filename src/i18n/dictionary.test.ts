@@ -8,7 +8,9 @@ type Tree = { [key: string]: unknown };
 /** Flattens a dictionary into "a.b.c" -> value pairs. */
 function leaves(tree: unknown, prefix = ""): [string, unknown][] {
   if (tree && typeof tree === "object" && !Array.isArray(tree)) {
-    return Object.entries(tree as Tree).flatMap(([k, v]) => leaves(v, prefix ? `${prefix}.${k}` : k));
+    return Object.entries(tree as Tree).flatMap(([k, v]) =>
+      leaves(v, prefix ? `${prefix}.${k}` : k),
+    );
   }
   return [[prefix, tree]];
 }
@@ -50,7 +52,9 @@ describe("getDictionary", () => {
   });
 
   test("applies French typography: no breakable space before ? in French", () => {
-    const flat = leaves(getDictionary("fr")).map(([, v]) => v).filter((v) => typeof v === "string");
+    const flat = leaves(getDictionary("fr"))
+      .map(([, v]) => v)
+      .filter((v) => typeof v === "string");
     for (const s of flat as string[]) expect(s).not.toMatch(/ [?!;:]/);
   });
 });

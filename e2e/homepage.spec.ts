@@ -12,16 +12,22 @@ test.describe("homepage", () => {
   test("states the entity, contact and geography without any interaction", async ({ page }) => {
     await page.goto("/");
     const body = await page.locator("body").innerText();
-    expect(body).toContain("IT engineering company");
+    expect(body).toContain("digital and technology engineering company");
     expect(body).toContain("contact@dyvixitsolutions.com");
     expect(body).toContain("Cameroon");
+  });
+
+  test("shows all nine domains", async ({ page }) => {
+    await page.goto("/");
+    const grid = page.locator("#expertise");
+    await expect(grid.getByRole("link")).toHaveCount(9);
   });
 
   test("both primary calls to action are present and routed", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("link", { name: "Start a Project" }).first()).toBeVisible();
-    await page.getByRole("link", { name: "Explore Solutions" }).click();
-    await expect(page).toHaveURL(/\/solutions$/);
+    await page.getByRole("link", { name: "Explore our expertise" }).click();
+    await expect(page).toHaveURL(/\/expertise$/);
   });
 
   test("logs no console errors", async ({ page }) => {

@@ -44,7 +44,10 @@ export function ExpertiseGrid({ lang }: { lang: Locale }) {
           // An odd count leaves one orphan on the two-column track; it spans.
           const last = i === domains.length - 1 && domains.length % 2 === 1;
           return (
-            <li key={d.slug} className={cn("bg-surface", SPAN[tier], last && "sm:col-span-2 lg:col-span-3")}>
+            <li
+              key={d.slug}
+              className={cn("bg-surface", SPAN[tier], last && "sm:col-span-2 lg:col-span-3")}
+            >
               <Link
                 href={localePath(lang, `/expertise/${d.slug}`)}
                 className="group flex h-full flex-col p-6 transition-colors duration-(--duration-normal) hover:bg-surface-raised sm:p-8"
@@ -67,7 +70,9 @@ export function ExpertiseGrid({ lang }: { lang: Locale }) {
                   {d.name}
                 </h3>
 
-                <p className="mt-3 flex-1 text-(length:--text-sm) leading-relaxed text-ink-muted">{d.summary}</p>
+                <p className="mt-3 flex-1 text-(length:--text-sm) leading-relaxed text-ink-muted">
+                  {d.summary}
+                </p>
 
                 <div className="dimension-rule mt-7 mb-4" aria-hidden="true" />
 

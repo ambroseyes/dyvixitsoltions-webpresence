@@ -183,7 +183,8 @@ export const fr: Dictionary = {
     techStandfirst:
       "Ce que nous déployons et exploitons, classé par couche. Nos partenariats technologiques figurent sur la page À propos.",
     sectorsTitle: "Par secteur",
-    sectorsStandfirst: "Les obligations changent d’un secteur à l’autre. La discipline d’ingénierie, non.",
+    sectorsStandfirst:
+      "Les obligations changent d’un secteur à l’autre. La discipline d’ingénierie, non.",
     ctaTitle: "Vous ne savez pas de quel domaine vous avez besoin ?",
     ctaBody:
       "Décrivez le problème plutôt que la solution. Nous vous dirons quel accompagnement convient — y compris lorsque la réponse est que vous n’en avez pas besoin.",
@@ -234,7 +235,8 @@ export const fr: Dictionary = {
       stage: "Stade",
       builtOn: "S’appuie sur nos expertises en",
       ctaTitle: "{name} vous intéresse ?",
-      ctaBody: "Dites-nous à quoi elle vous servirait. Nous vous dirons franchement si elle convient déjà.",
+      ctaBody:
+        "Dites-nous à quoi elle vous servirait. Nous vous dirons franchement si elle convient déjà.",
       allSolutions: "Toutes les solutions",
     },
   },
@@ -273,7 +275,8 @@ export const fr: Dictionary = {
       orderNote:
         "Classé selon ce qui compte généralement le plus dans ce secteur. L’ordre change dès qu’un audit établit votre situation réelle.",
       ctaTitle: "Commencez par un audit adapté à votre secteur.",
-      ctaBody: "Cadré au regard des obligations qui s’imposent réellement à vous, pas d’une liste générique.",
+      ctaBody:
+        "Cadré au regard des obligations qui s’imposent réellement à vous, pas d’une liste générique.",
       allIndustries: "Tous les secteurs",
     },
   },
@@ -379,7 +382,8 @@ export const fr: Dictionary = {
     timelineLabel: "Quel est votre calendrier ?",
     timelineGroup: "Calendrier",
     messageLabel: "Que devons-nous savoir ?",
-    hintProject: "Ce qui ne fonctionne pas, ce que cela coûte, ou ce que vous cherchez à construire.",
+    hintProject:
+      "Ce qui ne fonctionne pas, ce que cela coûte, ou ce que vous cherchez à construire.",
     hintAudit:
       "Ce que vous exploitez, approximativement — sites, utilisateurs, serveurs — et ce qui motive la demande.",
     step3Legend: "À qui devons-nous répondre ?",

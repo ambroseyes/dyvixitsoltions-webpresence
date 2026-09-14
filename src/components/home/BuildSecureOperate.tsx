@@ -57,7 +57,10 @@ export function BuildSecureOperate({ lang }: { lang: Locale }) {
 
                 <ul className="mt-4 grid gap-2.5">
                   {p.items.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-(length:--text-base) text-ink-muted">
+                    <li
+                      key={item}
+                      className="flex items-start gap-3 text-(length:--text-base) text-ink-muted"
+                    >
                       <span
                         aria-hidden="true"
                         className="mt-2 size-1 shrink-0 rotate-45 bg-primary transition-transform duration-(--duration-normal) ease-(--ease-out-expo) group-hover:scale-150"

@@ -12,7 +12,8 @@ export const homeEn: HomeContent = {
       id: "downtime",
       label: "Downtime",
       symptom: "Systems fail without warning and recovery depends on who is available.",
-      consequence: "Work stops. Revenue stops. Confidence takes longer to return than the systems do.",
+      consequence:
+        "Work stops. Revenue stops. Confidence takes longer to return than the systems do.",
       response:
         "Remove single points of failure, verify backups by restoring them, and instrument the paths that matter so degradation surfaces before it becomes an outage.",
       expertise: "cloud-infrastructure",
@@ -295,14 +296,37 @@ export const homeEn: HomeContent = {
 
   /** §30 — eight stages, one per commitment. */
   method: [
-    { title: "Discover", description: "Understand the organisation, the work and what failure actually costs." },
-    { title: "Assess", description: "Measure the current state. Document what exists rather than what is believed to exist." },
-    { title: "Architect", description: "Design the target state and the order of change that keeps you running throughout." },
-    { title: "Build", description: "Implement in reversible increments, each validated before the next begins." },
-    { title: "Secure", description: "Harden, review access, and verify controls behave as designed." },
-    { title: "Deploy", description: "Move to production with a rollback path that has been exercised." },
+    {
+      title: "Discover",
+      description: "Understand the organisation, the work and what failure actually costs.",
+    },
+    {
+      title: "Assess",
+      description:
+        "Measure the current state. Document what exists rather than what is believed to exist.",
+    },
+    {
+      title: "Architect",
+      description:
+        "Design the target state and the order of change that keeps you running throughout.",
+    },
+    {
+      title: "Build",
+      description: "Implement in reversible increments, each validated before the next begins.",
+    },
+    {
+      title: "Secure",
+      description: "Harden, review access, and verify controls behave as designed.",
+    },
+    {
+      title: "Deploy",
+      description: "Move to production with a rollback path that has been exercised.",
+    },
     { title: "Operate", description: "Monitor, maintain and support against an agreed standard." },
-    { title: "Optimise", description: "Review with evidence and feed findings into the next cycle." },
+    {
+      title: "Optimise",
+      description: "Review with evidence and feed findings into the next cycle.",
+    },
   ],
 
   /** §62 — the questions people actually put to an assistant about a company. */
@@ -358,31 +382,81 @@ export const homeEn: HomeContent = {
       id: "infrastructure",
       label: "Infrastructure",
       note: "Compute, storage and the systems underneath everything else",
-      items: ["VMware ESXi", "Windows Server", "Red Hat Enterprise Linux", "Dell PowerEdge", "HP ProLiant", "TrueNAS", "FreeNAS"],
+      items: [
+        "VMware ESXi",
+        "Windows Server",
+        "Red Hat Enterprise Linux",
+        "Dell PowerEdge",
+        "HP ProLiant",
+        "TrueNAS",
+        "FreeNAS",
+      ],
     },
     {
       id: "network",
       label: "Networks & telecom",
       note: "Routing, wireless and the links between sites",
-      items: ["Cisco", "MikroTik", "Ubiquiti UniFi", "Ubiquiti NanoBeam", "Fibre optic", "TrixBox PBX", "SIP", "GSM gateways"],
+      items: [
+        "Cisco",
+        "MikroTik",
+        "Ubiquiti UniFi",
+        "Ubiquiti NanoBeam",
+        "Fibre optic",
+        "TrixBox PBX",
+        "SIP",
+        "GSM gateways",
+      ],
     },
     {
       id: "security",
       label: "Security",
       note: "Perimeter, endpoint, identity and detection",
-      items: ["FortiGate", "Kaspersky EDR", "Kaspersky Endpoint", "G-Data EndPoint", "SIEM", "EDR", "IAM", "VPN"],
+      items: [
+        "FortiGate",
+        "Kaspersky EDR",
+        "Kaspersky Endpoint",
+        "G-Data EndPoint",
+        "SIEM",
+        "EDR",
+        "IAM",
+        "VPN",
+      ],
     },
     {
       id: "cloud",
       label: "Cloud & DevOps",
       note: "Public, private and hybrid — and the pipelines that ship to them",
-      items: ["AWS", "Google Cloud", "OVH", "Docker", "Kubernetes", "GitLab CI", "Prometheus", "Grafana", "Zabbix"],
+      items: [
+        "AWS",
+        "Google Cloud",
+        "OVH",
+        "Docker",
+        "Kubernetes",
+        "GitLab CI",
+        "Prometheus",
+        "Grafana",
+        "Zabbix",
+      ],
     },
     {
       id: "software",
       label: "Software",
       note: "Application and API engineering",
-      items: ["Python", "FastAPI", "Celery", "Laravel", "PHP", "React", "TypeScript", "WebSocket", "PostgreSQL", "PostGIS", "MySQL", "MongoDB", "Redis"],
+      items: [
+        "Python",
+        "FastAPI",
+        "Celery",
+        "Laravel",
+        "PHP",
+        "React",
+        "TypeScript",
+        "WebSocket",
+        "PostgreSQL",
+        "PostGIS",
+        "MySQL",
+        "MongoDB",
+        "Redis",
+      ],
     },
     {
       id: "ai",
@@ -394,7 +468,13 @@ export const homeEn: HomeContent = {
       id: "edge",
       label: "IoT & edge",
       note: "Connected equipment in the field",
-      items: ["IP cameras", "Wireless mesh", "Long-range radio links", "Remote supervision", "PostGIS geolocation"],
+      items: [
+        "IP cameras",
+        "Wireless mesh",
+        "Long-range radio links",
+        "Remote supervision",
+        "PostGIS geolocation",
+      ],
     },
   ],
 };

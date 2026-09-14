@@ -19,7 +19,10 @@ export function generateStaticParams() {
 export async function GET(_request: Request, { params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLocale(lang)) {
-    return NextResponse.json({ success: false, data: null, error: "Unknown locale" }, { status: 404 });
+    return NextResponse.json(
+      { success: false, data: null, error: "Unknown locale" },
+      { status: 404 },
+    );
   }
   return NextResponse.json({ success: true, data: buildSearchIndex(lang), error: null });
 }

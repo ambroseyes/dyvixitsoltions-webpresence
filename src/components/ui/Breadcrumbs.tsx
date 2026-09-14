@@ -7,7 +7,13 @@ import { Container } from "./Container";
  * the page — §72 wants the hierarchy discoverable, not just decorative.
  * `trail` paths are public, already-localised paths.
  */
-export function Breadcrumbs({ trail, label }: { trail: { name: string; path: string }[]; label: string }) {
+export function Breadcrumbs({
+  trail,
+  label,
+}: {
+  trail: { name: string; path: string }[];
+  label: string;
+}) {
   return (
     <nav aria-label={label} className="border-b border-line">
       <Container>

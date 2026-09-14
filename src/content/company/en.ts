@@ -20,11 +20,33 @@ export const companyEn: CompanyContent = {
   ],
 
   timeline: [
-    { period: "2012", title: "Foundations", detail: "Founded in Yaoundé on one conviction: Central Africa deserves the same technical rigour as Europe." },
-    { period: "2015", title: "First defining work", detail: "Ministries, public health and insurance — the delivery discipline that has not moved since." },
-    { period: "2017–19", title: "Going international", detail: "A European diplomatic mission and UN agencies trust us with their infrastructure." },
-    { period: "2020–21", title: "Consolidation", detail: "Every existing engagement maintained without exception, through global uncertainty." },
-    { period: "2022–25", title: "Diversification", detail: "E-commerce platforms, security infrastructure and large-scale video surveillance." },
+    {
+      period: "2012",
+      title: "Foundations",
+      detail:
+        "Founded in Yaoundé on one conviction: Central Africa deserves the same technical rigour as Europe.",
+    },
+    {
+      period: "2015",
+      title: "First defining work",
+      detail:
+        "Ministries, public health and insurance — the delivery discipline that has not moved since.",
+    },
+    {
+      period: "2017–19",
+      title: "Going international",
+      detail: "A European diplomatic mission and UN agencies trust us with their infrastructure.",
+    },
+    {
+      period: "2020–21",
+      title: "Consolidation",
+      detail: "Every existing engagement maintained without exception, through global uncertainty.",
+    },
+    {
+      period: "2022–25",
+      title: "Diversification",
+      detail: "E-commerce platforms, security infrastructure and large-scale video surveillance.",
+    },
   ],
 
   team: [
@@ -57,9 +79,17 @@ export const companyEn: CompanyContent = {
    * check. Confirm before changing.
    */
   standards: [
-    { name: "ISO/IEC 27001", qualifier: "aligned", note: "Information security management practices aligned to the standard." },
+    {
+      name: "ISO/IEC 27001",
+      qualifier: "aligned",
+      note: "Information security management practices aligned to the standard.",
+    },
     { name: "ITIL Foundation", qualifier: "certified", note: "Service management." },
-    { name: "AWS Certified Cloud Practitioner", qualifier: "certified", note: "Cloud foundations." },
+    {
+      name: "AWS Certified Cloud Practitioner",
+      qualifier: "certified",
+      note: "Cloud foundations.",
+    },
   ],
 
   sectors: [

@@ -50,8 +50,10 @@ export type ErrorCode =
   | "message"
   | "messageLong";
 
-export const isScope = (value: string): value is Scope => (SCOPES as readonly string[]).includes(value);
-export const isTimeline = (value: string): value is Timeline => (TIMELINES as readonly string[]).includes(value);
+export const isScope = (value: string): value is Scope =>
+  (SCOPES as readonly string[]).includes(value);
+export const isTimeline = (value: string): value is Timeline =>
+  (TIMELINES as readonly string[]).includes(value);
 
 /**
  * Pragmatic email shape check for inline feedback only.

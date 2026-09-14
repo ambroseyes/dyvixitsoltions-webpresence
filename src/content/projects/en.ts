@@ -10,9 +10,12 @@ export const projectsEn: Record<ProjectSlug, ProjectText> = {
     sector: "Telecommunications / ISP",
     period: "2015 – 2023",
     title: "Backup and storage scaled sixfold over eight years",
-    challenge: "An internet service provider needed a backup and storage platform that could keep pace with data volumes it could not yet forecast.",
-    contribution: "Deployed the initial FreeNAS backup solution and its access controls, then grew the platform into a TrueNAS cluster as demand rose, with FTP and ShareFile data stores alongside.",
-    outcome: "Capacity grew from 580 TB to over 3,500 TB under continuous management — an eight-year infrastructure partnership rather than a single delivery.",
+    challenge:
+      "An internet service provider needed a backup and storage platform that could keep pace with data volumes it could not yet forecast.",
+    contribution:
+      "Deployed the initial FreeNAS backup solution and its access controls, then grew the platform into a TrueNAS cluster as demand rose, with FTP and ShareFile data stores alongside.",
+    outcome:
+      "Capacity grew from 580 TB to over 3,500 TB under continuous management — an eight-year infrastructure partnership rather than a single delivery.",
     technologies: ["FreeNAS", "TrueNAS", "Storage clustering", "FTP", "ShareFile"],
     metric: { value: "3,500+ TB", label: "under management, from 580 TB" },
   },
@@ -21,10 +24,18 @@ export const projectsEn: Record<ProjectSlug, ProjectText> = {
     sector: "Public-sector media",
     period: "2017 – present",
     title: "Long-range connectivity and a 92-camera surveillance network",
-    challenge: "Cameroon’s national press and publishing company needed reliable connectivity across its premises and physical security coverage at scale.",
-    contribution: "Installed a Ubiquiti NanoBeam long-range wireless link, then deployed a 92-camera IP surveillance network — bullet, PTZ and dome — with FreeNAS-based backup storage behind it.",
-    outcome: "Secure connectivity and large-scale surveillance infrastructure for a public institution, still under management today.",
-    technologies: ["Ubiquiti NanoBeam", "IP cameras (bullet / PTZ / dome)", "FreeNAS", "260 TB storage"],
+    challenge:
+      "Cameroon’s national press and publishing company needed reliable connectivity across its premises and physical security coverage at scale.",
+    contribution:
+      "Installed a Ubiquiti NanoBeam long-range wireless link, then deployed a 92-camera IP surveillance network — bullet, PTZ and dome — with FreeNAS-based backup storage behind it.",
+    outcome:
+      "Secure connectivity and large-scale surveillance infrastructure for a public institution, still under management today.",
+    technologies: [
+      "Ubiquiti NanoBeam",
+      "IP cameras (bullet / PTZ / dome)",
+      "FreeNAS",
+      "260 TB storage",
+    ],
     metric: { value: "92", label: "cameras in a meshed network" },
   },
   "ministry-public-works-edm": {
@@ -32,10 +43,19 @@ export const projectsEn: Record<ProjectSlug, ProjectText> = {
     sector: "Government",
     period: "2015",
     title: "Electronic document management for a government ministry",
-    challenge: "A ministry needed its paper archive to become a searchable, access-controlled repository.",
-    contribution: "Deployed the server and database environment, installed Dokmee Enterprise and Dokmee Web, configured backup data stores, installed high-volume scanners, and deployed two NAS units as the archive repository.",
+    challenge:
+      "A ministry needed its paper archive to become a searchable, access-controlled repository.",
+    contribution:
+      "Deployed the server and database environment, installed Dokmee Enterprise and Dokmee Web, configured backup data stores, installed high-volume scanners, and deployed two NAS units as the archive repository.",
     outcome: "An operational document management and archiving system for a public institution.",
-    technologies: ["Windows Server 2008 R2", "Microsoft SQL Server 2008", "Dokmee Enterprise", "Dokmee Web", "High-volume scanners", "NAS"],
+    technologies: [
+      "Windows Server 2008 R2",
+      "Microsoft SQL Server 2008",
+      "Dokmee Enterprise",
+      "Dokmee Web",
+      "High-volume scanners",
+      "NAS",
+    ],
     metric: null,
   },
   "cyberlink-wireless": {
@@ -43,9 +63,12 @@ export const projectsEn: Record<ProjectSlug, ProjectText> = {
     sector: "Consumer internet",
     period: "2013 – 2021",
     title: "A wireless network across close to 100 sites",
-    challenge: "A cybercafé operator needed wireless coverage and captive-portal access control across a growing estate in Yaoundé, without technical staff at each location.",
-    contribution: "Directed deployment and ongoing hardware and system maintenance of a Ubiquiti UniFi mesh network with a MikroTik captive portal, initially across 52 sites and later extended.",
-    outcome: "An eight-year infrastructure maintenance relationship spanning close to 100 locations.",
+    challenge:
+      "A cybercafé operator needed wireless coverage and captive-portal access control across a growing estate in Yaoundé, without technical staff at each location.",
+    contribution:
+      "Directed deployment and ongoing hardware and system maintenance of a Ubiquiti UniFi mesh network with a MikroTik captive portal, initially across 52 sites and later extended.",
+    outcome:
+      "An eight-year infrastructure maintenance relationship spanning close to 100 locations.",
     technologies: ["Ubiquiti UniFi mesh", "MikroTik captive portal", "Multi-site wireless"],
     metric: { value: "~100", label: "sites maintained over eight years" },
   },
@@ -54,10 +77,20 @@ export const projectsEn: Record<ProjectSlug, ProjectText> = {
     sector: "Public fund / agriculture",
     period: "2016 – 2020",
     title: "A multi-year security and network modernisation",
-    challenge: "The Cocoa & Coffee Sector Development Fund needed to modernise an ageing estate and raise its security posture, in phases it could absorb.",
-    contribution: "Migrated workstations and deployed endpoint protection, then built a racked and cabled local network, and finally a secured fibre-optic LAN linking two sites across 135 seats.",
-    outcome: "A multi-year improvement of the client’s security posture and network infrastructure, delivered phase by phase without disrupting operations.",
-    technologies: ["FortiGate", "Kaspersky Endpoint", "G-Data EndPoint", "MikroTik", "Fibre-optic LAN", "Windows 8.1 migration"],
+    challenge:
+      "The Cocoa & Coffee Sector Development Fund needed to modernise an ageing estate and raise its security posture, in phases it could absorb.",
+    contribution:
+      "Migrated workstations and deployed endpoint protection, then built a racked and cabled local network, and finally a secured fibre-optic LAN linking two sites across 135 seats.",
+    outcome:
+      "A multi-year improvement of the client’s security posture and network infrastructure, delivered phase by phase without disrupting operations.",
+    technologies: [
+      "FortiGate",
+      "Kaspersky Endpoint",
+      "G-Data EndPoint",
+      "MikroTik",
+      "Fibre-optic LAN",
+      "Windows 8.1 migration",
+    ],
     metric: { value: "135", label: "seats across two linked sites" },
   },
   "feicom-virtualization": {
@@ -65,8 +98,10 @@ export const projectsEn: Record<ProjectSlug, ProjectText> = {
     sector: "Government / public institution",
     period: "2014",
     title: "Server and virtualisation infrastructure renewal",
-    challenge: "A national public institution needed to renew ageing server infrastructure and consolidate it onto a virtualised platform.",
-    contribution: "Installed the server rack, configured RAID 5 storage, deployed VMware ESXi 5.5 across three servers with datastore configuration, and built the Red Hat Enterprise Linux virtual machines.",
+    challenge:
+      "A national public institution needed to renew ageing server infrastructure and consolidate it onto a virtualised platform.",
+    contribution:
+      "Installed the server rack, configured RAID 5 storage, deployed VMware ESXi 5.5 across three servers with datastore configuration, and built the Red Hat Enterprise Linux virtual machines.",
     outcome: "A virtualised server environment delivered for the institution.",
     technologies: ["Dell PowerEdge", "RAID 5", "VMware ESXi 5.5", "Red Hat Enterprise Linux 6"],
     metric: null,
@@ -76,8 +111,10 @@ export const projectsEn: Record<ProjectSlug, ProjectText> = {
     sector: "National development programme",
     period: "2015",
     title: "A virtualised environment for a programme coordination centre",
-    challenge: "A national development programme’s coordination centre needed server infrastructure sized for its operations.",
-    contribution: "Configured the disk arrays, deployed VMware ESXi 5.5, created the virtual servers, and configured datastores, virtual switches and network interfaces.",
+    challenge:
+      "A national development programme’s coordination centre needed server infrastructure sized for its operations.",
+    contribution:
+      "Configured the disk arrays, deployed VMware ESXi 5.5, created the virtual servers, and configured datastores, virtual switches and network interfaces.",
     outcome: "A virtualised environment supporting the programme’s operations.",
     technologies: ["HP ProLiant G8", "RAID 5/1", "VMware ESXi 5.5"],
     metric: null,
@@ -87,10 +124,19 @@ export const projectsEn: Record<ProjectSlug, ProjectText> = {
     sector: "Business services",
     period: "2012 – 2016",
     title: "A 200-seat call centre, from empty floor to live operations",
-    challenge: "A call centre needed its entire IT and telephony infrastructure established from nothing.",
-    contribution: "Cabled the network for 200 seats, deployed management servers and thin-client workstations, and set up the telephony infrastructure with a TrixBox PBX, SIP trunks and GSM gateways.",
+    challenge:
+      "A call centre needed its entire IT and telephony infrastructure established from nothing.",
+    contribution:
+      "Cabled the network for 200 seats, deployed management servers and thin-client workstations, and set up the telephony infrastructure with a TrixBox PBX, SIP trunks and GSM gateways.",
     outcome: "A fully operational call centre environment.",
-    technologies: ["Structured cabling", "Windows Server", "Thin clients", "TrixBox PBX", "SIP trunks", "GSM gateways"],
+    technologies: [
+      "Structured cabling",
+      "Windows Server",
+      "Thin clients",
+      "TrixBox PBX",
+      "SIP trunks",
+      "GSM gateways",
+    ],
     metric: { value: "200", label: "seats cabled and equipped" },
   },
   "diplomatic-mission-security": {
@@ -98,9 +144,12 @@ export const projectsEn: Record<ProjectSlug, ProjectText> = {
     sector: "Diplomatic",
     period: "2019 – present",
     title: "Uninterrupted network security since 2019",
-    challenge: "A diplomatic mission required continuous network security under strict confidentiality.",
-    contribution: "Continuous network security operations, delivered under signed NDAs with access limited to the team members assigned to the engagement.",
-    outcome: "Uninterrupted service since 2019 — the confidentiality and security standard the practice operates at daily.",
+    challenge:
+      "A diplomatic mission required continuous network security under strict confidentiality.",
+    contribution:
+      "Continuous network security operations, delivered under signed NDAs with access limited to the team members assigned to the engagement.",
+    outcome:
+      "Uninterrupted service since 2019 — the confidentiality and security standard the practice operates at daily.",
     technologies: ["Network security", "Least-privilege access", "Continuous monitoring"],
     metric: { value: "Since 2019", label: "without interruption" },
   },

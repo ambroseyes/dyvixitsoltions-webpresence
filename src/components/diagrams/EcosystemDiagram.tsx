@@ -48,7 +48,13 @@ function place(nodes: DiagramNode[]) {
   });
 }
 
-export function EcosystemDiagram({ nodes, exploreLabel }: { nodes: DiagramNode[]; exploreLabel: string }) {
+export function EcosystemDiagram({
+  nodes,
+  exploreLabel,
+}: {
+  nodes: DiagramNode[];
+  exploreLabel: string;
+}) {
   const placed = place(nodes);
   const [activeId, setActiveId] = useState<string>(placed[0]?.id ?? "");
   const activeIndex = Math.max(
@@ -67,7 +73,16 @@ export function EcosystemDiagram({ nodes, exploreLabel }: { nodes: DiagramNode[]
           <g className="stroke-line-strong" strokeWidth="0.22" fill="none">
             {placed.map((n, i) => {
               const next = placed[(i + 1) % placed.length]!;
-              return <line key={`ring-${n.id}`} x1={n.x} y1={n.y} x2={next.x} y2={next.y} opacity="0.5" />;
+              return (
+                <line
+                  key={`ring-${n.id}`}
+                  x1={n.x}
+                  y1={n.y}
+                  x2={next.x}
+                  y2={next.y}
+                  opacity="0.5"
+                />
+              );
             })}
           </g>
           <g strokeWidth="0.28" fill="none">
@@ -146,14 +161,21 @@ export function EcosystemDiagram({ nodes, exploreLabel }: { nodes: DiagramNode[]
 
       {/* Detail panel. aria-live is deliberately omitted: the change is driven
           by the user's own hover or focus, so announcing it would be noise. */}
-      <div id="ecosystem-detail" className="brackets mt-8 border border-line bg-surface-raised p-5 sm:p-6">
+      <div
+        id="ecosystem-detail"
+        className="brackets mt-8 border border-line bg-surface-raised p-5 sm:p-6"
+      >
         <div className="flex items-center gap-3">
           <span className="rail-index">{String(activeIndex + 1).padStart(2, "0")}</span>
           <span className="h-px w-6 bg-line-strong" aria-hidden="true" />
-          <h3 className="font-mono text-(length:--text-label) tracking-(--tracking-label) uppercase">{active.name}</h3>
+          <h3 className="font-mono text-(length:--text-label) tracking-(--tracking-label) uppercase">
+            {active.name}
+          </h3>
         </div>
 
-        <p className="mt-4 text-(length:--text-sm) leading-relaxed text-ink-muted">{active.description}</p>
+        <p className="mt-4 text-(length:--text-sm) leading-relaxed text-ink-muted">
+          {active.description}
+        </p>
 
         <ul className="mt-5 flex flex-wrap gap-1.5">
           {active.tech.map((t) => (

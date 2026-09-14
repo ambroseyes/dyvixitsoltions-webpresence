@@ -70,7 +70,11 @@ export function organizationSchema(lang: Locale) {
     location: [site.address.locality, site.address.secondaryLocality].map((city) => ({
       "@type": "Place",
       name: city,
-      address: { "@type": "PostalAddress", addressLocality: city, addressCountry: site.address.country },
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: city,
+        addressCountry: site.address.country,
+      },
     })),
     areaServed: areaServed(lang),
     knowsAbout: [...company.knowsAbout],

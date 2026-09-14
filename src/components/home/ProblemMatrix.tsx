@@ -52,7 +52,12 @@ export function ProblemMatrix({
       className="border-b border-line"
     >
       <div className="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
-        <div role="tablist" aria-label={labels.tablist} aria-orientation="vertical" className="border-t border-line">
+        <div
+          role="tablist"
+          aria-label={labels.tablist}
+          aria-orientation="vertical"
+          className="border-t border-line"
+        >
           {problems.map((p, i) => {
             const isActive = i === active;
             return (
@@ -76,12 +81,16 @@ export function ProblemMatrix({
                 <span className={cn("rail-index shrink-0", !isActive && "text-ink-faint")}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="flex-1 text-(length:--text-h4) font-semibold tracking-[-0.02em]">{p.label}</span>
+                <span className="flex-1 text-(length:--text-h4) font-semibold tracking-[-0.02em]">
+                  {p.label}
+                </span>
                 <span
                   aria-hidden="true"
                   className={cn(
                     "size-1.5 shrink-0 rotate-45 self-center transition-all duration-(--duration-normal) ease-(--ease-out-expo)",
-                    isActive ? "scale-100 bg-primary" : "scale-0 bg-line-strong group-hover:scale-100",
+                    isActive
+                      ? "scale-100 bg-primary"
+                      : "scale-0 bg-line-strong group-hover:scale-100",
                   )}
                 />
               </button>
@@ -103,7 +112,9 @@ export function ProblemMatrix({
               <dl className="grid gap-7">
                 <div>
                   <dt className="rail-label text-ink-faint">{labels.symptom}</dt>
-                  <dd className="mt-2 text-(length:--text-lead) leading-snug font-medium">{p.symptom}</dd>
+                  <dd className="mt-2 text-(length:--text-lead) leading-snug font-medium">
+                    {p.symptom}
+                  </dd>
                 </div>
                 <div className="border-l-2 border-risk/50 pl-5">
                   <dt className="rail-label text-risk">{labels.consequence}</dt>

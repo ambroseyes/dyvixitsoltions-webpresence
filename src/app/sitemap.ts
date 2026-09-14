@@ -9,13 +9,19 @@ import { site } from "@/lib/site";
 
 type Freq = MetadataRoute.Sitemap[number]["changeFrequency"];
 
-const url = (lang: (typeof LOCALES)[number], path: string) => `${site.url}${localePath(lang, path)}`;
+const url = (lang: (typeof LOCALES)[number], path: string) =>
+  `${site.url}${localePath(lang, path)}`;
 
 /**
  * One entry per page per locale, each carrying the full hreflang set — the
  * sitemap-side mirror of the <link rel="alternate"> tags on every page.
  */
-function entries(path: string, priority: number, changeFrequency: Freq, lastModified: Date): MetadataRoute.Sitemap {
+function entries(
+  path: string,
+  priority: number,
+  changeFrequency: Freq,
+  lastModified: Date,
+): MetadataRoute.Sitemap {
   const languages = {
     ...Object.fromEntries(LOCALES.map((l) => [l, url(l, path)])),
     "x-default": url(DEFAULT_LOCALE, path),

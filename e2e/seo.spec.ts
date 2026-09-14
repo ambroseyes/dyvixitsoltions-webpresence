@@ -2,22 +2,24 @@ import { test, expect } from "@playwright/test";
 
 const PAGES = [
   "/",
-  "/solutions",
-  "/solutions/cybersecurity",
+  "/expertise",
+  "/expertise/cybersecurity",
+  "/solutions/back-node",
   "/industries/healthcare",
   "/about",
   "/contact",
+  "/fr",
+  "/fr/expertise/cybersecurity",
+  "/fr/about",
 ];
+
+const url = (path: string) => new RegExp(`dyvixitsolutions\\.com${path === "/" ? "/?" : path}$`);
 
 test.describe("SEO and GEO surface", () => {
   for (const path of PAGES) {
     test(`${path} declares canonical, description and Open Graph`, async ({ page }) => {
       await page.goto(path);
-      const canonical = page.locator('link[rel="canonical"]');
-      await expect(canonical).toHaveAttribute(
-        "href",
-        new RegExp(`dyvixitsolutions\\.com${path === "/" ? "/?$" : path}`),
-      );
+      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", url(path));
 
       const desc = await page.locator('meta[name="description"]').getAttribute("content");
       expect(desc?.length ?? 0).toBeGreaterThan(80);
@@ -26,6 +28,28 @@ test.describe("SEO and GEO surface", () => {
     });
   }
 
+  test("hreflang alternates are reciprocal between the two languages", async ({ page }) => {
+    for (const [path, en, fr] of [
+      ["/expertise/cybersecurity", "/expertise/cybersecurity", "/fr/expertise/cybersecurity"],
+      ["/fr/expertise/cybersecurity", "/expertise/cybersecurity", "/fr/expertise/cybersecurity"],
+      ["/", "/", "/fr"],
+    ] as const) {
+      await page.goto(path);
+      await expect(page.locator('link[rel="alternate"][hreflang="en"]'), path).toHaveAttribute(
+        "href",
+        url(en),
+      );
+      await expect(page.locator('link[rel="alternate"][hreflang="fr"]'), path).toHaveAttribute(
+        "href",
+        url(fr),
+      );
+      await expect(
+        page.locator('link[rel="alternate"][hreflang="x-default"]'),
+        path,
+      ).toHaveAttribute("href", url(en));
+    }
+  });
+
   test("exactly one h1 per page", async ({ page }) => {
     for (const path of PAGES) {
       await page.goto(path);
@@ -33,30 +57,43 @@ test.describe("SEO and GEO surface", () => {
     }
   });
 
-  test("homepage emits Organization, WebSite and FAQPage nodes", async ({ page }) => {
-    await page.goto("/");
-    const blocks = await page.locator('script[type="application/ld+json"]').allTextContents();
-    const types = blocks.flatMap((b) => {
-      const parsed = JSON.parse(b);
-      return (parsed["@graph"] ?? [parsed]).map((n: { "@type": string }) => n["@type"]);
-    });
-    expect(types).toEqual(expect.arrayContaining(["Organization", "WebSite", "FAQPage"]));
+  test("the homepage emits Organization, WebSite and FAQPage nodes in its language", async ({
+    page,
+  }) => {
+    for (const [path, lang] of [
+      ["/", "en"],
+      ["/fr", "fr"],
+    ] as const) {
+      await page.goto(path);
+      const blocks = await page.locator('script[type="application/ld+json"]').allTextContents();
+      const nodes = blocks.flatMap((b) => JSON.parse(b)["@graph"] ?? []);
+      const types = nodes.map((n: { "@type": string }) => n["@type"]);
+      expect(types).toEqual(expect.arrayContaining(["Organization", "WebSite", "FAQPage"]));
+      expect(nodes.find((n: { "@type": string }) => n["@type"] === "WebSite").inLanguage).toBe(
+        lang,
+      );
+    }
   });
 
-  test("solution pages link Service to the Organization node", async ({ page }) => {
-    await page.goto("/solutions/cybersecurity");
+  test("domain pages link Service to the Organization node", async ({ page }) => {
+    await page.goto("/expertise/cybersecurity");
     const blocks = await page.locator('script[type="application/ld+json"]').allTextContents();
     const nodes = blocks.flatMap((b) => JSON.parse(b)["@graph"] ?? []);
     const service = nodes.find((n: { "@type": string }) => n["@type"] === "Service");
     expect(service.provider["@id"]).toContain("#organization");
   });
 
-  test("sitemap lists every solution and industry", async ({ request }) => {
+  test("the sitemap lists both languages with alternates", async ({ request }) => {
     const xml = await (await request.get("/sitemap.xml")).text();
-    for (const slug of ["cybersecurity", "infrastructure-cloud", "managed-services"]) {
-      expect(xml).toContain(`/solutions/${slug}`);
+    for (const path of [
+      "/expertise/cybersecurity",
+      "/fr/expertise/cybersecurity",
+      "/industries/financial-services",
+      "/solutions/back-node",
+    ]) {
+      expect(xml).toContain(path);
     }
-    expect(xml).toContain("/industries/financial-services");
+    expect(xml).toMatch(/hreflang="fr"/);
   });
 
   test("robots allows crawling and points at the sitemap", async ({ request }) => {
@@ -77,9 +114,21 @@ test.describe("SEO and GEO surface", () => {
     expect(h["x-powered-by"]).toBeUndefined();
   });
 
-  test("404 returns the correct status and a helpful page", async ({ page }) => {
-    const res = await page.goto("/this-route-does-not-exist");
-    expect(res?.status()).toBe(404);
+  test("the internal /en prefix redirects permanently to the public URL", async ({ request }) => {
+    const res = await request.get("/en/about", { maxRedirects: 0 });
+    expect(res.status()).toBe(308);
+    expect(res.headers().location).toMatch(/\/about$/);
+  });
+
+  test("404 returns the correct status and a helpful page, in the URL's language", async ({
+    page,
+  }) => {
+    const en = await page.goto("/this-route-does-not-exist");
+    expect(en?.status()).toBe(404);
     await expect(page.getByRole("heading", { level: 1 })).toContainText("does not resolve");
+
+    const fr = await page.goto("/fr/cette-page-n-existe-pas");
+    expect(fr?.status()).toBe(404);
+    await expect(page.locator("html")).toHaveAttribute("lang", "fr");
   });
 });

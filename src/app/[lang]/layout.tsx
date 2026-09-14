@@ -23,12 +23,21 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const company = getCompany(lang);
   const title = `${site.legalName} — ${company.tagline}`;
   return {
-    ...pageMeta({ lang, title, description: company.entityStatement, path: "/", absoluteTitle: true }),
+    ...pageMeta({
+      lang,
+      title,
+      description: company.entityStatement,
+      path: "/",
+      absoluteTitle: true,
+    }),
     title: { default: title, template: `%s — ${site.legalName}` },
   };
 }
 
-export default async function LangLayout({ children, params }: Params & { children: React.ReactNode }) {
+export default async function LangLayout({
+  children,
+  params,
+}: Params & { children: React.ReactNode }) {
   const lang = await resolveLang(params);
   return (
     <>

@@ -6,9 +6,12 @@ export const projectsFr: Record<ProjectSlug, ProjectText> = {
     sector: "Télécommunications / fournisseur d’accès",
     period: "2015 – 2023",
     title: "Une sauvegarde et un stockage multipliés par six en huit ans",
-    challenge: "Un fournisseur d’accès à internet avait besoin d’une plateforme de sauvegarde et de stockage capable de suivre des volumes de données qu’il ne pouvait pas encore prévoir.",
-    contribution: "Déploiement de la solution de sauvegarde FreeNAS initiale et de ses contrôles d’accès, puis évolution de la plateforme vers un cluster TrueNAS à mesure que la demande augmentait, avec des espaces de données FTP et ShareFile.",
-    outcome: "Une capacité passée de 580 To à plus de 3 500 To sous gestion continue — un partenariat d’infrastructure de huit ans plutôt qu’une livraison ponctuelle.",
+    challenge:
+      "Un fournisseur d’accès à internet avait besoin d’une plateforme de sauvegarde et de stockage capable de suivre des volumes de données qu’il ne pouvait pas encore prévoir.",
+    contribution:
+      "Déploiement de la solution de sauvegarde FreeNAS initiale et de ses contrôles d’accès, puis évolution de la plateforme vers un cluster TrueNAS à mesure que la demande augmentait, avec des espaces de données FTP et ShareFile.",
+    outcome:
+      "Une capacité passée de 580 To à plus de 3 500 To sous gestion continue — un partenariat d’infrastructure de huit ans plutôt qu’une livraison ponctuelle.",
     technologies: ["FreeNAS", "TrueNAS", "Mise en cluster du stockage", "FTP", "ShareFile"],
     metric: { value: "3 500+ To", label: "sous gestion, contre 580 To au départ" },
   },
@@ -17,10 +20,18 @@ export const projectsFr: Record<ProjectSlug, ProjectText> = {
     sector: "Médias du secteur public",
     period: "2017 – aujourd’hui",
     title: "Une connectivité longue portée et un réseau de 92 caméras",
-    challenge: "L’entreprise nationale de presse et d’édition du Cameroun avait besoin d’une connectivité fiable sur ses sites et d’une couverture de sécurité physique à grande échelle.",
-    contribution: "Installation d’une liaison sans fil longue portée Ubiquiti NanoBeam, puis déploiement d’un réseau de vidéosurveillance IP de 92 caméras — bullet, PTZ et dôme — avec un stockage de sauvegarde FreeNAS.",
-    outcome: "Une connectivité sécurisée et une infrastructure de vidéosurveillance à grande échelle pour une institution publique, toujours sous notre gestion.",
-    technologies: ["Ubiquiti NanoBeam", "Caméras IP (bullet / PTZ / dôme)", "FreeNAS", "Stockage de 260 To"],
+    challenge:
+      "L’entreprise nationale de presse et d’édition du Cameroun avait besoin d’une connectivité fiable sur ses sites et d’une couverture de sécurité physique à grande échelle.",
+    contribution:
+      "Installation d’une liaison sans fil longue portée Ubiquiti NanoBeam, puis déploiement d’un réseau de vidéosurveillance IP de 92 caméras — bullet, PTZ et dôme — avec un stockage de sauvegarde FreeNAS.",
+    outcome:
+      "Une connectivité sécurisée et une infrastructure de vidéosurveillance à grande échelle pour une institution publique, toujours sous notre gestion.",
+    technologies: [
+      "Ubiquiti NanoBeam",
+      "Caméras IP (bullet / PTZ / dôme)",
+      "FreeNAS",
+      "Stockage de 260 To",
+    ],
     metric: { value: "92", label: "caméras en réseau maillé" },
   },
   "ministry-public-works-edm": {
@@ -28,10 +39,20 @@ export const projectsFr: Record<ProjectSlug, ProjectText> = {
     sector: "Administration publique",
     period: "2015",
     title: "La gestion électronique des documents d’un ministère",
-    challenge: "Un ministère devait transformer ses archives papier en un référentiel interrogeable et à accès contrôlé.",
-    contribution: "Déploiement de l’environnement serveur et base de données, installation de Dokmee Enterprise et Dokmee Web, configuration des espaces de sauvegarde, installation de numériseurs haut volume et déploiement de deux NAS pour le référentiel d’archives.",
-    outcome: "Un système opérationnel de gestion documentaire et d’archivage pour une institution publique.",
-    technologies: ["Windows Server 2008 R2", "Microsoft SQL Server 2008", "Dokmee Enterprise", "Dokmee Web", "Numériseurs haut volume", "NAS"],
+    challenge:
+      "Un ministère devait transformer ses archives papier en un référentiel interrogeable et à accès contrôlé.",
+    contribution:
+      "Déploiement de l’environnement serveur et base de données, installation de Dokmee Enterprise et Dokmee Web, configuration des espaces de sauvegarde, installation de numériseurs haut volume et déploiement de deux NAS pour le référentiel d’archives.",
+    outcome:
+      "Un système opérationnel de gestion documentaire et d’archivage pour une institution publique.",
+    technologies: [
+      "Windows Server 2008 R2",
+      "Microsoft SQL Server 2008",
+      "Dokmee Enterprise",
+      "Dokmee Web",
+      "Numériseurs haut volume",
+      "NAS",
+    ],
     metric: null,
   },
   "cyberlink-wireless": {
@@ -39,9 +60,12 @@ export const projectsFr: Record<ProjectSlug, ProjectText> = {
     sector: "Accès internet grand public",
     period: "2013 – 2021",
     title: "Un réseau sans fil sur près de 100 sites",
-    challenge: "Un exploitant de cybercafés avait besoin d’une couverture sans fil et d’un contrôle d’accès par portail captif sur un parc en croissance à Yaoundé, sans technicien sur chaque site.",
-    contribution: "Pilotage du déploiement, puis de la maintenance matérielle et logicielle, d’un réseau maillé Ubiquiti UniFi avec portail captif MikroTik, sur 52 sites au départ, puis étendu.",
-    outcome: "Une relation de maintenance d’infrastructure de huit ans, couvrant près de 100 sites.",
+    challenge:
+      "Un exploitant de cybercafés avait besoin d’une couverture sans fil et d’un contrôle d’accès par portail captif sur un parc en croissance à Yaoundé, sans technicien sur chaque site.",
+    contribution:
+      "Pilotage du déploiement, puis de la maintenance matérielle et logicielle, d’un réseau maillé Ubiquiti UniFi avec portail captif MikroTik, sur 52 sites au départ, puis étendu.",
+    outcome:
+      "Une relation de maintenance d’infrastructure de huit ans, couvrant près de 100 sites.",
     technologies: ["Ubiquiti UniFi (maillage)", "Portail captif MikroTik", "Sans fil multisite"],
     metric: { value: "~100", label: "sites maintenus pendant huit ans" },
   },
@@ -50,10 +74,20 @@ export const projectsFr: Record<ProjectSlug, ProjectText> = {
     sector: "Fonds public / agriculture",
     period: "2016 – 2020",
     title: "Une modernisation de la sécurité et du réseau sur plusieurs années",
-    challenge: "Le Fonds de développement des filières cacao et café devait moderniser un parc vieillissant et renforcer sa sécurité, par étapes absorbables.",
-    contribution: "Migration des postes et déploiement de la protection antivirus, puis construction d’un réseau local en baie et câblé, et enfin d’un réseau local fibre optique sécurisé reliant deux sites pour 135 postes.",
-    outcome: "Une amélioration pluriannuelle de la posture de sécurité et de l’infrastructure réseau du client, livrée étape par étape sans interrompre l’activité.",
-    technologies: ["FortiGate", "Kaspersky Endpoint", "G-Data EndPoint", "MikroTik", "Réseau local fibre optique", "Migration Windows 8.1"],
+    challenge:
+      "Le Fonds de développement des filières cacao et café devait moderniser un parc vieillissant et renforcer sa sécurité, par étapes absorbables.",
+    contribution:
+      "Migration des postes et déploiement de la protection antivirus, puis construction d’un réseau local en baie et câblé, et enfin d’un réseau local fibre optique sécurisé reliant deux sites pour 135 postes.",
+    outcome:
+      "Une amélioration pluriannuelle de la posture de sécurité et de l’infrastructure réseau du client, livrée étape par étape sans interrompre l’activité.",
+    technologies: [
+      "FortiGate",
+      "Kaspersky Endpoint",
+      "G-Data EndPoint",
+      "MikroTik",
+      "Réseau local fibre optique",
+      "Migration Windows 8.1",
+    ],
     metric: { value: "135", label: "postes sur deux sites reliés" },
   },
   "feicom-virtualization": {
@@ -61,8 +95,10 @@ export const projectsFr: Record<ProjectSlug, ProjectText> = {
     sector: "Administration publique / institution nationale",
     period: "2014",
     title: "Le renouvellement de l’infrastructure serveurs et sa virtualisation",
-    challenge: "Une institution publique nationale devait renouveler une infrastructure serveurs vieillissante et la consolider sur une plateforme virtualisée.",
-    contribution: "Installation de la baie serveurs, configuration du stockage RAID 5, déploiement de VMware ESXi 5.5 sur trois serveurs avec configuration des datastores, et création des machines virtuelles Red Hat Enterprise Linux.",
+    challenge:
+      "Une institution publique nationale devait renouveler une infrastructure serveurs vieillissante et la consolider sur une plateforme virtualisée.",
+    contribution:
+      "Installation de la baie serveurs, configuration du stockage RAID 5, déploiement de VMware ESXi 5.5 sur trois serveurs avec configuration des datastores, et création des machines virtuelles Red Hat Enterprise Linux.",
     outcome: "Un environnement serveurs virtualisé livré à l’institution.",
     technologies: ["Dell PowerEdge", "RAID 5", "VMware ESXi 5.5", "Red Hat Enterprise Linux 6"],
     metric: null,
@@ -72,8 +108,10 @@ export const projectsFr: Record<ProjectSlug, ProjectText> = {
     sector: "Programme national de développement",
     period: "2015",
     title: "Un environnement virtualisé pour une cellule de coordination",
-    challenge: "La cellule nationale de coordination d’un programme de développement avait besoin d’une infrastructure serveurs dimensionnée pour ses opérations.",
-    contribution: "Configuration des grappes de disques, déploiement de VMware ESXi 5.5, création des serveurs virtuels, et configuration des datastores, des commutateurs virtuels et des interfaces réseau.",
+    challenge:
+      "La cellule nationale de coordination d’un programme de développement avait besoin d’une infrastructure serveurs dimensionnée pour ses opérations.",
+    contribution:
+      "Configuration des grappes de disques, déploiement de VMware ESXi 5.5, création des serveurs virtuels, et configuration des datastores, des commutateurs virtuels et des interfaces réseau.",
     outcome: "Un environnement virtualisé au service des opérations du programme.",
     technologies: ["HP ProLiant G8", "RAID 5/1", "VMware ESXi 5.5"],
     metric: null,
@@ -83,10 +121,19 @@ export const projectsFr: Record<ProjectSlug, ProjectText> = {
     sector: "Services aux entreprises",
     period: "2012 – 2016",
     title: "Un centre d’appels de 200 postes, du plateau vide à l’exploitation",
-    challenge: "Un centre d’appels devait mettre en place l’intégralité de son infrastructure informatique et téléphonique.",
-    contribution: "Câblage réseau de 200 postes, déploiement des serveurs de gestion et des postes clients légers, et mise en place de la téléphonie avec un PBX TrixBox, des trunks SIP et des passerelles GSM.",
+    challenge:
+      "Un centre d’appels devait mettre en place l’intégralité de son infrastructure informatique et téléphonique.",
+    contribution:
+      "Câblage réseau de 200 postes, déploiement des serveurs de gestion et des postes clients légers, et mise en place de la téléphonie avec un PBX TrixBox, des trunks SIP et des passerelles GSM.",
     outcome: "Un centre d’appels pleinement opérationnel.",
-    technologies: ["Câblage structuré", "Windows Server", "Clients légers", "PBX TrixBox", "Trunks SIP", "Passerelles GSM"],
+    technologies: [
+      "Câblage structuré",
+      "Windows Server",
+      "Clients légers",
+      "PBX TrixBox",
+      "Trunks SIP",
+      "Passerelles GSM",
+    ],
     metric: { value: "200", label: "postes câblés et équipés" },
   },
   "diplomatic-mission-security": {
@@ -94,9 +141,12 @@ export const projectsFr: Record<ProjectSlug, ProjectText> = {
     sector: "Diplomatie",
     period: "2019 – aujourd’hui",
     title: "Une sécurité réseau sans interruption depuis 2019",
-    challenge: "Une mission diplomatique exigeait une sécurité réseau continue, sous une stricte confidentialité.",
-    contribution: "Des opérations de sécurité réseau continues, menées sous accords de confidentialité signés, avec un accès limité aux seuls membres de l’équipe affectés à la mission.",
-    outcome: "Un service ininterrompu depuis 2019 — le niveau de confidentialité et de sécurité que nous appliquons au quotidien.",
+    challenge:
+      "Une mission diplomatique exigeait une sécurité réseau continue, sous une stricte confidentialité.",
+    contribution:
+      "Des opérations de sécurité réseau continues, menées sous accords de confidentialité signés, avec un accès limité aux seuls membres de l’équipe affectés à la mission.",
+    outcome:
+      "Un service ininterrompu depuis 2019 — le niveau de confidentialité et de sécurité que nous appliquons au quotidien.",
     technologies: ["Sécurité réseau", "Accès au moindre privilège", "Surveillance continue"],
     metric: { value: "Depuis 2019", label: "sans interruption" },
   },

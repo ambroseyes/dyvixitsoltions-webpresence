@@ -12,9 +12,13 @@ import { cn } from "@/lib/utils";
 
 const OPEN_EVENT = "dyvix:open-command-menu";
 
-/** Lets any component open the palette without prop-drilling a setter. */
-export function openCommandMenu() {
-  window.dispatchEvent(new CustomEvent(OPEN_EVENT));
+/**
+ * Lets any component open the palette without prop-drilling a setter. Pass
+ * the control that opened it: focus returns there on close. WebKit does not
+ * focus a button on click, so document.activeElement cannot be relied on.
+ */
+export function openCommandMenu(opener?: HTMLElement) {
+  window.dispatchEvent(new CustomEvent<HTMLElement | undefined>(OPEN_EVENT, { detail: opener }));
 }
 
 type LoadState = "idle" | "loading" | "ready" | "error";
@@ -57,8 +61,10 @@ export function CommandMenu({ lang, labels }: { lang: Locale; labels: Dictionary
     requestRef.current = fetch(`/api/search/${lang}`)
       .then(async (res) => {
         const body: unknown = await res.json();
-        const data = typeof body === "object" && body !== null ? (body as { data?: unknown }).data : null;
-        if (!res.ok || !isEntryList(data)) throw new Error(`Search index unavailable (${res.status})`);
+        const data =
+          typeof body === "object" && body !== null ? (body as { data?: unknown }).data : null;
+        if (!res.ok || !isEntryList(data))
+          throw new Error(`Search index unavailable (${res.status})`);
         setIndex(data);
         setLoad("ready");
       })
@@ -78,8 +84,9 @@ export function CommandMenu({ lang, labels }: { lang: Locale; labels: Dictionary
   }, []);
 
   useEffect(() => {
-    const onOpen = () => {
-      restoreFocusRef.current = document.activeElement as HTMLElement;
+    const onOpen = (event: Event) => {
+      const opener = (event as CustomEvent<HTMLElement | undefined>).detail;
+      restoreFocusRef.current = opener ?? (document.activeElement as HTMLElement);
       ensureIndex();
       setOpen(true);
     };
@@ -169,7 +176,12 @@ export function CommandMenu({ lang, labels }: { lang: Locale; labels: Dictionary
         onKeyDown={onKeyDown}
       >
         <div className="flex items-center gap-3 border-b border-line px-4">
-          <Search size={15} strokeWidth={1.75} aria-hidden="true" className="shrink-0 text-ink-faint" />
+          <Search
+            size={15}
+            strokeWidth={1.75}
+            aria-hidden="true"
+            className="shrink-0 text-ink-faint"
+          />
           <input
             ref={inputRef}
             type="text"
@@ -186,9 +198,17 @@ export function CommandMenu({ lang, labels }: { lang: Locale; labels: Dictionary
           <kbd className="rail-label shrink-0">{labels.esc}</kbd>
         </div>
 
-        <ul id="command-results" role="listbox" aria-label={labels.resultsLabel} className="max-h-[52vh] overflow-y-auto p-2">
+        <ul
+          id="command-results"
+          role="listbox"
+          aria-label={labels.resultsLabel}
+          className="max-h-[52vh] overflow-y-auto p-2"
+        >
           {status && (
-            <li role="status" className="px-3 py-8 text-center text-(length:--text-sm) text-ink-faint">
+            <li
+              role="status"
+              className="px-3 py-8 text-center text-(length:--text-sm) text-ink-faint"
+            >
               {status}
             </li>
           )}
@@ -200,7 +220,9 @@ export function CommandMenu({ lang, labels }: { lang: Locale; labels: Dictionary
           {results.map((entry, i) => (
             <li key={`${entry.href}-${entry.label}`}>
               {groupStarts.has(i) && (
-                <div className="rail-label px-3 pt-4 pb-1.5 first:pt-1">{labels.groups[entry.group]}</div>
+                <div className="rail-label px-3 pt-4 pb-1.5 first:pt-1">
+                  {labels.groups[entry.group]}
+                </div>
               )}
               <button
                 type="button"
@@ -215,7 +237,11 @@ export function CommandMenu({ lang, labels }: { lang: Locale; labels: Dictionary
                 )}
               >
                 {entry.label}
-                <ArrowRight size={13} aria-hidden="true" className={cn(i === active ? "opacity-100" : "opacity-0")} />
+                <ArrowRight
+                  size={13}
+                  aria-hidden="true"
+                  className={cn(i === active ? "opacity-100" : "opacity-0")}
+                />
               </button>
             </li>
           ))}

@@ -15,7 +15,8 @@ export const homeFr: HomeContent = {
     {
       id: "threats",
       label: "Cybermenaces",
-      symptom: "Aucune vision actuelle de l’exposition, et aucun moyen de détecter une intrusion en cours.",
+      symptom:
+        "Aucune vision actuelle de l’exposition, et aucun moyen de détecter une intrusion en cours.",
       consequence:
         "La compromission se découvre par ses conséquences — fichiers chiffrés, virement frauduleux, appel du régulateur.",
       response:
@@ -25,7 +26,8 @@ export const homeFr: HomeContent = {
     {
       id: "connectivity",
       label: "Connectivité instable",
-      symptom: "Les sites perdent le contact, et le lien de secours tombe en même temps que le lien principal.",
+      symptom:
+        "Les sites perdent le contact, et le lien de secours tombe en même temps que le lien principal.",
       consequence:
         "Les agences s’arrêtent, les appels coupent, et le second lien que vous payez partage en réalité le chemin du premier.",
       response:
@@ -45,7 +47,8 @@ export const homeFr: HomeContent = {
     {
       id: "manual-ops",
       label: "Inefficacité opérationnelle",
-      symptom: "Des tâches répétitives, régies par des règles, absorbent des heures qui devraient aller ailleurs.",
+      symptom:
+        "Des tâches répétitives, régies par des règles, absorbent des heures qui devraient aller ailleurs.",
       consequence:
         "La capacité est consommée par un travail qui ne crée aucun avantage, et elle croît au rythme des effectifs.",
       response:
@@ -288,14 +291,42 @@ export const homeFr: HomeContent = {
   ],
 
   method: [
-    { title: "Découvrir", description: "Comprendre l’organisation, le travail et ce que coûte réellement une panne." },
-    { title: "Évaluer", description: "Mesurer l’existant. Documenter ce qui existe, et non ce que l’on croit qu’il existe." },
-    { title: "Concevoir", description: "Définir l’état cible et l’ordre des changements qui vous permet de continuer à fonctionner tout du long." },
-    { title: "Construire", description: "Mettre en œuvre par incréments réversibles, chacun validé avant le suivant." },
-    { title: "Sécuriser", description: "Durcir, revoir les accès, et vérifier que les contrôles se comportent comme prévu." },
-    { title: "Déployer", description: "Passer en production avec un chemin de retour arrière déjà éprouvé." },
-    { title: "Exploiter", description: "Superviser, maintenir et assurer le support selon un niveau convenu." },
-    { title: "Optimiser", description: "Faire le point, chiffres à l’appui, et réinjecter les constats dans le cycle suivant." },
+    {
+      title: "Découvrir",
+      description: "Comprendre l’organisation, le travail et ce que coûte réellement une panne.",
+    },
+    {
+      title: "Évaluer",
+      description:
+        "Mesurer l’existant. Documenter ce qui existe, et non ce que l’on croit qu’il existe.",
+    },
+    {
+      title: "Concevoir",
+      description:
+        "Définir l’état cible et l’ordre des changements qui vous permet de continuer à fonctionner tout du long.",
+    },
+    {
+      title: "Construire",
+      description: "Mettre en œuvre par incréments réversibles, chacun validé avant le suivant.",
+    },
+    {
+      title: "Sécuriser",
+      description:
+        "Durcir, revoir les accès, et vérifier que les contrôles se comportent comme prévu.",
+    },
+    {
+      title: "Déployer",
+      description: "Passer en production avec un chemin de retour arrière déjà éprouvé.",
+    },
+    {
+      title: "Exploiter",
+      description: "Superviser, maintenir et assurer le support selon un niveau convenu.",
+    },
+    {
+      title: "Optimiser",
+      description:
+        "Faire le point, chiffres à l’appui, et réinjecter les constats dans le cycle suivant.",
+    },
   ],
 
   answers: [
@@ -346,43 +377,106 @@ export const homeFr: HomeContent = {
       id: "infrastructure",
       label: "Infrastructure",
       note: "Calcul, stockage et les systèmes sur lesquels tout repose",
-      items: ["VMware ESXi", "Windows Server", "Red Hat Enterprise Linux", "Dell PowerEdge", "HP ProLiant", "TrueNAS", "FreeNAS"],
+      items: [
+        "VMware ESXi",
+        "Windows Server",
+        "Red Hat Enterprise Linux",
+        "Dell PowerEdge",
+        "HP ProLiant",
+        "TrueNAS",
+        "FreeNAS",
+      ],
     },
     {
       id: "network",
       label: "Réseaux & télécoms",
       note: "Routage, sans-fil et liaisons entre sites",
-      items: ["Cisco", "MikroTik", "Ubiquiti UniFi", "Ubiquiti NanoBeam", "Fibre optique", "PBX TrixBox", "SIP", "Passerelles GSM"],
+      items: [
+        "Cisco",
+        "MikroTik",
+        "Ubiquiti UniFi",
+        "Ubiquiti NanoBeam",
+        "Fibre optique",
+        "PBX TrixBox",
+        "SIP",
+        "Passerelles GSM",
+      ],
     },
     {
       id: "security",
       label: "Sécurité",
       note: "Périmètre, postes, identités et détection",
-      items: ["FortiGate", "Kaspersky EDR", "Kaspersky Endpoint", "G-Data EndPoint", "SIEM", "EDR", "IAM", "VPN"],
+      items: [
+        "FortiGate",
+        "Kaspersky EDR",
+        "Kaspersky Endpoint",
+        "G-Data EndPoint",
+        "SIEM",
+        "EDR",
+        "IAM",
+        "VPN",
+      ],
     },
     {
       id: "cloud",
       label: "Cloud & DevOps",
       note: "Public, privé et hybride — et les chaînes qui y livrent",
-      items: ["AWS", "Google Cloud", "OVH", "Docker", "Kubernetes", "GitLab CI", "Prometheus", "Grafana", "Zabbix"],
+      items: [
+        "AWS",
+        "Google Cloud",
+        "OVH",
+        "Docker",
+        "Kubernetes",
+        "GitLab CI",
+        "Prometheus",
+        "Grafana",
+        "Zabbix",
+      ],
     },
     {
       id: "software",
       label: "Logiciel",
       note: "Ingénierie d’applications et d’API",
-      items: ["Python", "FastAPI", "Celery", "Laravel", "PHP", "React", "TypeScript", "WebSocket", "PostgreSQL", "PostGIS", "MySQL", "MongoDB", "Redis"],
+      items: [
+        "Python",
+        "FastAPI",
+        "Celery",
+        "Laravel",
+        "PHP",
+        "React",
+        "TypeScript",
+        "WebSocket",
+        "PostgreSQL",
+        "PostGIS",
+        "MySQL",
+        "MongoDB",
+        "Redis",
+      ],
     },
     {
       id: "ai",
       label: "IA & data",
       note: "Des systèmes ancrés et les chaînes qui les alimentent",
-      items: ["DeepSeek", "vLLM", "Génération augmentée par la recherche (RAG)", "RPA", "SQL Server", "Dokmee"],
+      items: [
+        "DeepSeek",
+        "vLLM",
+        "Génération augmentée par la recherche (RAG)",
+        "RPA",
+        "SQL Server",
+        "Dokmee",
+      ],
     },
     {
       id: "edge",
       label: "IoT & edge",
       note: "Des équipements connectés sur le terrain",
-      items: ["Caméras IP", "Maillage sans fil", "Liaisons radio longue portée", "Supervision à distance", "Géolocalisation PostGIS"],
+      items: [
+        "Caméras IP",
+        "Maillage sans fil",
+        "Liaisons radio longue portée",
+        "Supervision à distance",
+        "Géolocalisation PostGIS",
+      ],
     },
   ],
 };

@@ -54,13 +54,17 @@ export function TrustLayer({ lang }: { lang: Locale }) {
               <li key={s.name}>
                 <div className="flex flex-wrap items-center gap-2.5">
                   <span className="text-(length:--text-base) font-bold">{s.name}</span>
-                  <Badge tone={s.qualifier === "certified" ? "verified" : "neutral"}>{t.qualifiers[s.qualifier]}</Badge>
+                  <Badge tone={s.qualifier === "certified" ? "verified" : "neutral"}>
+                    {t.qualifiers[s.qualifier]}
+                  </Badge>
                 </div>
                 <p className="mt-1 text-(length:--text-sm) text-ink-muted">{s.note}</p>
               </li>
             ))}
           </ul>
-          <p className="mt-6 max-w-[52ch] text-(length:--text-sm) leading-relaxed text-ink-faint">{t.alignedNote}</p>
+          <p className="mt-6 max-w-[52ch] text-(length:--text-sm) leading-relaxed text-ink-faint">
+            {t.alignedNote}
+          </p>
         </div>
 
         <div className="bg-surface p-6 sm:p-8">
@@ -79,8 +83,16 @@ export function TrustLayer({ lang }: { lang: Locale }) {
           <h3 className="rail-label mt-8">{t.sectors}</h3>
           <ul className="mt-4 grid gap-2 sm:grid-cols-2">
             {company.sectors.map((s) => (
-              <li key={s} className="flex items-start gap-2.5 text-(length:--text-sm) text-ink-muted">
-                <Check size={13} strokeWidth={2.25} aria-hidden="true" className="mt-1 shrink-0 text-primary" />
+              <li
+                key={s}
+                className="flex items-start gap-2.5 text-(length:--text-sm) text-ink-muted"
+              >
+                <Check
+                  size={13}
+                  strokeWidth={2.25}
+                  aria-hidden="true"
+                  className="mt-1 shrink-0 text-primary"
+                />
                 {s}
               </li>
             ))}

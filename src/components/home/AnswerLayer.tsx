@@ -33,7 +33,9 @@ export function AnswerLayer({ lang, answers }: { lang: Locale; answers: FAQ[] })
               <span className="rail-index shrink-0">{String(i + 1).padStart(2, "0")}</span>
               <span>{f.q}</span>
             </dt>
-            <dd className="mt-4 pl-9 text-(length:--text-sm) leading-relaxed text-ink-muted">{f.a}</dd>
+            <dd className="mt-4 pl-9 text-(length:--text-sm) leading-relaxed text-ink-muted">
+              {f.a}
+            </dd>
           </div>
         ))}
       </dl>

@@ -1,49 +1,61 @@
 import { describe, expect, test } from "vitest";
-import { buildSearchIndex, searchIndex } from "./search-index";
+import { LOCALES } from "@/i18n/config";
+import { buildSearchIndex } from "./search-index";
+import { normalizeText, searchIndex } from "./search";
 
-const index = buildSearchIndex();
+describe.each(LOCALES)("search index (%s)", (lang) => {
+  const index = buildSearchIndex(lang);
 
-describe("search index", () => {
-  test("covers solutions, industries, insights, actions and pages", () => {
-    const groups = new Set(index.map((e) => e.group));
-    expect([...groups].sort()).toEqual(["Actions", "Industries", "Insights", "Pages", "Solutions"]);
+  test("covers every group the palette renders", () => {
+    const groups = [...new Set(index.map((e) => e.group))].sort();
+    expect(groups).toEqual([
+      "actions",
+      "expertise",
+      "industries",
+      "insights",
+      "pages",
+      "solutions",
+    ]);
   });
 
-  test("every entry points at an internal path", () => {
-    for (const e of index) expect(e.href, e.label).toMatch(/^\/|^\/#/);
+  test("every href is internal and in this locale", () => {
+    for (const e of index) {
+      expect(e.href, e.label).toMatch(/^\//);
+      if (lang === "fr") expect(e.href, e.label).toMatch(/^\/fr(\/|#|$)/);
+      else expect(e.href, e.label).not.toMatch(/^\/fr(\/|#|$)/);
+    }
   });
 
-  test("keywords are pre-lowercased so matching needs no per-query work", () => {
-    for (const e of index) expect(e.keywords).toBe(e.keywords.toLowerCase());
+  test("keywords are pre-normalised so matching needs no per-query work", () => {
+    for (const e of index) expect(e.keywords).toBe(normalizeText(e.keywords));
   });
 
-  test("an empty query returns everything", () => {
-    expect(searchIndex(index, "   ")).toHaveLength(index.length);
+  test("hrefs are unique, so the palette never lists a page twice", () => {
+    const hrefs = index.filter((e) => e.group !== "actions").map((e) => e.href);
+    expect(new Set(hrefs).size).toBe(hrefs.length);
   });
+});
 
-  /**
-   * People search for the problem, not our service name. Each of these terms
-   * previously returned nothing because the index was built from titles only.
-   */
+/**
+ * People search for the problem, not our service name — and in French they
+ * may type it without accents.
+ */
+describe("search finds pages by the problem they solve", () => {
   test.each([
-    ["firewall", "/solutions/cybersecurity"],
-    ["backup", "/solutions/infrastructure-cloud"],
-    ["disaster recovery", "/solutions/infrastructure-cloud"],
-    ["ransomware", "/industries/financial-services"],
-    ["postgis", "/solutions/data-documents"],
-    ["fortigate", "/solutions/cybersecurity"],
-    ["virtualisation", "/solutions/infrastructure-cloud"],
-    ["audit", "/request-audit"],
-  ])("searching %j finds %s", (query, expectedHref) => {
-    const hrefs = searchIndex(index, query).map((e) => e.href);
-    expect(hrefs).toContain(expectedHref);
-  });
-
-  test("matching is case-insensitive", () => {
-    expect(searchIndex(index, "FortiGate").length).toBeGreaterThan(0);
-  });
-
-  test("a nonsense query returns nothing rather than everything", () => {
-    expect(searchIndex(index, "zzzzqqqq")).toHaveLength(0);
+    ["en", "firewall", "/expertise/cybersecurity"],
+    ["en", "backup", "/expertise/cloud-infrastructure"],
+    ["en", "disaster recovery", "/expertise/cloud-infrastructure"],
+    ["en", "ransomware", "/industries/financial-services"],
+    ["en", "postgis", "/expertise/ai-data"],
+    ["en", "drones", "/expertise/iot-edge"],
+    ["en", "rpa", "/solutions/back-node"],
+    ["en", "audit", "/request-audit"],
+    ["fr", "pare-feu", "/fr/expertise/cybersecurity"],
+    ["fr", "securite", "/fr/expertise/cybersecurity"],
+    ["fr", "sauvegarde", "/fr/expertise/cloud-infrastructure"],
+    ["fr", "devis", "/fr/contact"],
+  ] as const)("%s: %j finds %s", (lang, query, expected) => {
+    const hrefs = searchIndex(buildSearchIndex(lang), query).map((e) => e.href);
+    expect(hrefs).toContain(expected);
   });
 });

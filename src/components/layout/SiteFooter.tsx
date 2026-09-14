@@ -24,7 +24,10 @@ export function SiteFooter({ lang }: { lang: Locale }) {
 
   return (
     <footer className="relative border-t border-line bg-surface-sunken">
-      <div className="schematic-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
+      <div
+        className="schematic-grid pointer-events-none absolute inset-0 opacity-60"
+        aria-hidden="true"
+      />
 
       <Container className="relative">
         <div className="grid gap-12 py-(--spacing-section-tight) lg:grid-cols-[minmax(0,1.15fr)_minmax(0,2fr)]">
@@ -56,7 +59,12 @@ export function SiteFooter({ lang }: { lang: Locale }) {
                 rel="noopener noreferrer"
                 className="inline-flex w-fit items-center gap-2.5 text-(length:--text-sm) transition-colors hover:text-primary"
               >
-                <MessageCircle size={14} strokeWidth={1.75} aria-hidden="true" className="text-primary" />
+                <MessageCircle
+                  size={14}
+                  strokeWidth={1.75}
+                  aria-hidden="true"
+                  className="text-primary"
+                />
                 {dict.contact.whatsapp}
               </a>
             </address>
@@ -66,14 +74,20 @@ export function SiteFooter({ lang }: { lang: Locale }) {
             </p>
           </div>
 
-          <nav aria-label={dict.nav.footerLabel} className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
+          <nav
+            aria-label={dict.nav.footerLabel}
+            className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4"
+          >
             {columns.map((col) => (
               <div key={col.label}>
                 <h2 className="rail-label mb-4">{col.label}</h2>
                 <ul className="grid gap-2.5">
                   {col.links.map((l) => (
                     <li key={`${col.label}-${l.href}`}>
-                      <Link href={l.href} className="text-(length:--text-sm) text-ink-muted transition-colors hover:text-primary">
+                      <Link
+                        href={l.href}
+                        className="text-(length:--text-sm) text-ink-muted transition-colors hover:text-primary"
+                      >
                         {l.label}
                       </Link>
                     </li>

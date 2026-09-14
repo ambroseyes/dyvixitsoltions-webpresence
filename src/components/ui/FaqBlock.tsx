@@ -29,7 +29,9 @@ export function FaqBlock({
             key={f.q}
             className="grid gap-3 border-b border-line py-7 md:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)] md:gap-12"
           >
-            <dt className="text-(length:--text-h4) font-semibold tracking-[-0.02em] text-balance">{f.q}</dt>
+            <dt className="text-(length:--text-h4) font-semibold tracking-[-0.02em] text-balance">
+              {f.q}
+            </dt>
             <dd className="text-(length:--text-base) leading-relaxed text-ink-muted">{f.a}</dd>
           </div>
         ))}

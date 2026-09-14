@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { fr } from "../src/i18n/dictionaries/fr";
 
 test.describe("enquiry form", () => {
   test("blocks progress until a scope is chosen, then advances", async ({ page }) => {
@@ -13,8 +14,8 @@ test.describe("enquiry form", () => {
   });
 
   test("prefills the scope from the query string", async ({ page }) => {
-    await page.goto("/contact?scope=applied-ai");
-    const preset = page.locator("label").filter({ hasText: /^Applied AI$/ });
+    await page.goto("/contact?scope=ai-data");
+    const preset = page.locator("label").filter({ hasText: /^AI, data & automation$/ });
     await expect(preset.locator("input[type=checkbox]")).toBeChecked();
   });
 
@@ -56,14 +57,21 @@ test.describe("enquiry form", () => {
 
     await expect(page.getByRole("alert").filter({ hasText: /valid email/i })).toBeVisible();
   });
+
+  test("speaks French on the French page", async ({ page }) => {
+    await page.goto("/fr/contact");
+    await page.getByRole("button", { name: fr.form.continue }).click();
+    await expect(page.getByRole("alert").filter({ hasText: fr.form.errors.scopes })).toBeVisible();
+  });
 });
 
 test.describe("contact API", () => {
-  test("rejects an invalid payload with 422 and field errors", async ({ request }) => {
+  test("rejects an invalid payload with 422, a code and field errors", async ({ request }) => {
     const res = await request.post("/api/contact", { data: { name: "x" } });
     expect(res.status()).toBe(422);
     const body = await res.json();
     expect(body.success).toBe(false);
+    expect(body.error).toBe("review");
     expect(body.fieldErrors).toBeTruthy();
   });
 
@@ -77,7 +85,7 @@ test.describe("contact API", () => {
         name: "Bot",
         organisation: "Bot Co",
         email: "bot@example.com",
-        scopes: ["applied-ai"],
+        scopes: ["ai-data"],
         timeline: "urgent",
         message: "This is spam content long enough to pass length validation.",
         website: "http://spam.example",

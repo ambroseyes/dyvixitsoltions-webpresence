@@ -20,6 +20,20 @@ export type NavGroup = {
 
 export type FooterColumn = { label: string; links: NavLeaf[] };
 
+export type Crumb = { name: string; path: string };
+
+/**
+ * Breadcrumb trail starting at Home. Takes locale-agnostic paths and returns
+ * public ones, ready for both <Breadcrumbs> and BreadcrumbList schema.
+ */
+export function breadcrumbTrail(lang: Locale, items: Crumb[]): Crumb[] {
+  const home = getDictionary(lang).nav.home;
+  return [
+    { name: home, path: localePath(lang, "/") },
+    ...items.map((c) => ({ ...c, path: localePath(lang, c.path) })),
+  ];
+}
+
 /** Products without a confirmed description are cards on /solutions, not pages. */
 export function productHref(product: Product): string {
   return hasDetailPage(product) ? `/solutions/${product.slug}` : `/solutions#${product.slug}`;
