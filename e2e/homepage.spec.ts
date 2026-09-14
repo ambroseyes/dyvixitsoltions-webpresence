@@ -39,15 +39,39 @@ test.describe("homepage", () => {
   });
 
   // 320 is the narrowest width the responsive rules require support for.
-  for (const width of [320, 375, 768, 1024, 1440, 1920]) {
-    test(`has no horizontal overflow at ${width}px`, async ({ page }) => {
-      await page.setViewportSize({ width, height: 900 });
-      await page.goto("/");
-      const overflow = await page.evaluate(() => {
-        const d = document.documentElement;
-        return d.scrollWidth - d.clientWidth;
+  // Both languages: French labels run longer and overflowed where English fit.
+  for (const path of ["/", "/fr"]) {
+    for (const width of [320, 375, 768, 1024, 1440, 1920]) {
+      test(`${path} has no horizontal overflow at ${width}px`, async ({ page }) => {
+        await page.setViewportSize({ width, height: 900 });
+        await page.goto(path);
+        const overflow = await page.evaluate(() => {
+          const d = document.documentElement;
+          return d.scrollWidth - d.clientWidth;
+        });
+        expect(overflow, `overflow at ${width}px`).toBeLessThanOrEqual(1);
       });
-      expect(overflow, `overflow at ${width}px`).toBeLessThanOrEqual(1);
-    });
+    }
+  }
+
+  /**
+   * The desktop header appears at 1024px. A label that wraps there (French
+   * "À propos" did) means the row is out of room before it overflows. Every
+   * control is a single line of text: 44px at most, including touch padding.
+   */
+  for (const path of ["/", "/fr"]) {
+    for (const width of [1024, 1280]) {
+      test(`${path} keeps every header control on one line at ${width}px`, async ({ page }) => {
+        await page.setViewportSize({ width, height: 900 });
+        await page.goto(path);
+        const wrapped = await page.locator("header").evaluate((header) =>
+          [...header.querySelectorAll("a, button")]
+            .map((el) => ({ text: el.textContent?.trim(), box: el.getBoundingClientRect() }))
+            .filter(({ box }) => box.width > 0 && box.height > 48)
+            .map(({ text, box }) => `${text} (${Math.round(box.height)}px)`),
+        );
+        expect(wrapped).toEqual([]);
+      });
+    }
   }
 });

@@ -224,7 +224,7 @@ Zod was removed from the client bundle by splitting validation rules
 | Suite                        | Count                     | Command            |
 | ---------------------------- | ------------------------- | ------------------ |
 | Unit (Vitest)                | 330                       | `npm test`         |
-| E2E (Playwright ×4 projects) | 352 (5 skipped by design) | `npm run test:e2e` |
+| E2E (Playwright ×4 projects) | 396 (5 skipped by design) | `npm run test:e2e` |
 
 Coverage on `src/lib` and `src/content`: 97% statements, 97% branches, 94%
 functions, 98% lines.
@@ -233,7 +233,8 @@ E2E projects: Chromium, Firefox, WebKit, and Pixel 7. Specs cover navigation,
 the command palette, the solution finder, the problem tabs, the enquiry form
 end to end — through real SMTP to a local sink, both delivered and refused —
 the API contract, SEO/schema output, security headers, responsive overflow at
-six widths, and accessibility.
+six widths in both languages, a single-line header at desktop widths, and
+accessibility.
 
 ## Environment
 

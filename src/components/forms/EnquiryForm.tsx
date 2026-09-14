@@ -426,8 +426,12 @@ export function EnquiryForm({
             {labels.back}
           </button>
 
+          {/* Distinct keys: without them React reuses one <button> and flips its
+              type to submit during the click on the last "Continue", so the
+              browser submits the form as soon as the details step appears. */}
           {step < lastStep ? (
             <button
+              key="next"
               type="button"
               onClick={next}
               className="inline-flex min-h-11 items-center gap-2 rounded-(--radius-sm) border border-primary bg-primary px-6 text-(length:--text-sm) font-medium text-surface transition-colors duration-(--duration-fast) hover:border-ink hover:bg-ink dark:hover:bg-ink-inverse dark:hover:text-surface"
@@ -437,6 +441,7 @@ export function EnquiryForm({
             </button>
           ) : (
             <button
+              key="send"
               type="submit"
               disabled={status === "sending"}
               className="inline-flex min-h-11 items-center gap-2 rounded-(--radius-sm) border border-primary bg-primary px-6 text-(length:--text-sm) font-medium text-surface transition-colors duration-(--duration-fast) hover:border-ink hover:bg-ink disabled:opacity-60 dark:hover:bg-ink-inverse dark:hover:text-surface"
