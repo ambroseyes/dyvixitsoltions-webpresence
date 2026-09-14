@@ -84,7 +84,7 @@ export function SiteHeader({ lang, nav, labels, theme, command, homeLabel }: Pro
       <header className="sticky top-0 z-(--z-header) border-b border-line bg-surface/88 backdrop-blur-md">
         <div
           ref={navRef}
-          className="mx-auto flex h-16 max-w-(--container-rail) items-center justify-between gap-6 px-(--spacing-gutter)"
+          className="mx-auto flex h-16 max-w-(--container-rail) items-center justify-between gap-6 px-(--spacing-gutter) lg:max-xl:gap-4"
         >
           <Logo href={localePath(lang, "/")} label={homeLabel} />
 
@@ -98,7 +98,7 @@ export function SiteHeader({ lang, nav, labels, theme, command, homeLabel }: Pro
                     href={group.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "rounded-(--radius-sm) px-3 py-2 text-(length:--text-sm) transition-colors duration-(--duration-fast)",
+                      "rounded-(--radius-sm) px-2 py-2 text-(length:--text-sm) whitespace-nowrap transition-colors xl:px-3 duration-(--duration-fast)",
                       active ? "text-primary" : "text-ink-muted hover:text-ink",
                     )}
                   >
@@ -134,7 +134,7 @@ export function SiteHeader({ lang, nav, labels, theme, command, homeLabel }: Pro
                       setOpenGroup(isOpen ? null : group.match);
                     }}
                     className={cn(
-                      "inline-flex items-center gap-1.5 rounded-(--radius-sm) px-3 py-2 text-(length:--text-sm) transition-colors duration-(--duration-fast)",
+                      "inline-flex items-center gap-1.5 rounded-(--radius-sm) px-2 py-2 text-(length:--text-sm) whitespace-nowrap transition-colors xl:px-3 duration-(--duration-fast)",
                       active || isOpen ? "text-primary" : "text-ink-muted hover:text-ink",
                     )}
                   >
@@ -203,15 +203,20 @@ export function SiteHeader({ lang, nav, labels, theme, command, homeLabel }: Pro
           </nav>
 
           <div className="flex items-center gap-1">
+            {/* From 1024px the full menu shares this row; until 1280px there is
+                no room for the label, so the button keeps only its icon. The
+                aria-label names it either way. */}
             <button
               type="button"
               onClick={(e) => openCommandMenu(e.currentTarget)}
               aria-label={labels.searchAria}
-              className="hidden items-center gap-2 rounded-(--radius-sm) border border-line px-3 py-2 text-(length:--text-sm) text-ink-faint transition-colors duration-(--duration-fast) hover:border-line-strong hover:text-ink md:inline-flex"
+              className="hidden items-center gap-2 rounded-(--radius-sm) border border-line px-3 py-2 text-(length:--text-sm) whitespace-nowrap text-ink-faint transition-colors duration-(--duration-fast) hover:border-line-strong hover:text-ink md:inline-flex"
             >
               <Search size={13} strokeWidth={1.75} aria-hidden="true" />
-              <span>{labels.search}</span>
-              <kbd className="ml-3 font-mono text-(length:--text-micro) text-ink-faint">⌘K</kbd>
+              <span className="lg:max-xl:hidden">{labels.search}</span>
+              <kbd className="ml-3 font-mono text-(length:--text-micro) text-ink-faint lg:max-xl:hidden">
+                ⌘K
+              </kbd>
             </button>
 
             {/* A full navigation, not a client transition: <html lang> is set by
@@ -230,7 +235,7 @@ export function SiteHeader({ lang, nav, labels, theme, command, homeLabel }: Pro
 
             <Link
               href={localePath(lang, "/contact")}
-              className="hidden min-h-11 items-center rounded-(--radius-sm) border border-primary bg-primary px-4 text-(length:--text-sm) font-medium text-surface transition-colors duration-(--duration-fast) hover:border-ink hover:bg-ink sm:inline-flex dark:hover:bg-ink-inverse dark:hover:text-surface"
+              className="hidden min-h-11 items-center rounded-(--radius-sm) border border-primary bg-primary px-4 lg:max-xl:px-3 text-(length:--text-sm) font-medium whitespace-nowrap text-surface transition-colors duration-(--duration-fast) hover:border-ink hover:bg-ink sm:inline-flex dark:hover:bg-ink-inverse dark:hover:text-surface"
             >
               {labels.startProject}
             </Link>
