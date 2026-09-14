@@ -24,23 +24,82 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
       "Legacy applications with no maintainer and no documentation",
     ],
     capabilities: [
-      { title: "Software architecture", description: "Structures sized to the problem, with service boundaries drawn around the business rather than the framework." },
-      { title: "Web and mobile applications", description: "Internal tools and customer-facing products, built to be operated and extended." },
-      { title: "Business software and information systems", description: "Line-of-business systems that encode how the organisation actually works." },
-      { title: "Digital platforms and SaaS", description: "Products with the plumbing a real service needs: authentication, access control, observability and billing." },
-      { title: "APIs and microservices", description: "REST APIs and microservice estates with clear contracts and a gateway in front of them." },
-      { title: "Systems integration", description: "Making existing systems exchange data reliably instead of through people." },
-      { title: "Application modernisation", description: "Moving legacy applications onto maintainable foundations in increments, without a big-bang rewrite." },
+      {
+        title: "Software architecture",
+        description:
+          "Structures sized to the problem, with service boundaries drawn around the business rather than the framework.",
+      },
+      {
+        title: "Web and mobile applications",
+        description:
+          "Internal tools and customer-facing products, built to be operated and extended.",
+      },
+      {
+        title: "Business software and information systems",
+        description: "Line-of-business systems that encode how the organisation actually works.",
+      },
+      {
+        title: "Digital platforms and SaaS",
+        description:
+          "Products with the plumbing a real service needs: authentication, access control, observability and billing.",
+      },
+      {
+        title: "APIs and microservices",
+        description:
+          "REST APIs and microservice estates with clear contracts and a gateway in front of them.",
+      },
+      {
+        title: "Systems integration",
+        description: "Making existing systems exchange data reliably instead of through people.",
+      },
+      {
+        title: "Application modernisation",
+        description:
+          "Moving legacy applications onto maintainable foundations in increments, without a big-bang rewrite.",
+      },
     ],
     approach: [
-      { title: "Understand the work", description: "Observe the actual process, including the workarounds people rely on." },
-      { title: "Define the smallest useful system", description: "Identify what delivers value first and defer the rest deliberately." },
-      { title: "Architect", description: "Choose a structure sized to the problem, not to a framework’s preferences." },
-      { title: "Build in increments", description: "Ship working slices to real users and correct course on their feedback." },
-      { title: "Review and harden", description: "No merge without review. Validation, authorisation and tests before production." },
-      { title: "Hand over", description: "Documentation and training so your team can operate and change it." },
+      {
+        title: "Understand the work",
+        description: "Observe the actual process, including the workarounds people rely on.",
+      },
+      {
+        title: "Define the smallest useful system",
+        description: "Identify what delivers value first and defer the rest deliberately.",
+      },
+      {
+        title: "Architect",
+        description: "Choose a structure sized to the problem, not to a framework’s preferences.",
+      },
+      {
+        title: "Build in increments",
+        description: "Ship working slices to real users and correct course on their feedback.",
+      },
+      {
+        title: "Review and harden",
+        description:
+          "No merge without review. Validation, authorisation and tests before production.",
+      },
+      {
+        title: "Hand over",
+        description: "Documentation and training so your team can operate and change it.",
+      },
     ],
-    technologies: ["Python", "FastAPI", "Laravel", "PHP", "React", "TypeScript", "PostgreSQL", "MySQL", "MongoDB", "Redis", "REST APIs", "WebSocket", "Docker"],
+    technologies: [
+      "Python",
+      "FastAPI",
+      "Laravel",
+      "PHP",
+      "React",
+      "TypeScript",
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "Redis",
+      "REST APIs",
+      "WebSocket",
+      "Docker",
+    ],
     outcomes: [
       "Manual re-entry removed from the process",
       "Institutional knowledge encoded rather than held individually",
@@ -48,16 +107,42 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
       "A codebase your team can maintain",
     ],
     evidence: [
-      { claim: "SaCrècheIci — a real-time platform in production", detail: "React single-page application with WebSocket live updates over a PostgreSQL/PostGIS backend, including a real-time operations dashboard." },
-      { claim: "Lexora AI — ten FastAPI microservices", detail: "A microservice API estate built in-house." },
-      { claim: "Back-Node — a microservice automation platform", detail: "Visual workflows, RPA and AI behind an API gateway, built in-house on FastAPI. In development." },
-      { claim: "B2B e-commerce platform, 2022–2025", detail: "A three-year platform engagement delivered under the company’s review discipline." },
+      {
+        claim: "SaCrècheIci — a real-time platform in production",
+        detail:
+          "React single-page application with WebSocket live updates over a PostgreSQL/PostGIS backend, including a real-time operations dashboard.",
+      },
+      {
+        claim: "Lexora AI — ten FastAPI microservices",
+        detail: "A microservice API estate built in-house.",
+      },
+      {
+        claim: "Back-Node — a microservice automation platform",
+        detail:
+          "Visual workflows, RPA and AI behind an API gateway, built in-house on FastAPI. In development.",
+      },
+      {
+        claim: "B2B e-commerce platform, 2022–2025",
+        detail: "A three-year platform engagement delivered under the company’s review discipline.",
+      },
     ],
     faqs: [
-      { q: "Can D’Yvix develop custom software?", a: "Yes. Digital and software engineering is one of D’Yvix’s domains, covering web and mobile applications, business software, platforms, APIs and microservices, from analysis through to maintenance. Recent work includes a real-time React and PostGIS platform and a ten-service FastAPI estate." },
-      { q: "Should we build or buy?", a: "Buy when the process is genuinely standard — accounting and payroll usually are. Build when the process is a differentiator, or when packaged software would force a change costing more than the software saves. The analysis phase answers this before code is written, and recommending a package is a valid outcome." },
-      { q: "Who owns the code?", a: "You do. Source code, documentation and deployment configuration are delivered to the client, and engagements are structured so another team could take over without renegotiating access." },
-      { q: "How is quality controlled?", a: "Continuous documentation, weekly demonstrations, and no merge without code review. Functional and security testing precede every production go-live, with supervised deployment and a rollback plan." },
+      {
+        q: "Can D’Yvix develop custom software?",
+        a: "Yes. Digital and software engineering is one of D’Yvix’s domains, covering web and mobile applications, business software, platforms, APIs and microservices, from analysis through to maintenance. Recent work includes a real-time React and PostGIS platform and a ten-service FastAPI estate.",
+      },
+      {
+        q: "Should we build or buy?",
+        a: "Buy when the process is genuinely standard — accounting and payroll usually are. Build when the process is a differentiator, or when packaged software would force a change costing more than the software saves. The analysis phase answers this before code is written, and recommending a package is a valid outcome.",
+      },
+      {
+        q: "Who owns the code?",
+        a: "You do. Source code, documentation and deployment configuration are delivered to the client, and engagements are structured so another team could take over without renegotiating access.",
+      },
+      {
+        q: "How is quality controlled?",
+        a: "Continuous documentation, weekly demonstrations, and no merge without code review. Functional and security testing precede every production go-live, with supervised deployment and a rollback plan.",
+      },
     ],
     ctaLabel: "Discuss Your Software Project",
   },
@@ -65,7 +150,8 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
   "cloud-infrastructure": {
     name: "Cloud, Infrastructure & DevOps",
     shortName: "Cloud",
-    summary: "Building high-performance, resilient infrastructure — physical, virtual and cloud — and the pipelines that keep it current.",
+    summary:
+      "Building high-performance, resilient infrastructure — physical, virtual and cloud — and the pipelines that keep it current.",
     headline: "Infrastructure that simply works.",
     standfirst:
       "Most outages are not exotic. They are a single point of failure nobody documented, a backup nobody restored, or a link nobody monitored. We remove those quietly and permanently.",
@@ -85,22 +171,84 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
       "Deployments only one person knows how to perform",
     ],
     capabilities: [
-      { title: "Physical and virtualised infrastructure", description: "Servers, racks and hypervisors — build, hardening and lifecycle management across Windows Server and Linux estates." },
-      { title: "Private, public and hybrid cloud", description: "Workloads placed where they perform and price best, including in-country hosting where data residency requires it." },
-      { title: "Storage, backup and replication", description: "NAS and cluster design, retention policy and replication — with restores rehearsed, not assumed." },
-      { title: "High availability and disaster recovery", description: "Documented recovery objectives, a tested runbook, and a secondary path that has actually been failed over to." },
-      { title: "Containers and orchestration", description: "Docker and Kubernetes, with orchestration sized to the workload rather than the trend." },
-      { title: "DevOps and DevSecOps", description: "CI/CD pipelines with security checks as a build gate, and environments rebuildable from source." },
-      { title: "Observability and supervision", description: "Grafana, Prometheus and Zabbix instrumentation on the paths that matter, tuned to reduce noise." },
+      {
+        title: "Physical and virtualised infrastructure",
+        description:
+          "Servers, racks and hypervisors — build, hardening and lifecycle management across Windows Server and Linux estates.",
+      },
+      {
+        title: "Private, public and hybrid cloud",
+        description:
+          "Workloads placed where they perform and price best, including in-country hosting where data residency requires it.",
+      },
+      {
+        title: "Storage, backup and replication",
+        description:
+          "NAS and cluster design, retention policy and replication — with restores rehearsed, not assumed.",
+      },
+      {
+        title: "High availability and disaster recovery",
+        description:
+          "Documented recovery objectives, a tested runbook, and a secondary path that has actually been failed over to.",
+      },
+      {
+        title: "Containers and orchestration",
+        description:
+          "Docker and Kubernetes, with orchestration sized to the workload rather than the trend.",
+      },
+      {
+        title: "DevOps and DevSecOps",
+        description:
+          "CI/CD pipelines with security checks as a build gate, and environments rebuildable from source.",
+      },
+      {
+        title: "Observability and supervision",
+        description:
+          "Grafana, Prometheus and Zabbix instrumentation on the paths that matter, tuned to reduce noise.",
+      },
     ],
     approach: [
-      { title: "Inventory", description: "Establish what actually exists — not what the documentation claims." },
-      { title: "Assess", description: "Identify single points of failure, unsupported versions and untested recovery paths." },
-      { title: "Architect", description: "Design the target state and the migration order that keeps you running throughout." },
-      { title: "Implement", description: "Change in reversible increments, each one validated before the next begins." },
-      { title: "Operate", description: "Monitor, patch and review — with a named escalation path." },
+      {
+        title: "Inventory",
+        description: "Establish what actually exists — not what the documentation claims.",
+      },
+      {
+        title: "Assess",
+        description:
+          "Identify single points of failure, unsupported versions and untested recovery paths.",
+      },
+      {
+        title: "Architect",
+        description:
+          "Design the target state and the migration order that keeps you running throughout.",
+      },
+      {
+        title: "Implement",
+        description: "Change in reversible increments, each one validated before the next begins.",
+      },
+      {
+        title: "Operate",
+        description: "Monitor, patch and review — with a named escalation path.",
+      },
     ],
-    technologies: ["VMware ESXi", "Windows Server", "Red Hat Enterprise Linux", "Dell PowerEdge", "HP ProLiant", "TrueNAS", "FreeNAS", "AWS", "Google Cloud", "OVH", "Docker", "Kubernetes", "GitLab CI", "Grafana", "Prometheus", "Zabbix"],
+    technologies: [
+      "VMware ESXi",
+      "Windows Server",
+      "Red Hat Enterprise Linux",
+      "Dell PowerEdge",
+      "HP ProLiant",
+      "TrueNAS",
+      "FreeNAS",
+      "AWS",
+      "Google Cloud",
+      "OVH",
+      "Docker",
+      "Kubernetes",
+      "GitLab CI",
+      "Grafana",
+      "Prometheus",
+      "Zabbix",
+    ],
     outcomes: [
       "Reduced unplanned downtime",
       "A recovery objective you can state in numbers and demonstrate",
@@ -108,18 +256,53 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
       "Capacity headroom planned against measured growth",
     ],
     evidence: [
-      { claim: "Storage scaled from 580 TB to over 3,500 TB", detail: "Creolink Communication, 2015–2023. An initial FreeNAS backup platform grown into a TrueNAS cluster across an eight-year partnership as the ISP’s data volumes grew." },
-      { claim: "FEICOM — virtualisation for a national public institution", detail: "Dell PowerEdge servers, RAID 5, VMware ESXi 5.5 across three hosts with datastore configuration, and Red Hat Enterprise Linux virtual machines." },
-      { claim: "PNDP–CNC — a virtualised environment for a national programme", detail: "HP ProLiant G8 servers, RAID 5/1, VMware ESXi 5.5, virtual switches and network configuration." },
-      { claim: "Virtualised infrastructure for an insurer, since 2022", detail: "A virtualised infrastructure designed and operated for a client in the insurance sector." },
-      { claim: "Kubernetes deployment for an in-house platform", detail: "Back-Node ships with Kubernetes manifests managed through Kustomize and a GitLab CI pipeline." },
+      {
+        claim: "Storage scaled from 580 TB to over 3,500 TB",
+        detail:
+          "Creolink Communication, 2015–2023. An initial FreeNAS backup platform grown into a TrueNAS cluster across an eight-year partnership as the ISP’s data volumes grew.",
+      },
+      {
+        claim: "FEICOM — virtualisation for a national public institution",
+        detail:
+          "Dell PowerEdge servers, RAID 5, VMware ESXi 5.5 across three hosts with datastore configuration, and Red Hat Enterprise Linux virtual machines.",
+      },
+      {
+        claim: "PNDP–CNC — a virtualised environment for a national programme",
+        detail:
+          "HP ProLiant G8 servers, RAID 5/1, VMware ESXi 5.5, virtual switches and network configuration.",
+      },
+      {
+        claim: "Virtualised infrastructure for an insurer, since 2022",
+        detail:
+          "A virtualised infrastructure designed and operated for a client in the insurance sector.",
+      },
+      {
+        claim: "Kubernetes deployment for an in-house platform",
+        detail:
+          "Back-Node ships with Kubernetes manifests managed through Kustomize and a GitLab CI pipeline.",
+      },
     ],
     faqs: [
-      { q: "How long does an infrastructure assessment take?", a: "For a single-site estate, typically one to two weeks from kick-off to written report: discovery, measurement, then a findings document with prioritised remediation. Multi-site estates take longer, driven by the number of locations rather than the complexity of any one." },
-      { q: "Can D’Yvix manage infrastructure we already have?", a: "Yes, and several of our longest relationships began that way — one storage platform stayed under our management for eight years. Taking over an existing estate starts with an inventory and an assessment, so we operate against documented reality." },
-      { q: "Do you replace existing hardware?", a: "Only where it is failing, unsupported, or demonstrably the constraint. Consolidation and virtualisation frequently extend the useful life of an estate at a fraction of replacement cost." },
-      { q: "Do we need Kubernetes?", a: "Often not. Kubernetes solves problems that appear at a scale many organisations never reach, and it brings operational overhead of its own. Container orchestration on a handful of hosts is frequently enough. The recommendation follows the workload, not the trend." },
-      { q: "What does a tested backup mean in practice?", a: "A restore performed against real data on a defined schedule, timed and documented, so the recovery time objective is a measurement rather than an estimate. Backups that have never been restored are unverified by definition." },
+      {
+        q: "How long does an infrastructure assessment take?",
+        a: "For a single-site estate, typically one to two weeks from kick-off to written report: discovery, measurement, then a findings document with prioritised remediation. Multi-site estates take longer, driven by the number of locations rather than the complexity of any one.",
+      },
+      {
+        q: "Can D’Yvix manage infrastructure we already have?",
+        a: "Yes, and several of our longest relationships began that way — one storage platform stayed under our management for eight years. Taking over an existing estate starts with an inventory and an assessment, so we operate against documented reality.",
+      },
+      {
+        q: "Do you replace existing hardware?",
+        a: "Only where it is failing, unsupported, or demonstrably the constraint. Consolidation and virtualisation frequently extend the useful life of an estate at a fraction of replacement cost.",
+      },
+      {
+        q: "Do we need Kubernetes?",
+        a: "Often not. Kubernetes solves problems that appear at a scale many organisations never reach, and it brings operational overhead of its own. Container orchestration on a handful of hosts is frequently enough. The recommendation follows the workload, not the trend.",
+      },
+      {
+        q: "What does a tested backup mean in practice?",
+        a: "A restore performed against real data on a defined schedule, timed and documented, so the recovery time objective is a measurement rather than an estimate. Backups that have never been restored are unverified by definition.",
+      },
     ],
     ctaLabel: "Request an Infrastructure Assessment",
   },
@@ -148,24 +331,86 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
       "No rehearsed response plan",
     ],
     capabilities: [
-      { title: "Security audit and risk analysis", description: "Independent review of infrastructure, configuration and practice against a documented baseline." },
-      { title: "Network and system security", description: "FortiGate and MikroTik firewall architecture, segmentation, hardening and policy review — deployed, then tuned." },
-      { title: "Application and API security", description: "Secure design, authentication, API gateways and mandatory code review." },
-      { title: "Cloud security", description: "Identity, network policy and key management carried into the cloud rather than left behind." },
-      { title: "Identity and access (IAM, RBAC, ABAC)", description: "Least privilege, access review, and removal of shared and orphaned accounts." },
-      { title: "SOC, SIEM and incident response", description: "Continuous monitoring, AI-assisted triage under human review, containment and recovery to a known-good state." },
-      { title: "Vulnerability management and security testing", description: "Recurring scanning and testing, with remediation tracked to closure — not to a report." },
-      { title: "Governance, compliance and continuity", description: "Security management practices aligned to ISO/IEC 27001, processes adaptable to a partner’s GDPR requirements, and continuity backed by tested recovery." },
+      {
+        title: "Security audit and risk analysis",
+        description:
+          "Independent review of infrastructure, configuration and practice against a documented baseline.",
+      },
+      {
+        title: "Network and system security",
+        description:
+          "FortiGate and MikroTik firewall architecture, segmentation, hardening and policy review — deployed, then tuned.",
+      },
+      {
+        title: "Application and API security",
+        description: "Secure design, authentication, API gateways and mandatory code review.",
+      },
+      {
+        title: "Cloud security",
+        description:
+          "Identity, network policy and key management carried into the cloud rather than left behind.",
+      },
+      {
+        title: "Identity and access (IAM, RBAC, ABAC)",
+        description: "Least privilege, access review, and removal of shared and orphaned accounts.",
+      },
+      {
+        title: "SOC, SIEM and incident response",
+        description:
+          "Continuous monitoring, AI-assisted triage under human review, containment and recovery to a known-good state.",
+      },
+      {
+        title: "Vulnerability management and security testing",
+        description:
+          "Recurring scanning and testing, with remediation tracked to closure — not to a report.",
+      },
+      {
+        title: "Governance, compliance and continuity",
+        description:
+          "Security management practices aligned to ISO/IEC 27001, processes adaptable to a partner’s GDPR requirements, and continuity backed by tested recovery.",
+      },
     ],
     approach: [
-      { title: "Assess", description: "Establish real exposure across network, endpoints, identity and applications." },
-      { title: "Protect", description: "Close the exploitable gaps, ordered by risk rather than by ease." },
-      { title: "Detect", description: "Instrument for the events that matter and tune out the noise that hides them." },
-      { title: "Respond", description: "A rehearsed plan with named owners, decision authority and escalation paths." },
-      { title: "Recover", description: "Restore to a known-good state with verified, isolated backups." },
-      { title: "Improve", description: "Feed every finding and incident back into the next cycle." },
+      {
+        title: "Assess",
+        description:
+          "Establish real exposure across network, endpoints, identity and applications.",
+      },
+      {
+        title: "Protect",
+        description: "Close the exploitable gaps, ordered by risk rather than by ease.",
+      },
+      {
+        title: "Detect",
+        description:
+          "Instrument for the events that matter and tune out the noise that hides them.",
+      },
+      {
+        title: "Respond",
+        description: "A rehearsed plan with named owners, decision authority and escalation paths.",
+      },
+      {
+        title: "Recover",
+        description: "Restore to a known-good state with verified, isolated backups.",
+      },
+      {
+        title: "Improve",
+        description: "Feed every finding and incident back into the next cycle.",
+      },
     ],
-    technologies: ["FortiGate", "Kaspersky EDR", "Kaspersky Endpoint", "G-Data EndPoint", "MikroTik", "SIEM", "EDR", "IAM", "RBAC / ABAC", "VPN", "ISO/IEC 27001 practices"],
+    technologies: [
+      "FortiGate",
+      "Kaspersky EDR",
+      "Kaspersky Endpoint",
+      "G-Data EndPoint",
+      "MikroTik",
+      "SIEM",
+      "EDR",
+      "IAM",
+      "RBAC / ABAC",
+      "VPN",
+      "ISO/IEC 27001 practices",
+    ],
     outcomes: [
       "A prioritised, evidenced picture of current exposure",
       "Critical gaps closed in a defined sequence",
@@ -173,16 +418,42 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
       "A response plan that has been rehearsed",
     ],
     evidence: [
-      { claim: "Continuous network security for a European diplomatic mission since 2019", detail: "Uninterrupted security operations for a confidentiality-critical client — the standard the practice operates at daily." },
-      { claim: "FODECC — security and network modernisation, 2016–2020", detail: "Workstation migration and endpoint protection, then a racked and cabled local network and a secured fibre-optic LAN across two sites, 135 seats. FortiGate firewall and Kaspersky Endpoint." },
-      { claim: "Security monitoring for a financial-sector client, 2025", detail: "Kaspersky EDR with AI-assisted SOC monitoring under mandatory human review." },
+      {
+        claim: "Continuous network security for a European diplomatic mission since 2019",
+        detail:
+          "Uninterrupted security operations for a confidentiality-critical client — the standard the practice operates at daily.",
+      },
+      {
+        claim: "FODECC — security and network modernisation, 2016–2020",
+        detail:
+          "Workstation migration and endpoint protection, then a racked and cabled local network and a secured fibre-optic LAN across two sites, 135 seats. FortiGate firewall and Kaspersky Endpoint.",
+      },
+      {
+        claim: "Security monitoring for a financial-sector client, 2025",
+        detail: "Kaspersky EDR with AI-assisted SOC monitoring under mandatory human review.",
+      },
     ],
     faqs: [
-      { q: "What does a cybersecurity assessment include?", a: "A review of network architecture and segmentation, perimeter and firewall configuration, endpoint coverage, identity and privilege, patch currency, backup integrity and recovery capability. It concludes with a written report: findings, the business risk of each, and a remediation sequence ordered by risk." },
-      { q: "Does D’Yvix support FortiGate?", a: "Yes. FortiGate has been deployed and operated on client engagements, including a multi-year security modernisation programme. Fortinet is also among the company’s technology partnerships." },
-      { q: "Is D’Yvix ISO 27001 certified?", a: "The company’s information security practices are aligned to ISO/IEC 27001 — formal NDAs before any access to sensitive systems, least-privilege access limited to assigned team members, and secure development practices. Ask us directly for the current certification position before relying on it in a procurement process; we will not overstate it." },
-      { q: "Will an assessment disrupt operations?", a: "No. Assessment work is read-only by default — configuration review, passive analysis and interviews. Anything intrusive, such as active scanning against production, is scheduled and agreed in writing in advance." },
-      { q: "How often should an assessment be repeated?", a: "Annually as a baseline, and additionally after any material change — a new site, a significant migration, a merger, or an incident. Exposure is a moving state, so a single assessment describes one moment only." },
+      {
+        q: "What does a cybersecurity assessment include?",
+        a: "A review of network architecture and segmentation, perimeter and firewall configuration, endpoint coverage, identity and privilege, patch currency, backup integrity and recovery capability. It concludes with a written report: findings, the business risk of each, and a remediation sequence ordered by risk.",
+      },
+      {
+        q: "Does D’Yvix support FortiGate?",
+        a: "Yes. FortiGate has been deployed and operated on client engagements, including a multi-year security modernisation programme. Fortinet is also among the company’s technology partnerships.",
+      },
+      {
+        q: "Is D’Yvix ISO 27001 certified?",
+        a: "The company’s information security practices are aligned to ISO/IEC 27001 — formal NDAs before any access to sensitive systems, least-privilege access limited to assigned team members, and secure development practices. Ask us directly for the current certification position before relying on it in a procurement process; we will not overstate it.",
+      },
+      {
+        q: "Will an assessment disrupt operations?",
+        a: "No. Assessment work is read-only by default — configuration review, passive analysis and interviews. Anything intrusive, such as active scanning against production, is scheduled and agreed in writing in advance.",
+      },
+      {
+        q: "How often should an assessment be repeated?",
+        a: "Annually as a baseline, and additionally after any material change — a new site, a significant migration, a merger, or an incident. Exposure is a moving state, so a single assessment describes one moment only.",
+      },
     ],
     ctaLabel: "Request a Security Assessment",
   },
@@ -210,23 +481,84 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
       "Data too fragmented to support a decision",
     ],
     capabilities: [
-      { title: "AI engineering", description: "Designing, integrating, deploying and operating AI systems end to end — not only calling a model." },
-      { title: "AI agents and multi-agent systems", description: "Agents that act on business systems through defined tools, with every consequential step reviewable." },
-      { title: "Machine learning, language and vision", description: "Models for classification, extraction, language and image tasks, evaluated against a measured baseline." },
-      { title: "Private and sovereign AI", description: "Self-hosted models on infrastructure you control, when confidentiality or data residency requires it." },
-      { title: "Process automation and RPA", description: "Removing repetitive, rule-shaped steps between systems, with workflow orchestration and monitoring." },
-      { title: "Data engineering and analytics", description: "Pipelines, warehouses and dashboards that make data current, clean and usable for decisions." },
-      { title: "Document management and digitisation", description: "EDM deployment, large-scale scanning and indexing into a controlled, searchable repository." },
-      { title: "Geospatial data", description: "PostgreSQL and PostGIS, proven in production — location questions become ordinary queries." },
+      {
+        title: "AI engineering",
+        description:
+          "Designing, integrating, deploying and operating AI systems end to end — not only calling a model.",
+      },
+      {
+        title: "AI agents and multi-agent systems",
+        description:
+          "Agents that act on business systems through defined tools, with every consequential step reviewable.",
+      },
+      {
+        title: "Machine learning, language and vision",
+        description:
+          "Models for classification, extraction, language and image tasks, evaluated against a measured baseline.",
+      },
+      {
+        title: "Private and sovereign AI",
+        description:
+          "Self-hosted models on infrastructure you control, when confidentiality or data residency requires it.",
+      },
+      {
+        title: "Process automation and RPA",
+        description:
+          "Removing repetitive, rule-shaped steps between systems, with workflow orchestration and monitoring.",
+      },
+      {
+        title: "Data engineering and analytics",
+        description:
+          "Pipelines, warehouses and dashboards that make data current, clean and usable for decisions.",
+      },
+      {
+        title: "Document management and digitisation",
+        description:
+          "EDM deployment, large-scale scanning and indexing into a controlled, searchable repository.",
+      },
+      {
+        title: "Geospatial data",
+        description:
+          "PostgreSQL and PostGIS, proven in production — location questions become ordinary queries.",
+      },
     ],
     approach: [
-      { title: "Find the repetitive work", description: "Identify tasks that are high volume, rule-shaped and currently manual." },
-      { title: "Check the data", description: "Confirm the underlying data is complete and current enough to support the task." },
-      { title: "Define acceptable error", description: "Agree what accuracy is required and what a wrong answer costs." },
-      { title: "Pilot narrowly", description: "One workflow, measured against the manual baseline it replaces." },
-      { title: "Keep a human in the loop", description: "Automate the work; leave consequential judgement with a person." },
+      {
+        title: "Find the repetitive work",
+        description: "Identify tasks that are high volume, rule-shaped and currently manual.",
+      },
+      {
+        title: "Check the data",
+        description:
+          "Confirm the underlying data is complete and current enough to support the task.",
+      },
+      {
+        title: "Define acceptable error",
+        description: "Agree what accuracy is required and what a wrong answer costs.",
+      },
+      {
+        title: "Pilot narrowly",
+        description: "One workflow, measured against the manual baseline it replaces.",
+      },
+      {
+        title: "Keep a human in the loop",
+        description: "Automate the work; leave consequential judgement with a person.",
+      },
     ],
-    technologies: ["Python", "Large language models", "DeepSeek", "vLLM", "Retrieval-augmented generation", "FastAPI", "RPA", "PostgreSQL", "PostGIS", "SQL Server", "Dokmee", "TrueNAS"],
+    technologies: [
+      "Python",
+      "Large language models",
+      "DeepSeek",
+      "vLLM",
+      "Retrieval-augmented generation",
+      "FastAPI",
+      "RPA",
+      "PostgreSQL",
+      "PostGIS",
+      "SQL Server",
+      "Dokmee",
+      "TrueNAS",
+    ],
     outcomes: [
       "Measured reduction in time spent on repetitive tasks",
       "Internal knowledge that is searchable and attributable",
@@ -234,17 +566,48 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
       "Automation with a defined and monitored error rate",
     ],
     evidence: [
-      { claim: "Self-hosted LLM infrastructure, 2025", detail: "DeepSeek models served with vLLM on infrastructure under our control — the option that keeps confidential material inside the client’s boundary." },
-      { claim: "AI-assisted SOC monitoring, 2022 onward", detail: "Kaspersky EDR with AI-assisted triage in a live security-operations context, under human review." },
-      { claim: "Ministry of Public Works — electronic document management", detail: "Windows Server and SQL Server environment, Dokmee Enterprise and Dokmee Web, high-volume scanners and two NAS units for the archive repository." },
-      { claim: "Back-Node — workflows, RPA and AI", detail: "An automation platform bringing together iPaaS, visual workflows, RPA and AI in a no-code interface. In development." },
-      { claim: "Geospatial data in production", detail: "PostgreSQL and PostGIS storage and querying in the SaCrècheIci platform." },
+      {
+        claim: "Self-hosted LLM infrastructure, 2025",
+        detail:
+          "DeepSeek models served with vLLM on infrastructure under our control — the option that keeps confidential material inside the client’s boundary.",
+      },
+      {
+        claim: "AI-assisted SOC monitoring, 2022 onward",
+        detail:
+          "Kaspersky EDR with AI-assisted triage in a live security-operations context, under human review.",
+      },
+      {
+        claim: "Ministry of Public Works — electronic document management",
+        detail:
+          "Windows Server and SQL Server environment, Dokmee Enterprise and Dokmee Web, high-volume scanners and two NAS units for the archive repository.",
+      },
+      {
+        claim: "Back-Node — workflows, RPA and AI",
+        detail:
+          "An automation platform bringing together iPaaS, visual workflows, RPA and AI in a no-code interface. In development.",
+      },
+      {
+        claim: "Geospatial data in production",
+        detail: "PostgreSQL and PostGIS storage and querying in the SaCrècheIci platform.",
+      },
     ],
     faqs: [
-      { q: "Will an AI assistant invent answers?", a: "Any system built on a language model can produce a confident wrong answer. That risk is managed by grounding responses in approved sources, returning citations so answers can be checked, and configuring the system to decline rather than guess. It is reduced by design, not eliminated — which is why human review is mandatory in every deployment we run." },
-      { q: "Does our data leave the organisation?", a: "That is decided explicitly at design time, not by default. Where confidentiality or residency rules require it, models run self-hosted on infrastructure you control — we operate DeepSeek under vLLM for exactly this case." },
-      { q: "Where should an organisation start?", a: "With one narrow, high-volume, rule-shaped task that has a measurable manual baseline — document extraction or internal search, typically. Broad organisation-wide AI programmes tend to produce demonstrations rather than results." },
-      { q: "What is electronic document management?", a: "A system for storing, indexing, retrieving and retaining an organisation’s documents under defined access control and retention policy — replacing scattered personal drives and email attachments with a single controlled repository." },
+      {
+        q: "Will an AI assistant invent answers?",
+        a: "Any system built on a language model can produce a confident wrong answer. That risk is managed by grounding responses in approved sources, returning citations so answers can be checked, and configuring the system to decline rather than guess. It is reduced by design, not eliminated — which is why human review is mandatory in every deployment we run.",
+      },
+      {
+        q: "Does our data leave the organisation?",
+        a: "That is decided explicitly at design time, not by default. Where confidentiality or residency rules require it, models run self-hosted on infrastructure you control — we operate DeepSeek under vLLM for exactly this case.",
+      },
+      {
+        q: "Where should an organisation start?",
+        a: "With one narrow, high-volume, rule-shaped task that has a measurable manual baseline — document extraction or internal search, typically. Broad organisation-wide AI programmes tend to produce demonstrations rather than results.",
+      },
+      {
+        q: "What is electronic document management?",
+        a: "A system for storing, indexing, retrieving and retaining an organisation’s documents under defined access control and retention policy — replacing scattered personal drives and email attachments with a single controlled repository.",
+      },
     ],
     ctaLabel: "Discuss an AI or Data Project",
   },
@@ -272,23 +635,81 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
       "No visibility into network health until users complain",
     ],
     capabilities: [
-      { title: "Network architecture", description: "LAN and WAN design, segmentation and addressing sized to measured traffic." },
-      { title: "Professional Wi-Fi and mesh", description: "High-density and multi-site wireless, with mesh coverage where cabling is not practical." },
-      { title: "Routing, switching and SD-WAN", description: "Resilient routing with automatic failover driven by health probes, not interface state." },
-      { title: "Long-range and inter-site links", description: "Point-to-point wireless and fibre interconnection between buildings and sites." },
-      { title: "VPN and firewalling", description: "Secure remote access and site-to-site tunnels behind a tuned perimeter." },
-      { title: "Telephony and telecom infrastructure", description: "IP telephony, PBX, SIP trunks and GSM gateways integrated with the data network." },
-      { title: "Network supervision", description: "Monitoring on every link that matters, with the loss of a link treated as an alert rather than silence." },
-      { title: "Industrial and IoT connectivity", description: "Networks for connected equipment and field devices, segmented from office IT." },
+      {
+        title: "Network architecture",
+        description: "LAN and WAN design, segmentation and addressing sized to measured traffic.",
+      },
+      {
+        title: "Professional Wi-Fi and mesh",
+        description:
+          "High-density and multi-site wireless, with mesh coverage where cabling is not practical.",
+      },
+      {
+        title: "Routing, switching and SD-WAN",
+        description:
+          "Resilient routing with automatic failover driven by health probes, not interface state.",
+      },
+      {
+        title: "Long-range and inter-site links",
+        description:
+          "Point-to-point wireless and fibre interconnection between buildings and sites.",
+      },
+      {
+        title: "VPN and firewalling",
+        description: "Secure remote access and site-to-site tunnels behind a tuned perimeter.",
+      },
+      {
+        title: "Telephony and telecom infrastructure",
+        description:
+          "IP telephony, PBX, SIP trunks and GSM gateways integrated with the data network.",
+      },
+      {
+        title: "Network supervision",
+        description:
+          "Monitoring on every link that matters, with the loss of a link treated as an alert rather than silence.",
+      },
+      {
+        title: "Industrial and IoT connectivity",
+        description:
+          "Networks for connected equipment and field devices, segmented from office IT.",
+      },
     ],
     approach: [
-      { title: "Survey the sites", description: "Record sites, usage and existing infrastructure, on the ground." },
-      { title: "Measure traffic and paths", description: "Quantify real flows and find where apparently separate links converge." },
-      { title: "Design for failure", description: "Decide what happens when each link fails, before it does." },
-      { title: "Deploy and test failover", description: "Commission, then cause the failures and time the recovery." },
-      { title: "Supervise", description: "Watch every link and handle degradation before it becomes an outage." },
+      {
+        title: "Survey the sites",
+        description: "Record sites, usage and existing infrastructure, on the ground.",
+      },
+      {
+        title: "Measure traffic and paths",
+        description: "Quantify real flows and find where apparently separate links converge.",
+      },
+      {
+        title: "Design for failure",
+        description: "Decide what happens when each link fails, before it does.",
+      },
+      {
+        title: "Deploy and test failover",
+        description: "Commission, then cause the failures and time the recovery.",
+      },
+      {
+        title: "Supervise",
+        description: "Watch every link and handle degradation before it becomes an outage.",
+      },
     ],
-    technologies: ["Cisco", "MikroTik", "Ubiquiti UniFi", "Ubiquiti NanoBeam", "Fortinet", "SD-WAN", "VPN", "Structured cabling", "Fibre optic", "TrixBox PBX", "SIP", "GSM gateways"],
+    technologies: [
+      "Cisco",
+      "MikroTik",
+      "Ubiquiti UniFi",
+      "Ubiquiti NanoBeam",
+      "Fortinet",
+      "SD-WAN",
+      "VPN",
+      "Structured cabling",
+      "Fibre optic",
+      "TrixBox PBX",
+      "SIP",
+      "GSM gateways",
+    ],
     outcomes: [
       "Branches that stay connected when one link fails",
       "Measured, documented failover times",
@@ -296,15 +717,39 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
       "Voice and data on one supervised estate",
     ],
     evidence: [
-      { claim: "Cyberlink — close to 100 sites on meshed Wi-Fi", detail: "Deployment and maintenance of a Ubiquiti UniFi wireless network with a MikroTik captive portal across cybercafés in Yaoundé, from 52 sites to close to 100, 2013–2021." },
-      { claim: "SOPECAM — a long-range wireless link", detail: "A Ubiquiti NanoBeam long-range link for the national press and publishing company, in operation since 2017." },
-      { claim: "WellDone Center — 200 seats, voice and data", detail: "Network cabling for 200 seats, management servers, thin clients and telephony with a TrixBox PBX, SIP trunks and GSM gateways." },
-      { claim: "FODECC — fibre between two sites", detail: "A secured fibre-optic local network linking two sites, for 135 seats." },
+      {
+        claim: "Cyberlink — close to 100 sites on meshed Wi-Fi",
+        detail:
+          "Deployment and maintenance of a Ubiquiti UniFi wireless network with a MikroTik captive portal across cybercafés in Yaoundé, from 52 sites to close to 100, 2013–2021.",
+      },
+      {
+        claim: "SOPECAM — a long-range wireless link",
+        detail:
+          "A Ubiquiti NanoBeam long-range link for the national press and publishing company, in operation since 2017.",
+      },
+      {
+        claim: "WellDone Center — 200 seats, voice and data",
+        detail:
+          "Network cabling for 200 seats, management servers, thin clients and telephony with a TrixBox PBX, SIP trunks and GSM gateways.",
+      },
+      {
+        claim: "FODECC — fibre between two sites",
+        detail: "A secured fibre-optic local network linking two sites, for 135 seats.",
+      },
     ],
     faqs: [
-      { q: "Can D’Yvix connect our sites?", a: "Yes. Multi-site interconnection — fibre, long-range wireless or VPN — is part of our delivered work, including a secured fibre link between two sites for 135 seats and a meshed network across close to a hundred sites." },
-      { q: "How do you make failover actually work?", a: "By driving it from probes that measure reachability through the link rather than interface state; by confirming in writing that the two links do not share a physical path; and by testing real failures during working hours. Our article on multi-WAN failover sets out the method." },
-      { q: "Do you handle telephony as well as data?", a: "Yes. We set up the complete telephony of a 200-seat call centre — PBX, SIP trunks and GSM gateways — integrated with the data network." },
+      {
+        q: "Can D’Yvix connect our sites?",
+        a: "Yes. Multi-site interconnection — fibre, long-range wireless or VPN — is part of our delivered work, including a secured fibre link between two sites for 135 seats and a meshed network across close to a hundred sites.",
+      },
+      {
+        q: "How do you make failover actually work?",
+        a: "By driving it from probes that measure reachability through the link rather than interface state; by confirming in writing that the two links do not share a physical path; and by testing real failures during working hours. Our article on multi-WAN failover sets out the method.",
+      },
+      {
+        q: "Do you handle telephony as well as data?",
+        a: "Yes. We set up the complete telephony of a 200-seat call centre — PBX, SIP trunks and GSM gateways — integrated with the data network.",
+      },
     ],
     ctaLabel: "Plan Your Network",
   },
@@ -332,22 +777,69 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
       "Location and telemetry data that no system can query",
     ],
     capabilities: [
-      { title: "IoT systems and gateways", description: "Sensors, gateways and fleet management, with secure onboarding and updates." },
-      { title: "Embedded systems", description: "Software for constrained devices, integrated with the hardware it runs on." },
-      { title: "Edge computing and edge AI", description: "Processing and inference on site, so decisions do not depend on the link." },
-      { title: "Telemetry and geolocation", description: "Collection pipelines and geospatial storage that make field data queryable." },
-      { title: "Remote supervision", description: "Monitoring distributed equipment from one place, with alerts on degradation." },
-      { title: "Cyber-physical and autonomous systems", description: "Drones, robotics and autonomous platforms, subject to the applicable authorisations and regulations." },
-      { title: "Hardware–software integration", description: "Making devices, networks and applications work as one system." },
+      {
+        title: "IoT systems and gateways",
+        description: "Sensors, gateways and fleet management, with secure onboarding and updates.",
+      },
+      {
+        title: "Embedded systems",
+        description: "Software for constrained devices, integrated with the hardware it runs on.",
+      },
+      {
+        title: "Edge computing and edge AI",
+        description: "Processing and inference on site, so decisions do not depend on the link.",
+      },
+      {
+        title: "Telemetry and geolocation",
+        description: "Collection pipelines and geospatial storage that make field data queryable.",
+      },
+      {
+        title: "Remote supervision",
+        description: "Monitoring distributed equipment from one place, with alerts on degradation.",
+      },
+      {
+        title: "Cyber-physical and autonomous systems",
+        description:
+          "Drones, robotics and autonomous platforms, subject to the applicable authorisations and regulations.",
+      },
+      {
+        title: "Hardware–software integration",
+        description: "Making devices, networks and applications work as one system.",
+      },
     ],
     approach: [
-      { title: "Map the field", description: "Record equipment, sites, and the power and connectivity constraints." },
-      { title: "Design the data path", description: "Decide what to collect, how often, and how it gets back." },
-      { title: "Decide what runs on the edge", description: "Keep on site what must work without a link; centralise the rest." },
-      { title: "Pilot on site", description: "A first real deployment, measured under field conditions." },
-      { title: "Supervise and update", description: "Watch the fleet and evolve it without visiting every device." },
+      {
+        title: "Map the field",
+        description: "Record equipment, sites, and the power and connectivity constraints.",
+      },
+      {
+        title: "Design the data path",
+        description: "Decide what to collect, how often, and how it gets back.",
+      },
+      {
+        title: "Decide what runs on the edge",
+        description: "Keep on site what must work without a link; centralise the rest.",
+      },
+      {
+        title: "Pilot on site",
+        description: "A first real deployment, measured under field conditions.",
+      },
+      {
+        title: "Supervise and update",
+        description: "Watch the fleet and evolve it without visiting every device.",
+      },
     ],
-    technologies: ["Ubiquiti UniFi", "MikroTik", "IP cameras", "PostgreSQL / PostGIS", "Edge inference", "Telemetry pipelines", "Grafana", "Zabbix", "Docker"],
+    technologies: [
+      "Ubiquiti UniFi",
+      "MikroTik",
+      "IP cameras",
+      "PostgreSQL / PostGIS",
+      "Edge inference",
+      "Telemetry pipelines",
+      "Grafana",
+      "Zabbix",
+      "Docker",
+    ],
     outcomes: [
       "Field equipment supervised from one place",
       "Decisions available on site when the link is down",
@@ -355,14 +847,34 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
       "One integrated system instead of disconnected parts",
     ],
     evidence: [
-      { claim: "SOPECAM — 92 connected cameras in a meshed network", detail: "Connected-device deployment at scale for a public institution, with backup storage behind it — running since 2017." },
-      { claim: "Cyberlink — distributed field equipment maintained remotely", detail: "Close to 100 sites supervised and maintained over eight years without a permanent presence at each one." },
-      { claim: "Geospatial data in production", detail: "PostgreSQL and PostGIS storage and querying in the SaCrècheIci platform." },
+      {
+        claim: "SOPECAM — 92 connected cameras in a meshed network",
+        detail:
+          "Connected-device deployment at scale for a public institution, with backup storage behind it — running since 2017.",
+      },
+      {
+        claim: "Cyberlink — distributed field equipment maintained remotely",
+        detail:
+          "Close to 100 sites supervised and maintained over eight years without a permanent presence at each one.",
+      },
+      {
+        claim: "Geospatial data in production",
+        detail: "PostgreSQL and PostGIS storage and querying in the SaCrècheIci platform.",
+      },
     ],
     faqs: [
-      { q: "Does D’Yvix work with drones?", a: "Drones and autonomous technologies fall within this domain, subject to the authorisations, certifications and regulations that apply to each deployment. Any such project starts by establishing the regulatory frame before the technical one." },
-      { q: "What is edge computing, in practice?", a: "Processing data where it is produced — on the site, the device or the gateway — rather than sending everything to a data centre. It makes systems faster to react, reduces the bandwidth consumed, and keeps them working when the link is slow or down." },
-      { q: "Can you connect equipment we already have?", a: "Often, yes. The first step is an inventory of what the devices can report and how. Where they cannot be connected safely, they are isolated on their own network segment." },
+      {
+        q: "Does D’Yvix work with drones?",
+        a: "Drones and autonomous technologies fall within this domain, subject to the authorisations, certifications and regulations that apply to each deployment. Any such project starts by establishing the regulatory frame before the technical one.",
+      },
+      {
+        q: "What is edge computing, in practice?",
+        a: "Processing data where it is produced — on the site, the device or the gateway — rather than sending everything to a data centre. It makes systems faster to react, reduces the bandwidth consumed, and keeps them working when the link is slow or down.",
+      },
+      {
+        q: "Can you connect equipment we already have?",
+        a: "Often, yes. The first step is an inventory of what the devices can report and how. Where they cannot be connected safely, they are isolated on their own network segment.",
+      },
     ],
     ctaLabel: "Discuss a Connected-Systems Project",
   },
@@ -390,22 +902,71 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
       "No shared design language across screens",
     ],
     capabilities: [
-      { title: "Product discovery", description: "Establishing which problem is worth solving, and for whom, before committing to a build." },
-      { title: "Product architecture", description: "Structuring a product so it can grow without being rewritten." },
-      { title: "UX research and UX/UI design", description: "Research with real users, and interfaces designed around their tasks." },
-      { title: "Design systems and prototyping", description: "Reusable components and interactive prototypes that make decisions testable early." },
-      { title: "Web, mobile and PWA", description: "Applications across devices, including progressive web apps for constrained connections." },
-      { title: "Quality engineering", description: "Functional, automated, performance and security testing as part of the build, not after it." },
-      { title: "Verification and validation", description: "Evidence that the product meets its requirements, ready for an acceptance gate." },
+      {
+        title: "Product discovery",
+        description:
+          "Establishing which problem is worth solving, and for whom, before committing to a build.",
+      },
+      {
+        title: "Product architecture",
+        description: "Structuring a product so it can grow without being rewritten.",
+      },
+      {
+        title: "UX research and UX/UI design",
+        description: "Research with real users, and interfaces designed around their tasks.",
+      },
+      {
+        title: "Design systems and prototyping",
+        description:
+          "Reusable components and interactive prototypes that make decisions testable early.",
+      },
+      {
+        title: "Web, mobile and PWA",
+        description:
+          "Applications across devices, including progressive web apps for constrained connections.",
+      },
+      {
+        title: "Quality engineering",
+        description:
+          "Functional, automated, performance and security testing as part of the build, not after it.",
+      },
+      {
+        title: "Verification and validation",
+        description:
+          "Evidence that the product meets its requirements, ready for an acceptance gate.",
+      },
     ],
     approach: [
-      { title: "Discover", description: "Understand the users, their tasks and what blocks them today." },
-      { title: "Prototype", description: "Test the structural decisions on a prototype before writing the product." },
-      { title: "Build in increments", description: "Ship usable slices and measure their adoption." },
-      { title: "Verify", description: "Automated tests, code review and security testing before every release." },
-      { title: "Release and improve", description: "Supervised deployment, rollback ready, then continuous improvement." },
+      {
+        title: "Discover",
+        description: "Understand the users, their tasks and what blocks them today.",
+      },
+      {
+        title: "Prototype",
+        description: "Test the structural decisions on a prototype before writing the product.",
+      },
+      {
+        title: "Build in increments",
+        description: "Ship usable slices and measure their adoption.",
+      },
+      {
+        title: "Verify",
+        description: "Automated tests, code review and security testing before every release.",
+      },
+      {
+        title: "Release and improve",
+        description: "Supervised deployment, rollback ready, then continuous improvement.",
+      },
     ],
-    technologies: ["React", "TypeScript", "Progressive web apps", "WebSocket", "Automated testing", "Security testing", "Design systems"],
+    technologies: [
+      "React",
+      "TypeScript",
+      "Progressive web apps",
+      "WebSocket",
+      "Automated testing",
+      "Security testing",
+      "Design systems",
+    ],
     outcomes: [
       "A product validated with users before it is scaled",
       "Fewer regressions reaching production",
@@ -413,14 +974,35 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
       "A consistent interface across the product",
     ],
     evidence: [
-      { claim: "SaCrècheIci — a real-time product in production", detail: "React single-page application with live WebSocket updates and a real-time dashboard." },
-      { claim: "Review discipline on every engagement", detail: "Continuous documentation, weekly demonstrations, and no merge without code review." },
-      { claim: "Testing before every go-live", detail: "Functional and security testing prior to production, with supervised deployment and a rollback plan." },
+      {
+        claim: "SaCrècheIci — a real-time product in production",
+        detail:
+          "React single-page application with live WebSocket updates and a real-time dashboard.",
+      },
+      {
+        claim: "Review discipline on every engagement",
+        detail:
+          "Continuous documentation, weekly demonstrations, and no merge without code review.",
+      },
+      {
+        claim: "Testing before every go-live",
+        detail:
+          "Functional and security testing prior to production, with supervised deployment and a rollback plan.",
+      },
     ],
     faqs: [
-      { q: "Do you design, or only build?", a: "Both. Discovery, user research and interface design come before development, and the same product is then built, tested and delivered by the same team — nothing is lost between the mock-up and the code." },
-      { q: "How do you keep quality up without slowing delivery?", a: "By building it in: automated tests, mandatory code review and weekly demonstrations. Defects are found when they are cheapest to fix, which speeds delivery up rather than slowing it down." },
-      { q: "Can you work under an external acceptance process?", a: "Yes. Our own method — continuous documentation, weekly demonstrations, mandatory review — is designed to work under a partner’s quality gate rather than alongside it." },
+      {
+        q: "Do you design, or only build?",
+        a: "Both. Discovery, user research and interface design come before development, and the same product is then built, tested and delivered by the same team — nothing is lost between the mock-up and the code.",
+      },
+      {
+        q: "How do you keep quality up without slowing delivery?",
+        a: "By building it in: automated tests, mandatory code review and weekly demonstrations. Defects are found when they are cheapest to fix, which speeds delivery up rather than slowing it down.",
+      },
+      {
+        q: "Can you work under an external acceptance process?",
+        a: "Yes. Our own method — continuous documentation, weekly demonstrations, mandatory review — is designed to work under a partner’s quality gate rather than alongside it.",
+      },
     ],
     ctaLabel: "Discuss Your Product",
   },
@@ -448,22 +1030,67 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
       "Knowledge that leaves when a staff member does",
     ],
     capabilities: [
-      { title: "Consulting", description: "IT, digital, architecture, cybersecurity, cloud and AI advice grounded in delivery rather than slides." },
-      { title: "Audit and technical expertise", description: "Information-system, infrastructure, network, security and application audits with written, risk-ordered findings." },
-      { title: "Maturity diagnosis", description: "Where you stand against where you need to be, and the order in which to close the gap." },
-      { title: "Applied R&D", description: "Prototypes, proofs of concept, MVPs and demonstrators that answer a question quickly." },
-      { title: "Validation and industrialisation", description: "Taking what worked in a prototype to something that runs in production." },
-      { title: "Technical training", description: "Cybersecurity, cloud, DevOps, development, AI, networks and systems — on your own environment." },
-      { title: "Knowledge transfer", description: "Documentation and handover so capability stays with your team." },
+      {
+        title: "Consulting",
+        description:
+          "IT, digital, architecture, cybersecurity, cloud and AI advice grounded in delivery rather than slides.",
+      },
+      {
+        title: "Audit and technical expertise",
+        description:
+          "Information-system, infrastructure, network, security and application audits with written, risk-ordered findings.",
+      },
+      {
+        title: "Maturity diagnosis",
+        description:
+          "Where you stand against where you need to be, and the order in which to close the gap.",
+      },
+      {
+        title: "Applied R&D",
+        description:
+          "Prototypes, proofs of concept, MVPs and demonstrators that answer a question quickly.",
+      },
+      {
+        title: "Validation and industrialisation",
+        description: "Taking what worked in a prototype to something that runs in production.",
+      },
+      {
+        title: "Technical training",
+        description:
+          "Cybersecurity, cloud, DevOps, development, AI, networks and systems — on your own environment.",
+      },
+      {
+        title: "Knowledge transfer",
+        description: "Documentation and handover so capability stays with your team.",
+      },
     ],
     approach: [
-      { title: "Frame the question", description: "State precisely what has to be decided, and on which criteria." },
-      { title: "Assess the current state", description: "Measure the real situation rather than the assumed one." },
+      {
+        title: "Frame the question",
+        description: "State precisely what has to be decided, and on which criteria.",
+      },
+      {
+        title: "Assess the current state",
+        description: "Measure the real situation rather than the assumed one.",
+      },
       { title: "Test the idea", description: "A prototype or proof of concept, bounded in time." },
-      { title: "Recommend with evidence", description: "A written report: what was measured and what follows from it." },
-      { title: "Transfer the knowledge", description: "Train and document, so the decision holds without us." },
+      {
+        title: "Recommend with evidence",
+        description: "A written report: what was measured and what follows from it.",
+      },
+      {
+        title: "Transfer the knowledge",
+        description: "Train and document, so the decision holds without us.",
+      },
     ],
-    technologies: ["Security audit", "Architecture review", "Proof of concept", "MVP", "Technical documentation", "Runbooks"],
+    technologies: [
+      "Security audit",
+      "Architecture review",
+      "Proof of concept",
+      "MVP",
+      "Technical documentation",
+      "Runbooks",
+    ],
     outcomes: [
       "A decision backed by a technical assessment",
       "An idea tested before it is funded",
@@ -471,15 +1098,38 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
       "A team able to operate what was delivered",
     ],
     evidence: [
-      { claim: "Audit and consulting, a historical service line", detail: "Audit, consulting and IT security are among the company’s historical services." },
-      { claim: "Back-Node — in-house product R&D", detail: "A microservice automation platform designed and built by the D’Yvix team, currently in development." },
-      { claim: "Self-hosted AI infrastructure, 2025", detail: "DeepSeek models served with vLLM — a capability acquired on a real engagement." },
-      { claim: "Documentation delivered with every solution", detail: "Technical and end-user documentation is a standing part of the delivery framework." },
+      {
+        claim: "Audit and consulting, a historical service line",
+        detail: "Audit, consulting and IT security are among the company’s historical services.",
+      },
+      {
+        claim: "Back-Node — in-house product R&D",
+        detail:
+          "A microservice automation platform designed and built by the D’Yvix team, currently in development.",
+      },
+      {
+        claim: "Self-hosted AI infrastructure, 2025",
+        detail: "DeepSeek models served with vLLM — a capability acquired on a real engagement.",
+      },
+      {
+        claim: "Documentation delivered with every solution",
+        detail:
+          "Technical and end-user documentation is a standing part of the delivery framework.",
+      },
     ],
     faqs: [
-      { q: "What does an audit cost?", a: "It depends on the size of the estate and the number of sites, so a figure is quoted after a short scoping conversation rather than guessed here. Scope, deliverables and price are agreed in writing before work starts, and the price does not move unless the scope does." },
-      { q: "Can you run a proof of concept before we commit?", a: "Yes. A proof of concept bounded in time and scope is often the best way to settle a technical doubt before investing. It ends with a written recommendation — including a recommendation not to proceed." },
-      { q: "Is training charged separately?", a: "Technical and end-user documentation is delivered with every solution as part of the engagement. Broader training programmes are scoped separately, because their size depends on how many people need them." },
+      {
+        q: "What does an audit cost?",
+        a: "It depends on the size of the estate and the number of sites, so a figure is quoted after a short scoping conversation rather than guessed here. Scope, deliverables and price are agreed in writing before work starts, and the price does not move unless the scope does.",
+      },
+      {
+        q: "Can you run a proof of concept before we commit?",
+        a: "Yes. A proof of concept bounded in time and scope is often the best way to settle a technical doubt before investing. It ends with a written recommendation — including a recommendation not to proceed.",
+      },
+      {
+        q: "Is training charged separately?",
+        a: "Technical and end-user documentation is delivered with every solution as part of the engagement. Broader training programmes are scoped separately, because their size depends on how many people need them.",
+      },
     ],
     ctaLabel: "Request an Audit",
   },
@@ -507,21 +1157,61 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
       "Sites too remote or too numerous to attend individually",
     ],
     capabilities: [
-      { title: "Tiered support", description: "L1, L2 and L3 support in French or English, against an agreed response standard." },
-      { title: "Systems and network administration", description: "Ongoing operation, patching and maintenance to a defined baseline." },
-      { title: "Infrastructure monitoring", description: "Grafana, Prometheus and Zabbix instrumentation so problems surface to us, not to your users." },
-      { title: "Preventive and corrective maintenance", description: "Scheduled work plus incident handling and on-call support for deployed systems." },
-      { title: "Collaborative work environments", description: "Shared workspaces and document collaboration that teams actually adopt." },
-      { title: "Multi-site operations", description: "Distributed estates maintained without a permanent presence at every location." },
+      {
+        title: "Tiered support",
+        description:
+          "L1, L2 and L3 support in French or English, against an agreed response standard.",
+      },
+      {
+        title: "Systems and network administration",
+        description: "Ongoing operation, patching and maintenance to a defined baseline.",
+      },
+      {
+        title: "Infrastructure monitoring",
+        description:
+          "Grafana, Prometheus and Zabbix instrumentation so problems surface to us, not to your users.",
+      },
+      {
+        title: "Preventive and corrective maintenance",
+        description:
+          "Scheduled work plus incident handling and on-call support for deployed systems.",
+      },
+      {
+        title: "Collaborative work environments",
+        description: "Shared workspaces and document collaboration that teams actually adopt.",
+      },
+      {
+        title: "Multi-site operations",
+        description:
+          "Distributed estates maintained without a permanent presence at every location.",
+      },
     ],
     approach: [
-      { title: "Inventory and baseline", description: "Document the estate and agree the standard it will be held to." },
+      {
+        title: "Inventory and baseline",
+        description: "Document the estate and agree the standard it will be held to.",
+      },
       { title: "Stabilise", description: "Clear the accumulated backlog of deferred maintenance." },
-      { title: "Instrument", description: "Monitoring, so problems surface to us rather than to your users." },
-      { title: "Operate", description: "Scheduled maintenance and defined support against the agreed standard." },
+      {
+        title: "Instrument",
+        description: "Monitoring, so problems surface to us rather than to your users.",
+      },
+      {
+        title: "Operate",
+        description: "Scheduled maintenance and defined support against the agreed standard.",
+      },
       { title: "Review", description: "Regular service review with the evidence to support it." },
     ],
-    technologies: ["Zabbix", "Grafana", "Prometheus", "Ubiquiti UniFi", "MikroTik", "Windows Server", "Linux", "Microsoft 365"],
+    technologies: [
+      "Zabbix",
+      "Grafana",
+      "Prometheus",
+      "Ubiquiti UniFi",
+      "MikroTik",
+      "Windows Server",
+      "Linux",
+      "Microsoft 365",
+    ],
     outcomes: [
       "Predictable IT cost in place of emergency spend",
       "A named owner and a defined escalation path",
@@ -529,15 +1219,39 @@ export const expertiseEn: Record<ExpertiseSlug, ExpertiseText> = {
       "Degradation detected before it becomes an outage",
     ],
     evidence: [
-      { claim: "Cyberlink — close to 100 sites maintained over eight years", detail: "Wireless deployment and ongoing hardware and system maintenance across cybercafés in Yaoundé, 2013–2021." },
-      { claim: "SOPECAM — operating since 2017", detail: "A long-range wireless link and a 92-camera surveillance network with backup storage, still under management." },
-      { claim: "Creolink — an eight-year storage partnership", detail: "Continuous technical oversight as the client’s platform grew from 580 TB to over 3,500 TB." },
-      { claim: "A European diplomatic mission — since 2019", detail: "Network security delivered without interruption since 2019." },
+      {
+        claim: "Cyberlink — close to 100 sites maintained over eight years",
+        detail:
+          "Wireless deployment and ongoing hardware and system maintenance across cybercafés in Yaoundé, 2013–2021.",
+      },
+      {
+        claim: "SOPECAM — operating since 2017",
+        detail:
+          "A long-range wireless link and a 92-camera surveillance network with backup storage, still under management.",
+      },
+      {
+        claim: "Creolink — an eight-year storage partnership",
+        detail:
+          "Continuous technical oversight as the client’s platform grew from 580 TB to over 3,500 TB.",
+      },
+      {
+        claim: "A European diplomatic mission — since 2019",
+        detail: "Network security delivered without interruption since 2019.",
+      },
     ],
     faqs: [
-      { q: "Does D’Yvix provide managed IT services?", a: "Yes. Ongoing administration and maintenance of systems and networks is at the core of the business, with L1/L2/L3 support in French or English. Several managed relationships have run for eight years or more." },
-      { q: "Can you work alongside our internal IT staff?", a: "Yes. A common arrangement is internal staff owning user-facing support while D’Yvix handles infrastructure, security and escalation. Responsibility boundaries are defined in writing so nothing sits in a gap between the two." },
-      { q: "Can you support sites we cannot staff?", a: "Yes — that is a large part of what the managed practice does. A wireless estate of close to a hundred locations was maintained for eight years without a permanent presence at each site." },
+      {
+        q: "Does D’Yvix provide managed IT services?",
+        a: "Yes. Ongoing administration and maintenance of systems and networks is at the core of the business, with L1/L2/L3 support in French or English. Several managed relationships have run for eight years or more.",
+      },
+      {
+        q: "Can you work alongside our internal IT staff?",
+        a: "Yes. A common arrangement is internal staff owning user-facing support while D’Yvix handles infrastructure, security and escalation. Responsibility boundaries are defined in writing so nothing sits in a gap between the two.",
+      },
+      {
+        q: "Can you support sites we cannot staff?",
+        a: "Yes — that is a large part of what the managed practice does. A wireless estate of close to a hundred locations was maintained for eight years without a permanent presence at each site.",
+      },
     ],
     ctaLabel: "Discuss Managed Services",
   },

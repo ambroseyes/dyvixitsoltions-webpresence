@@ -37,7 +37,10 @@ const getServerSnapshot = (): Mode => "system";
 
 function applyMode(mode: Mode) {
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  document.documentElement.classList.toggle("dark", mode === "dark" || (mode === "system" && prefersDark));
+  document.documentElement.classList.toggle(
+    "dark",
+    mode === "dark" || (mode === "system" && prefersDark),
+  );
   if (mode === "system") localStorage.removeItem(STORAGE_KEY);
   else localStorage.setItem(STORAGE_KEY, mode);
   window.dispatchEvent(new Event(CHANGE_EVENT));

@@ -59,7 +59,9 @@ export function SolutionFinder({
                       aria-hidden="true"
                       className={cn(
                         "size-2 shrink-0 rotate-45 border transition-colors duration-(--duration-fast)",
-                        isSelected ? "border-primary bg-primary" : "border-line-strong group-hover:border-primary",
+                        isSelected
+                          ? "border-primary bg-primary"
+                          : "border-line-strong group-hover:border-primary",
                       )}
                     />
                     <span className="text-(length:--text-base)">{o.prompt}</span>
@@ -86,14 +88,23 @@ export function SolutionFinder({
               <div className="dimension-rule my-6" aria-hidden="true" />
 
               <p className="rail-label text-primary">{labels.recommended}</p>
-              <h3 className="mt-2 text-(length:--text-h3) font-semibold tracking-[-0.025em]">{selected.recommendation}</h3>
-              <p className="mt-4 text-(length:--text-sm) leading-relaxed text-ink-muted">{selected.rationale}</p>
+              <h3 className="mt-2 text-(length:--text-h3) font-semibold tracking-[-0.025em]">
+                {selected.recommendation}
+              </h3>
+              <p className="mt-4 text-(length:--text-sm) leading-relaxed text-ink-muted">
+                {selected.rationale}
+              </p>
 
               <p className="rail-label mt-8">{labels.youReceive}</p>
               <ul className="mt-3 grid gap-2">
                 {selected.deliverables.map((d) => (
                   <li key={d} className="flex items-start gap-2.5 text-(length:--text-sm)">
-                    <Check size={14} strokeWidth={2.25} aria-hidden="true" className="mt-1 shrink-0 text-verified" />
+                    <Check
+                      size={14}
+                      strokeWidth={2.25}
+                      aria-hidden="true"
+                      className="mt-1 shrink-0 text-verified"
+                    />
                     {d}
                   </li>
                 ))}

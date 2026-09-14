@@ -7,7 +7,7 @@
 import { gzipSync } from "node:zlib";
 
 const BASE = process.argv[2] ?? "http://localhost:3100";
-const PAGES = ["/", "/solutions/cybersecurity", "/contact"];
+const PAGES = ["/", "/expertise/cybersecurity", "/contact", "/fr"];
 const BUDGET_JS_KB = 150;
 const BUDGET_CSS_KB = 30;
 

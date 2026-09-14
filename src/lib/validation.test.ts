@@ -1,4 +1,5 @@
 import { describe, expect, test } from "vitest";
+import { en } from "@/i18n/dictionaries/en";
 import { enquirySchema } from "./validation";
 
 const valid = {
@@ -23,31 +24,43 @@ describe("enquirySchema", () => {
   });
 
   test("rejects a malformed email address", () => {
-    const result = enquirySchema.safeParse({ ...valid, email: "amina@" });
-    expect(result.success).toBe(false);
+    expect(enquirySchema.safeParse({ ...valid, email: "amina@" }).success).toBe(false);
   });
 
-  test("rejects an empty scope selection", () => {
+  test("rejects an empty scope selection with the language-free code", () => {
     const result = enquirySchema.safeParse({ ...valid, scopes: [] });
     expect(result.success).toBe(false);
+    if (!result.success) expect(result.error.issues[0]!.message).toBe("scopes");
+  });
+
+  test("every message it produces is a dictionary key the form can render", () => {
+    const result = enquirySchema.safeParse({
+      name: "",
+      organisation: "",
+      email: "x",
+      scopes: [],
+      timeline: "x",
+      message: "",
+    });
+    expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues[0]!.message).toMatch(/at least one/i);
+      for (const issue of result.error.issues)
+        expect(en.form.errors, issue.message).toHaveProperty(issue.message);
     }
   });
 
   test("rejects a scope outside the allowed set", () => {
-    const result = enquirySchema.safeParse({ ...valid, scopes: ["quantum-blockchain"] });
-    expect(result.success).toBe(false);
+    expect(enquirySchema.safeParse({ ...valid, scopes: ["quantum-blockchain"] }).success).toBe(
+      false,
+    );
   });
 
   test("rejects a message too short to route", () => {
-    const result = enquirySchema.safeParse({ ...valid, message: "hi" });
-    expect(result.success).toBe(false);
+    expect(enquirySchema.safeParse({ ...valid, message: "hi" }).success).toBe(false);
   });
 
   test("rejects a message beyond the length cap", () => {
-    const result = enquirySchema.safeParse({ ...valid, message: "x".repeat(4001) });
-    expect(result.success).toBe(false);
+    expect(enquirySchema.safeParse({ ...valid, message: "x".repeat(4001) }).success).toBe(false);
   });
 
   test("accepts a filled honeypot so the route can absorb it silently", () => {
@@ -65,7 +78,6 @@ describe("enquirySchema", () => {
   });
 
   test("rejects an unknown timeline value", () => {
-    const result = enquirySchema.safeParse({ ...valid, timeline: "someday" });
-    expect(result.success).toBe(false);
+    expect(enquirySchema.safeParse({ ...valid, timeline: "someday" }).success).toBe(false);
   });
 });

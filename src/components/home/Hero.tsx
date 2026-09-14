@@ -38,7 +38,10 @@ export function Hero({ lang }: { lang: Locale }) {
   ];
 
   return (
-    <section aria-labelledby="hero-heading" className="grain relative overflow-hidden border-b border-line">
+    <section
+      aria-labelledby="hero-heading"
+      className="grain relative overflow-hidden border-b border-line"
+    >
       <div className="schematic-grid pointer-events-none absolute inset-0" aria-hidden="true" />
       {/* Single soft light source, top-left, to give the sheet some depth
           without resorting to a floating gradient blob. */}
@@ -98,7 +101,9 @@ export function Hero({ lang }: { lang: Locale }) {
               {stats.map((item) => (
                 <div key={item.v} className="bg-surface p-4">
                   <dt className="rail-index">{item.k}</dt>
-                  <dd className="mt-2 text-(length:--text-sm) leading-snug text-ink-muted">{item.v}</dd>
+                  <dd className="mt-2 text-(length:--text-sm) leading-snug text-ink-muted">
+                    {item.v}
+                  </dd>
                 </div>
               ))}
             </dl>

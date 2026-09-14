@@ -1,5 +1,6 @@
 import { describe, expect, test } from "vitest";
-import { STEP_FIELDS, SCOPES, TIMELINES, validateEnquiry } from "./enquiry-rules";
+import { en } from "@/i18n/dictionaries/en";
+import { STEP_FIELDS, SCOPES, TIMELINES, isScope, validateEnquiry } from "./enquiry-rules";
 
 const valid = {
   name: "Amina Njoya",
@@ -23,22 +24,42 @@ describe("validateEnquiry (client-side, dependency-free)", () => {
   });
 
   test.each([
-    ["name", { name: "A" }],
-    ["organisation", { organisation: "" }],
-    ["email", { email: "amina@" }],
-    ["email", { email: "no-at-sign" }],
-    ["scopes", { scopes: [] }],
-    ["scopes", { scopes: ["quantum-blockchain"] }],
-    ["timeline", { timeline: "someday" }],
-    ["message", { message: "too short" }],
-  ])("flags %s", (field, override) => {
-    expect(validateEnquiry({ ...valid, ...override })).toHaveProperty(field);
+    ["name", { name: "A" }, "name"],
+    ["organisation", { organisation: "" }, "organisation"],
+    ["email", { email: "amina@" }, "email"],
+    ["email", { email: "no-at-sign" }, "email"],
+    ["scopes", { scopes: [] }, "scopes"],
+    ["scopes", { scopes: ["quantum-blockchain"] }, "scopes"],
+    ["timeline", { timeline: "someday" }, "timeline"],
+    ["message", { message: "too short" }, "message"],
+    ["name", { name: "x".repeat(121) }, "nameLong"],
+    ["message", { message: "x".repeat(4001) }, "messageLong"],
+    ["phone", { phone: "9".repeat(41) }, "phoneLong"],
+  ] as const)("flags %s with the %s-appropriate code", (field, override, code) => {
+    expect(validateEnquiry({ ...valid, ...override })[field]).toBe(code);
   });
 
-  test("flags values beyond their length caps", () => {
-    expect(validateEnquiry({ ...valid, name: "x".repeat(121) })).toHaveProperty("name");
-    expect(validateEnquiry({ ...valid, message: "x".repeat(4001) })).toHaveProperty("message");
-    expect(validateEnquiry({ ...valid, phone: "9".repeat(41) })).toHaveProperty("phone");
+  test("every error code has copy in the dictionary", () => {
+    const codes = [
+      validateEnquiry({
+        ...valid,
+        name: "",
+        organisation: "",
+        email: "",
+        scopes: [],
+        timeline: "",
+        message: "",
+      }),
+      validateEnquiry({
+        ...valid,
+        name: "x".repeat(121),
+        organisation: "x".repeat(161),
+        phone: "9".repeat(41),
+        message: "x".repeat(4001),
+      }),
+    ].flatMap((e) => Object.values(e));
+    expect(codes.length).toBeGreaterThan(0);
+    for (const code of codes) expect(en.form.errors, code).toHaveProperty(code);
   });
 
   test("ignores surrounding whitespace when measuring length", () => {
@@ -51,11 +72,22 @@ describe("validateEnquiry (client-side, dependency-free)", () => {
   });
 });
 
+describe("scopes", () => {
+  test("every scope has a label in the dictionary", () => {
+    for (const s of SCOPES) expect(en.form.scopes, s).toHaveProperty(s);
+  });
+
+  test("isScope accepts declared scopes only", () => {
+    expect(isScope("iot-edge")).toBe(true);
+    expect(isScope("applied-ai")).toBe(false);
+  });
+});
+
 describe("step field ownership", () => {
   test("covers every validated field exactly once", () => {
     const flat = STEP_FIELDS.flat();
     expect(new Set(flat).size).toBe(flat.length);
-    expect(flat.sort()).toEqual(
+    expect([...flat].sort()).toEqual(
       ["email", "message", "name", "organisation", "phone", "scopes", "timeline"].sort(),
     );
   });

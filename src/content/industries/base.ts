@@ -9,12 +9,24 @@ export const INDUSTRY_BASE: IndustryBase[] = [
   {
     slug: "financial-services",
     index: "01",
-    expertise: ["cybersecurity", "cloud-infrastructure", "networks-telecom", "managed-services", "digital-engineering"],
+    expertise: [
+      "cybersecurity",
+      "cloud-infrastructure",
+      "networks-telecom",
+      "managed-services",
+      "digital-engineering",
+    ],
   },
   {
     slug: "government",
     index: "02",
-    expertise: ["cybersecurity", "cloud-infrastructure", "ai-data", "digital-engineering", "managed-services"],
+    expertise: [
+      "cybersecurity",
+      "cloud-infrastructure",
+      "ai-data",
+      "digital-engineering",
+      "managed-services",
+    ],
   },
   {
     slug: "healthcare",
@@ -34,6 +46,12 @@ export const INDUSTRY_BASE: IndustryBase[] = [
   {
     slug: "critical-infrastructure",
     index: "06",
-    expertise: ["cybersecurity", "iot-edge", "networks-telecom", "cloud-infrastructure", "managed-services"],
+    expertise: [
+      "cybersecurity",
+      "iot-edge",
+      "networks-telecom",
+      "cloud-infrastructure",
+      "managed-services",
+    ],
   },
 ];

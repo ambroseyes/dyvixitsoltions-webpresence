@@ -294,7 +294,8 @@ export const en = {
     sectors: "Sectors & expertise",
     sectorsDelivered: "Sectors with delivered work",
     areas: "Areas of expertise",
-    areasNote: "A controlled list. A topic appears here only where our delivery record supports it.",
+    areasNote:
+      "A controlled list. A topic appears here only where our delivery record supports it.",
     ctaTitle: "Start with a conversation.",
     ctaBody:
       "Tell us what you operate and what worries you about it. We will tell you honestly whether we are the right people.",

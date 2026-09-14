@@ -78,7 +78,10 @@ export default async function HomePage({ params }: Props) {
       <JsonLd data={graph(faqSchema(home.answers))} />
       <Hero lang={lang} />
       <ProblemMatrix
-        problems={home.problems.map((p) => ({ ...p, href: localePath(lang, `/expertise/${p.expertise}`) }))}
+        problems={home.problems.map((p) => ({
+          ...p,
+          href: localePath(lang, `/expertise/${p.expertise}`),
+        }))}
         labels={dict.home.problems}
       />
       <BuildSecureOperate lang={lang} />

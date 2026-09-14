@@ -55,7 +55,9 @@ export function EnquiryForm({
   variant?: "project" | "audit";
 }) {
   const [step, setStep] = useState(0);
-  const [scopes, setScopes] = useState<Scope[]>(defaultScope && isScope(defaultScope) ? [defaultScope] : []);
+  const [scopes, setScopes] = useState<Scope[]>(
+    defaultScope && isScope(defaultScope) ? [defaultScope] : [],
+  );
   const [timeline, setTimeline] = useState<Timeline | "">("");
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
@@ -150,8 +152,12 @@ export function EnquiryForm({
         <div className="flex size-11 items-center justify-center rounded-(--radius-sm) border border-verified/50">
           <Check size={20} strokeWidth={2} aria-hidden="true" className="text-verified" />
         </div>
-        <h2 className="mt-6 text-(length:--text-h3) font-semibold tracking-[-0.025em]">{labels.sentTitle}</h2>
-        <p className="mt-4 max-w-[52ch] text-(length:--text-base) leading-relaxed text-ink-muted">{labels.sentBody}</p>
+        <h2 className="mt-6 text-(length:--text-h3) font-semibold tracking-[-0.025em]">
+          {labels.sentTitle}
+        </h2>
+        <p className="mt-4 max-w-[52ch] text-(length:--text-base) leading-relaxed text-ink-muted">
+          {labels.sentBody}
+        </p>
         {reference && (
           <p className="rail-label mt-6">
             {labels.reference} <span className="text-primary">{reference}</span>
@@ -180,7 +186,9 @@ export function EnquiryForm({
               i === step ? "bg-primary-soft/40" : i < step ? "text-ink-muted" : "text-ink-faint",
             )}
           >
-            <span className={cn("rail-index", i > step && "text-ink-faint")}>{String(i + 1).padStart(2, "0")}</span>
+            <span className={cn("rail-index", i > step && "text-ink-faint")}>
+              {String(i + 1).padStart(2, "0")}
+            </span>
             <span className="rail-label truncate">{s}</span>
           </li>
         ))}
@@ -210,10 +218,17 @@ export function EnquiryForm({
                     key={s}
                     className={cn(
                       "flex min-h-12 cursor-pointer items-center gap-3 border px-4 py-3 text-(length:--text-sm) transition-colors duration-(--duration-fast)",
-                      checked ? "border-primary bg-primary-soft/50" : "border-line hover:border-line-strong",
+                      checked
+                        ? "border-primary bg-primary-soft/50"
+                        : "border-line hover:border-line-strong",
                     )}
                   >
-                    <input type="checkbox" checked={checked} onChange={() => toggleScope(s)} className="sr-only" />
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={() => toggleScope(s)}
+                      className="sr-only"
+                    />
                     <span
                       aria-hidden="true"
                       className={cn(
@@ -253,7 +268,9 @@ export function EnquiryForm({
                     key={t}
                     className={cn(
                       "flex min-h-12 cursor-pointer items-center gap-3 border px-4 py-3 text-(length:--text-sm) transition-colors duration-(--duration-fast)",
-                      timeline === t ? "border-primary bg-primary-soft/50" : "border-line hover:border-line-strong",
+                      timeline === t
+                        ? "border-primary bg-primary-soft/50"
+                        : "border-line hover:border-line-strong",
                     )}
                   >
                     <input
@@ -310,9 +327,19 @@ export function EnquiryForm({
 
             <div className="mt-7 grid gap-5 sm:grid-cols-2">
               <Field id="name" label={labels.name} error={errorText(errors.name)}>
-                <Input id="name" value={name} onChange={setName} autoComplete="name" error={!!errors.name} />
+                <Input
+                  id="name"
+                  value={name}
+                  onChange={setName}
+                  autoComplete="name"
+                  error={!!errors.name}
+                />
               </Field>
-              <Field id="organisation" label={labels.organisation} error={errorText(errors.organisation)}>
+              <Field
+                id="organisation"
+                label={labels.organisation}
+                error={errorText(errors.organisation)}
+              >
                 <Input
                   id="organisation"
                   value={organisation}
@@ -322,10 +349,29 @@ export function EnquiryForm({
                 />
               </Field>
               <Field id="email" label={labels.email} error={errorText(errors.email)}>
-                <Input id="email" type="email" value={email} onChange={setEmail} autoComplete="email" error={!!errors.email} />
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={setEmail}
+                  autoComplete="email"
+                  error={!!errors.email}
+                />
               </Field>
-              <Field id="phone" label={labels.phone} optional={labels.optional} error={errorText(errors.phone)}>
-                <Input id="phone" type="tel" value={phone} onChange={setPhone} autoComplete="tel" error={!!errors.phone} />
+              <Field
+                id="phone"
+                label={labels.phone}
+                optional={labels.optional}
+                error={errorText(errors.phone)}
+              >
+                <Input
+                  id="phone"
+                  type="tel"
+                  value={phone}
+                  onChange={setPhone}
+                  autoComplete="tel"
+                  error={!!errors.phone}
+                />
               </Field>
             </div>
 
@@ -358,7 +404,12 @@ export function EnquiryForm({
             role="alert"
             className="mt-6 flex items-start gap-2.5 border-l-2 border-risk py-1 pl-4 text-(length:--text-sm) text-risk"
           >
-            <CircleAlert size={15} strokeWidth={1.75} aria-hidden="true" className="mt-0.5 shrink-0" />
+            <CircleAlert
+              size={15}
+              strokeWidth={1.75}
+              aria-hidden="true"
+              className="mt-0.5 shrink-0"
+            />
             {labels.errors[formError]}
           </p>
         )}
@@ -444,7 +495,11 @@ function Field({
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
   return (
-    <p id={id} role="alert" className="mt-2 flex items-start gap-2 text-(length:--text-sm) text-risk">
+    <p
+      id={id}
+      role="alert"
+      className="mt-2 flex items-start gap-2 text-(length:--text-sm) text-risk"
+    >
       <CircleAlert size={13} strokeWidth={2} aria-hidden="true" className="mt-1 shrink-0" />
       {message}
     </p>

@@ -4,8 +4,10 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
   "digital-engineering": {
     name: "Ingénierie numérique & logicielle",
     shortName: "Logiciel",
-    summary: "Concevoir et développer les produits et systèmes numériques sur lesquels les organisations reposent.",
-    headline: "Des logiciels construits autour de la façon dont votre organisation travaille vraiment.",
+    summary:
+      "Concevoir et développer les produits et systèmes numériques sur lesquels les organisations reposent.",
+    headline:
+      "Des logiciels construits autour de la façon dont votre organisation travaille vraiment.",
     standfirst:
       "Un progiciel vous demande d’adapter vos processus à ses hypothèses. C’est parfois le bon compromis. Quand ce ne l’est pas, le logiciel doit être construit sur mesure — et construit pour que votre équipe puisse encore le faire évoluer dans cinq ans.",
     definition:
@@ -24,23 +26,89 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
       "Des applications historiques sans mainteneur ni documentation",
     ],
     capabilities: [
-      { title: "Architecture logicielle", description: "Des structures dimensionnées au problème, avec des frontières de services tracées selon le métier plutôt que selon le framework." },
-      { title: "Applications web et mobiles", description: "Outils internes et produits destinés aux clients, conçus pour être exploités et étendus." },
-      { title: "Logiciels métiers et systèmes d’information", description: "Des systèmes qui formalisent la manière dont l’organisation travaille réellement." },
-      { title: "Plateformes numériques et SaaS", description: "Des produits dotés de ce qu’exige un vrai service : authentification, contrôle d’accès, observabilité et facturation." },
-      { title: "API et microservices", description: "API REST et architectures de microservices aux contrats clairs, derrière une passerelle d’API." },
-      { title: "Intégration de systèmes", description: "Faire échanger les systèmes existants de manière fiable, plutôt que par l’intermédiaire de personnes." },
-      { title: "Modernisation d’applications", description: "Faire migrer les applications historiques vers des fondations maintenables, par étapes et sans réécriture brutale." },
+      {
+        title: "Architecture logicielle",
+        description:
+          "Des structures dimensionnées au problème, avec des frontières de services tracées selon le métier plutôt que selon le framework.",
+      },
+      {
+        title: "Applications web et mobiles",
+        description:
+          "Outils internes et produits destinés aux clients, conçus pour être exploités et étendus.",
+      },
+      {
+        title: "Logiciels métiers et systèmes d’information",
+        description:
+          "Des systèmes qui formalisent la manière dont l’organisation travaille réellement.",
+      },
+      {
+        title: "Plateformes numériques et SaaS",
+        description:
+          "Des produits dotés de ce qu’exige un vrai service : authentification, contrôle d’accès, observabilité et facturation.",
+      },
+      {
+        title: "API et microservices",
+        description:
+          "API REST et architectures de microservices aux contrats clairs, derrière une passerelle d’API.",
+      },
+      {
+        title: "Intégration de systèmes",
+        description:
+          "Faire échanger les systèmes existants de manière fiable, plutôt que par l’intermédiaire de personnes.",
+      },
+      {
+        title: "Modernisation d’applications",
+        description:
+          "Faire migrer les applications historiques vers des fondations maintenables, par étapes et sans réécriture brutale.",
+      },
     ],
     approach: [
-      { title: "Comprendre le travail", description: "Observer le processus réel, y compris les contournements sur lesquels les équipes s’appuient." },
-      { title: "Définir le plus petit système utile", description: "Identifier ce qui apporte de la valeur en premier et reporter délibérément le reste." },
-      { title: "Concevoir l’architecture", description: "Choisir une structure dimensionnée au problème, pas aux préférences d’un framework." },
-      { title: "Construire par incréments", description: "Livrer des fonctionnalités opérationnelles à de vrais utilisateurs et corriger le cap selon leurs retours." },
-      { title: "Relire et durcir", description: "Aucune fusion sans revue de code. Validation, autorisations et tests avant la production." },
-      { title: "Transmettre", description: "Documentation et formation pour que votre équipe puisse exploiter et faire évoluer le système." },
+      {
+        title: "Comprendre le travail",
+        description:
+          "Observer le processus réel, y compris les contournements sur lesquels les équipes s’appuient.",
+      },
+      {
+        title: "Définir le plus petit système utile",
+        description:
+          "Identifier ce qui apporte de la valeur en premier et reporter délibérément le reste.",
+      },
+      {
+        title: "Concevoir l’architecture",
+        description:
+          "Choisir une structure dimensionnée au problème, pas aux préférences d’un framework.",
+      },
+      {
+        title: "Construire par incréments",
+        description:
+          "Livrer des fonctionnalités opérationnelles à de vrais utilisateurs et corriger le cap selon leurs retours.",
+      },
+      {
+        title: "Relire et durcir",
+        description:
+          "Aucune fusion sans revue de code. Validation, autorisations et tests avant la production.",
+      },
+      {
+        title: "Transmettre",
+        description:
+          "Documentation et formation pour que votre équipe puisse exploiter et faire évoluer le système.",
+      },
     ],
-    technologies: ["Python", "FastAPI", "Laravel", "PHP", "React", "TypeScript", "PostgreSQL", "MySQL", "MongoDB", "Redis", "API REST", "WebSocket", "Docker"],
+    technologies: [
+      "Python",
+      "FastAPI",
+      "Laravel",
+      "PHP",
+      "React",
+      "TypeScript",
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "Redis",
+      "API REST",
+      "WebSocket",
+      "Docker",
+    ],
     outcomes: [
       "La ressaisie manuelle supprimée du processus",
       "Le savoir de l’organisation formalisé plutôt que détenu individuellement",
@@ -48,16 +116,43 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
       "Un code que votre équipe peut maintenir",
     ],
     evidence: [
-      { claim: "SaCrècheIci — une plateforme temps réel en production", detail: "Application web monopage React avec mises à jour en temps réel par WebSocket, sur une base PostgreSQL/PostGIS, avec un tableau de bord opérationnel en temps réel." },
-      { claim: "Lexora AI — dix microservices FastAPI", detail: "Une architecture d’API en microservices conçue et construite en interne." },
-      { claim: "Back-Node — une plateforme d’automatisation en microservices", detail: "Workflows visuels, RPA et IA derrière une passerelle d’API, construits en interne sur FastAPI. En développement." },
-      { claim: "Plateforme e-commerce B2B, 2022–2025", detail: "Une mission de trois ans sur une plateforme, menée selon la discipline de revue de l’entreprise." },
+      {
+        claim: "SaCrècheIci — une plateforme temps réel en production",
+        detail:
+          "Application web monopage React avec mises à jour en temps réel par WebSocket, sur une base PostgreSQL/PostGIS, avec un tableau de bord opérationnel en temps réel.",
+      },
+      {
+        claim: "Lexora AI — dix microservices FastAPI",
+        detail: "Une architecture d’API en microservices conçue et construite en interne.",
+      },
+      {
+        claim: "Back-Node — une plateforme d’automatisation en microservices",
+        detail:
+          "Workflows visuels, RPA et IA derrière une passerelle d’API, construits en interne sur FastAPI. En développement.",
+      },
+      {
+        claim: "Plateforme e-commerce B2B, 2022–2025",
+        detail:
+          "Une mission de trois ans sur une plateforme, menée selon la discipline de revue de l’entreprise.",
+      },
     ],
     faqs: [
-      { q: "D’Yvix peut-elle développer un logiciel sur mesure ?", a: "Oui. L’ingénierie numérique et logicielle est l’un des domaines de D’Yvix : applications web et mobiles, logiciels métiers, plateformes, API et microservices, de l’analyse à la maintenance. Parmi les réalisations récentes : une plateforme temps réel React et PostGIS et une architecture de dix microservices FastAPI." },
-      { q: "Faut-il développer ou acheter ?", a: "Achetez quand le processus est réellement standard — la comptabilité et la paie le sont généralement. Développez quand le processus est un avantage distinctif, ou quand un progiciel imposerait un changement qui coûterait plus que le logiciel ne rapporte. La phase d’analyse tranche cette question avant toute ligne de code, et recommander un progiciel est une issue valable." },
-      { q: "À qui appartient le code ?", a: "À vous. Le code source, la documentation et la configuration de déploiement sont livrés au client, et les missions sont organisées pour qu’une autre équipe puisse reprendre sans renégocier les accès." },
-      { q: "Comment la qualité est-elle contrôlée ?", a: "Documentation continue, démonstrations hebdomadaires, et aucune fusion sans revue de code. Des tests fonctionnels et de sécurité précèdent chaque mise en production, avec un déploiement supervisé et un plan de retour arrière." },
+      {
+        q: "D’Yvix peut-elle développer un logiciel sur mesure ?",
+        a: "Oui. L’ingénierie numérique et logicielle est l’un des domaines de D’Yvix : applications web et mobiles, logiciels métiers, plateformes, API et microservices, de l’analyse à la maintenance. Parmi les réalisations récentes : une plateforme temps réel React et PostGIS et une architecture de dix microservices FastAPI.",
+      },
+      {
+        q: "Faut-il développer ou acheter ?",
+        a: "Achetez quand le processus est réellement standard — la comptabilité et la paie le sont généralement. Développez quand le processus est un avantage distinctif, ou quand un progiciel imposerait un changement qui coûterait plus que le logiciel ne rapporte. La phase d’analyse tranche cette question avant toute ligne de code, et recommander un progiciel est une issue valable.",
+      },
+      {
+        q: "À qui appartient le code ?",
+        a: "À vous. Le code source, la documentation et la configuration de déploiement sont livrés au client, et les missions sont organisées pour qu’une autre équipe puisse reprendre sans renégocier les accès.",
+      },
+      {
+        q: "Comment la qualité est-elle contrôlée ?",
+        a: "Documentation continue, démonstrations hebdomadaires, et aucune fusion sans revue de code. Des tests fonctionnels et de sécurité précèdent chaque mise en production, avec un déploiement supervisé et un plan de retour arrière.",
+      },
     ],
     ctaLabel: "Parler de votre projet logiciel",
   },
@@ -65,7 +160,8 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
   "cloud-infrastructure": {
     name: "Cloud, infrastructure & DevOps",
     shortName: "Cloud",
-    summary: "Construire des infrastructures performantes et résilientes — physiques, virtualisées et cloud — et les chaînes qui les maintiennent à jour.",
+    summary:
+      "Construire des infrastructures performantes et résilientes — physiques, virtualisées et cloud — et les chaînes qui les maintiennent à jour.",
     headline: "Une infrastructure qui fonctionne, tout simplement.",
     standfirst:
       "La plupart des pannes n’ont rien d’exotique. C’est un point de défaillance unique que personne n’a documenté, une sauvegarde que personne n’a restaurée, un lien que personne ne surveillait. Nous les éliminons, discrètement et durablement.",
@@ -85,22 +181,84 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
       "Des déploiements qu’une seule personne sait réaliser",
     ],
     capabilities: [
-      { title: "Infrastructures physiques et virtualisées", description: "Serveurs, baies et hyperviseurs : installation, durcissement et gestion du cycle de vie sur des parcs Windows Server et Linux." },
-      { title: "Cloud privé, public et hybride", description: "Chaque charge de travail placée là où elle est la plus performante et la moins coûteuse, y compris un hébergement dans le pays lorsque la résidence des données l’exige." },
-      { title: "Stockage, sauvegarde et réplication", description: "Conception de NAS et de clusters, politique de rétention et réplication — avec des restaurations répétées, pas supposées." },
-      { title: "Haute disponibilité et PRA/PCA", description: "Des objectifs de reprise documentés, une procédure testée, et une voie de secours sur laquelle on a réellement basculé." },
-      { title: "Conteneurs et orchestration", description: "Docker et Kubernetes, avec une orchestration dimensionnée à la charge plutôt qu’à la mode." },
-      { title: "DevOps et DevSecOps", description: "Des chaînes CI/CD avec des contrôles de sécurité intégrés au build, et des environnements reconstructibles depuis le code source." },
-      { title: "Observabilité et supervision", description: "Instrumentation Grafana, Prometheus et Zabbix sur les chemins critiques, réglée pour réduire le bruit." },
+      {
+        title: "Infrastructures physiques et virtualisées",
+        description:
+          "Serveurs, baies et hyperviseurs : installation, durcissement et gestion du cycle de vie sur des parcs Windows Server et Linux.",
+      },
+      {
+        title: "Cloud privé, public et hybride",
+        description:
+          "Chaque charge de travail placée là où elle est la plus performante et la moins coûteuse, y compris un hébergement dans le pays lorsque la résidence des données l’exige.",
+      },
+      {
+        title: "Stockage, sauvegarde et réplication",
+        description:
+          "Conception de NAS et de clusters, politique de rétention et réplication — avec des restaurations répétées, pas supposées.",
+      },
+      {
+        title: "Haute disponibilité et PRA/PCA",
+        description:
+          "Des objectifs de reprise documentés, une procédure testée, et une voie de secours sur laquelle on a réellement basculé.",
+      },
+      {
+        title: "Conteneurs et orchestration",
+        description:
+          "Docker et Kubernetes, avec une orchestration dimensionnée à la charge plutôt qu’à la mode.",
+      },
+      {
+        title: "DevOps et DevSecOps",
+        description:
+          "Des chaînes CI/CD avec des contrôles de sécurité intégrés au build, et des environnements reconstructibles depuis le code source.",
+      },
+      {
+        title: "Observabilité et supervision",
+        description:
+          "Instrumentation Grafana, Prometheus et Zabbix sur les chemins critiques, réglée pour réduire le bruit.",
+      },
     ],
     approach: [
-      { title: "Inventorier", description: "Établir ce qui existe réellement — et non ce qu’affirme la documentation." },
-      { title: "Évaluer", description: "Identifier les points de défaillance uniques, les versions non supportées et les procédures de reprise jamais testées." },
-      { title: "Concevoir", description: "Définir l’état cible et l’ordre de migration qui vous permet de continuer à fonctionner tout du long." },
-      { title: "Mettre en œuvre", description: "Changer par incréments réversibles, chacun validé avant le suivant." },
-      { title: "Exploiter", description: "Superviser, corriger et revoir — avec un circuit d’escalade nommé." },
+      {
+        title: "Inventorier",
+        description: "Établir ce qui existe réellement — et non ce qu’affirme la documentation.",
+      },
+      {
+        title: "Évaluer",
+        description:
+          "Identifier les points de défaillance uniques, les versions non supportées et les procédures de reprise jamais testées.",
+      },
+      {
+        title: "Concevoir",
+        description:
+          "Définir l’état cible et l’ordre de migration qui vous permet de continuer à fonctionner tout du long.",
+      },
+      {
+        title: "Mettre en œuvre",
+        description: "Changer par incréments réversibles, chacun validé avant le suivant.",
+      },
+      {
+        title: "Exploiter",
+        description: "Superviser, corriger et revoir — avec un circuit d’escalade nommé.",
+      },
     ],
-    technologies: ["VMware ESXi", "Windows Server", "Red Hat Enterprise Linux", "Dell PowerEdge", "HP ProLiant", "TrueNAS", "FreeNAS", "AWS", "Google Cloud", "OVH", "Docker", "Kubernetes", "GitLab CI", "Grafana", "Prometheus", "Zabbix"],
+    technologies: [
+      "VMware ESXi",
+      "Windows Server",
+      "Red Hat Enterprise Linux",
+      "Dell PowerEdge",
+      "HP ProLiant",
+      "TrueNAS",
+      "FreeNAS",
+      "AWS",
+      "Google Cloud",
+      "OVH",
+      "Docker",
+      "Kubernetes",
+      "GitLab CI",
+      "Grafana",
+      "Prometheus",
+      "Zabbix",
+    ],
     outcomes: [
       "Moins d’interruptions imprévues",
       "Un objectif de reprise chiffré et démontrable",
@@ -108,18 +266,53 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
       "Une marge de capacité planifiée sur la croissance mesurée",
     ],
     evidence: [
-      { claim: "Un stockage porté de 580 To à plus de 3 500 To", detail: "Creolink Communication, 2015–2023. Une plateforme de sauvegarde FreeNAS devenue un cluster TrueNAS au fil d’un partenariat de huit ans, au rythme de la croissance des données du fournisseur d’accès." },
-      { claim: "FEICOM — virtualisation pour une institution publique nationale", detail: "Serveurs Dell PowerEdge, RAID 5, VMware ESXi 5.5 sur trois hôtes avec configuration des datastores, et machines virtuelles Red Hat Enterprise Linux." },
-      { claim: "PNDP–CNC — un environnement virtualisé pour un programme national", detail: "Serveurs HP ProLiant G8, RAID 5/1, VMware ESXi 5.5, commutateurs virtuels et configuration réseau." },
-      { claim: "Une infrastructure virtualisée pour un assureur, depuis 2022", detail: "Une infrastructure virtualisée conçue et exploitée pour un client du secteur de l’assurance." },
-      { claim: "Déploiement Kubernetes d’une plateforme interne", detail: "Back-Node est livrée avec des manifestes Kubernetes gérés par Kustomize et une chaîne CI GitLab." },
+      {
+        claim: "Un stockage porté de 580 To à plus de 3 500 To",
+        detail:
+          "Creolink Communication, 2015–2023. Une plateforme de sauvegarde FreeNAS devenue un cluster TrueNAS au fil d’un partenariat de huit ans, au rythme de la croissance des données du fournisseur d’accès.",
+      },
+      {
+        claim: "FEICOM — virtualisation pour une institution publique nationale",
+        detail:
+          "Serveurs Dell PowerEdge, RAID 5, VMware ESXi 5.5 sur trois hôtes avec configuration des datastores, et machines virtuelles Red Hat Enterprise Linux.",
+      },
+      {
+        claim: "PNDP–CNC — un environnement virtualisé pour un programme national",
+        detail:
+          "Serveurs HP ProLiant G8, RAID 5/1, VMware ESXi 5.5, commutateurs virtuels et configuration réseau.",
+      },
+      {
+        claim: "Une infrastructure virtualisée pour un assureur, depuis 2022",
+        detail:
+          "Une infrastructure virtualisée conçue et exploitée pour un client du secteur de l’assurance.",
+      },
+      {
+        claim: "Déploiement Kubernetes d’une plateforme interne",
+        detail:
+          "Back-Node est livrée avec des manifestes Kubernetes gérés par Kustomize et une chaîne CI GitLab.",
+      },
     ],
     faqs: [
-      { q: "Combien de temps dure un audit d’infrastructure ?", a: "Pour un site unique, généralement une à deux semaines entre le lancement et le rapport écrit : état des lieux, mesures, puis un document de constats avec une remédiation priorisée. Les parcs multisites prennent plus de temps, surtout en raison du nombre de sites plutôt que de la complexité de chacun." },
-      { q: "D’Yvix peut-elle gérer une infrastructure existante ?", a: "Oui, et plusieurs de nos plus longues relations ont commencé ainsi — une plateforme de stockage est restée sous notre gestion pendant huit ans. La reprise d’un parc existant commence par un inventaire et un audit, afin d’exploiter une réalité documentée." },
-      { q: "Remplacez-vous le matériel existant ?", a: "Uniquement lorsqu’il est défaillant, hors support, ou manifestement le facteur limitant. La consolidation et la virtualisation prolongent souvent la durée de vie d’un parc pour une fraction du coût de remplacement." },
-      { q: "A-t-on besoin de Kubernetes ?", a: "Souvent, non. Kubernetes répond à des problèmes qui n’apparaissent qu’à une échelle que beaucoup d’organisations n’atteignent jamais, et il ajoute sa propre charge d’exploitation. L’orchestration de conteneurs sur quelques hôtes suffit fréquemment. La recommandation suit la charge de travail, pas la tendance." },
-      { q: "Que signifie une sauvegarde testée ?", a: "Une restauration réalisée sur des données réelles selon un calendrier défini, chronométrée et documentée, pour que l’objectif de temps de reprise soit une mesure et non une estimation. Une sauvegarde jamais restaurée n’est, par définition, pas vérifiée." },
+      {
+        q: "Combien de temps dure un audit d’infrastructure ?",
+        a: "Pour un site unique, généralement une à deux semaines entre le lancement et le rapport écrit : état des lieux, mesures, puis un document de constats avec une remédiation priorisée. Les parcs multisites prennent plus de temps, surtout en raison du nombre de sites plutôt que de la complexité de chacun.",
+      },
+      {
+        q: "D’Yvix peut-elle gérer une infrastructure existante ?",
+        a: "Oui, et plusieurs de nos plus longues relations ont commencé ainsi — une plateforme de stockage est restée sous notre gestion pendant huit ans. La reprise d’un parc existant commence par un inventaire et un audit, afin d’exploiter une réalité documentée.",
+      },
+      {
+        q: "Remplacez-vous le matériel existant ?",
+        a: "Uniquement lorsqu’il est défaillant, hors support, ou manifestement le facteur limitant. La consolidation et la virtualisation prolongent souvent la durée de vie d’un parc pour une fraction du coût de remplacement.",
+      },
+      {
+        q: "A-t-on besoin de Kubernetes ?",
+        a: "Souvent, non. Kubernetes répond à des problèmes qui n’apparaissent qu’à une échelle que beaucoup d’organisations n’atteignent jamais, et il ajoute sa propre charge d’exploitation. L’orchestration de conteneurs sur quelques hôtes suffit fréquemment. La recommandation suit la charge de travail, pas la tendance.",
+      },
+      {
+        q: "Que signifie une sauvegarde testée ?",
+        a: "Une restauration réalisée sur des données réelles selon un calendrier défini, chronométrée et documentée, pour que l’objectif de temps de reprise soit une mesure et non une estimation. Une sauvegarde jamais restaurée n’est, par définition, pas vérifiée.",
+      },
     ],
     ctaLabel: "Demander un audit d’infrastructure",
   },
@@ -127,7 +320,8 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
   cybersecurity: {
     name: "Cybersécurité & résilience numérique",
     shortName: "Sécurité",
-    summary: "Protéger les systèmes, les données et les activités critiques face aux menaces numériques.",
+    summary:
+      "Protéger les systèmes, les données et les activités critiques face aux menaces numériques.",
     headline: "Sachez où vous êtes vulnérable avant que quelqu’un d’autre ne le découvre.",
     standfirst:
       "La sécurité n’est pas un pare-feu que l’on achète. C’est un cycle que l’on fait tourner. Nous établissons où vous en êtes réellement, fermons d’abord ce qui compte le plus, et mettons en place la détection pour le reste.",
@@ -148,24 +342,89 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
       "Aucun plan de réponse répété",
     ],
     capabilities: [
-      { title: "Audit de sécurité et analyse de risques", description: "Revue indépendante de l’infrastructure, de la configuration et des pratiques au regard d’un référentiel documenté." },
-      { title: "Sécurité des réseaux et des systèmes", description: "Architecture de pare-feu FortiGate et MikroTik, segmentation, durcissement et revue des politiques — déployés, puis réglés." },
-      { title: "Sécurité applicative et des API", description: "Conception sécurisée, authentification, passerelles d’API et revue de code systématique." },
-      { title: "Sécurité du cloud", description: "Identités, politiques réseau et gestion des clés transposées dans le cloud, plutôt que laissées de côté." },
-      { title: "Identités et accès (IAM, RBAC, ABAC)", description: "Moindre privilège, revue des droits, suppression des comptes partagés ou orphelins." },
-      { title: "SOC, SIEM et réponse aux incidents", description: "Surveillance continue, tri assisté par IA sous contrôle humain, confinement et retour à un état sain." },
-      { title: "Gestion des vulnérabilités et tests de sécurité", description: "Scans récurrents et tests, avec une remédiation suivie jusqu’à sa clôture, et non jusqu’à un rapport." },
-      { title: "Gouvernance, conformité et continuité", description: "Pratiques de gestion de la sécurité alignées sur l’ISO/IEC 27001, processus adaptables aux exigences RGPD d’un partenaire, et continuité adossée à une capacité de reprise testée." },
+      {
+        title: "Audit de sécurité et analyse de risques",
+        description:
+          "Revue indépendante de l’infrastructure, de la configuration et des pratiques au regard d’un référentiel documenté.",
+      },
+      {
+        title: "Sécurité des réseaux et des systèmes",
+        description:
+          "Architecture de pare-feu FortiGate et MikroTik, segmentation, durcissement et revue des politiques — déployés, puis réglés.",
+      },
+      {
+        title: "Sécurité applicative et des API",
+        description:
+          "Conception sécurisée, authentification, passerelles d’API et revue de code systématique.",
+      },
+      {
+        title: "Sécurité du cloud",
+        description:
+          "Identités, politiques réseau et gestion des clés transposées dans le cloud, plutôt que laissées de côté.",
+      },
+      {
+        title: "Identités et accès (IAM, RBAC, ABAC)",
+        description:
+          "Moindre privilège, revue des droits, suppression des comptes partagés ou orphelins.",
+      },
+      {
+        title: "SOC, SIEM et réponse aux incidents",
+        description:
+          "Surveillance continue, tri assisté par IA sous contrôle humain, confinement et retour à un état sain.",
+      },
+      {
+        title: "Gestion des vulnérabilités et tests de sécurité",
+        description:
+          "Scans récurrents et tests, avec une remédiation suivie jusqu’à sa clôture, et non jusqu’à un rapport.",
+      },
+      {
+        title: "Gouvernance, conformité et continuité",
+        description:
+          "Pratiques de gestion de la sécurité alignées sur l’ISO/IEC 27001, processus adaptables aux exigences RGPD d’un partenaire, et continuité adossée à une capacité de reprise testée.",
+      },
     ],
     approach: [
-      { title: "Évaluer", description: "Établir l’exposition réelle sur le réseau, les postes, les identités et les applications." },
-      { title: "Protéger", description: "Fermer les failles exploitables, par ordre de risque plutôt que de facilité." },
-      { title: "Détecter", description: "Instrumenter les événements qui comptent et éliminer le bruit qui les masque." },
-      { title: "Réagir", description: "Un plan répété, avec des responsables nommés, une autorité de décision et des circuits d’escalade." },
-      { title: "Restaurer", description: "Revenir à un état sain grâce à des sauvegardes vérifiées et isolées." },
-      { title: "Améliorer", description: "Réinjecter chaque constat et chaque incident dans le cycle suivant." },
+      {
+        title: "Évaluer",
+        description:
+          "Établir l’exposition réelle sur le réseau, les postes, les identités et les applications.",
+      },
+      {
+        title: "Protéger",
+        description: "Fermer les failles exploitables, par ordre de risque plutôt que de facilité.",
+      },
+      {
+        title: "Détecter",
+        description:
+          "Instrumenter les événements qui comptent et éliminer le bruit qui les masque.",
+      },
+      {
+        title: "Réagir",
+        description:
+          "Un plan répété, avec des responsables nommés, une autorité de décision et des circuits d’escalade.",
+      },
+      {
+        title: "Restaurer",
+        description: "Revenir à un état sain grâce à des sauvegardes vérifiées et isolées.",
+      },
+      {
+        title: "Améliorer",
+        description: "Réinjecter chaque constat et chaque incident dans le cycle suivant.",
+      },
     ],
-    technologies: ["FortiGate", "Kaspersky EDR", "Kaspersky Endpoint", "G-Data EndPoint", "MikroTik", "SIEM", "EDR", "IAM", "RBAC / ABAC", "VPN", "Pratiques ISO/IEC 27001"],
+    technologies: [
+      "FortiGate",
+      "Kaspersky EDR",
+      "Kaspersky Endpoint",
+      "G-Data EndPoint",
+      "MikroTik",
+      "SIEM",
+      "EDR",
+      "IAM",
+      "RBAC / ABAC",
+      "VPN",
+      "Pratiques ISO/IEC 27001",
+    ],
     outcomes: [
       "Une vision priorisée et étayée de l’exposition actuelle",
       "Les failles critiques fermées selon une séquence définie",
@@ -173,16 +432,43 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
       "Un plan de réponse déjà répété",
     ],
     evidence: [
-      { claim: "Sécurité réseau continue pour une mission diplomatique européenne depuis 2019", detail: "Des opérations de sécurité ininterrompues pour un client où la confidentialité est critique — le niveau d’exigence que nous appliquons au quotidien." },
-      { claim: "FODECC — modernisation de la sécurité et du réseau, 2016–2020", detail: "Migration des postes et protection antivirus, puis un réseau local câblé en baie et une liaison fibre optique sécurisée entre deux sites, pour 135 postes. Pare-feu FortiGate et Kaspersky Endpoint." },
-      { claim: "Surveillance de sécurité pour un client du secteur financier, 2025", detail: "Kaspersky EDR et supervision SOC assistée par IA, sous contrôle humain obligatoire." },
+      {
+        claim: "Sécurité réseau continue pour une mission diplomatique européenne depuis 2019",
+        detail:
+          "Des opérations de sécurité ininterrompues pour un client où la confidentialité est critique — le niveau d’exigence que nous appliquons au quotidien.",
+      },
+      {
+        claim: "FODECC — modernisation de la sécurité et du réseau, 2016–2020",
+        detail:
+          "Migration des postes et protection antivirus, puis un réseau local câblé en baie et une liaison fibre optique sécurisée entre deux sites, pour 135 postes. Pare-feu FortiGate et Kaspersky Endpoint.",
+      },
+      {
+        claim: "Surveillance de sécurité pour un client du secteur financier, 2025",
+        detail:
+          "Kaspersky EDR et supervision SOC assistée par IA, sous contrôle humain obligatoire.",
+      },
     ],
     faqs: [
-      { q: "Que comprend un audit de cybersécurité ?", a: "Une revue de l’architecture réseau et de la segmentation, de la configuration du périmètre et des pare-feu, de la couverture des postes, des identités et des privilèges, du niveau de correctifs, de l’intégrité des sauvegardes et de la capacité de reprise. Il se conclut par un rapport écrit : constats, risque métier de chacun, et séquence de remédiation ordonnée par risque." },
-      { q: "D’Yvix intervient-elle sur FortiGate ?", a: "Oui. FortiGate a été déployé et exploité dans des missions clients, notamment un programme pluriannuel de modernisation de la sécurité. Fortinet figure également parmi les partenariats technologiques de l’entreprise." },
-      { q: "D’Yvix est-elle certifiée ISO 27001 ?", a: "Les pratiques de sécurité de l’information de l’entreprise sont alignées sur l’ISO/IEC 27001 : accords de confidentialité signés avant tout accès aux systèmes sensibles, accès au moindre privilège limité aux membres affectés, pratiques de développement sécurisé. Demandez-nous l’état exact de la certification avant de vous en prévaloir dans un appel d’offres : nous ne l’exagérerons pas." },
-      { q: "Un audit perturbe-t-il l’activité ?", a: "Non. Un audit est par défaut en lecture seule : revue de configuration, analyse passive et entretiens. Toute intervention intrusive, comme un scan actif en production, est planifiée et validée par écrit au préalable." },
-      { q: "À quelle fréquence faut-il renouveler un audit ?", a: "Une fois par an au minimum, et en plus après tout changement significatif — nouveau site, migration importante, fusion ou incident. L’exposition évolue : un audit ne décrit qu’un instant." },
+      {
+        q: "Que comprend un audit de cybersécurité ?",
+        a: "Une revue de l’architecture réseau et de la segmentation, de la configuration du périmètre et des pare-feu, de la couverture des postes, des identités et des privilèges, du niveau de correctifs, de l’intégrité des sauvegardes et de la capacité de reprise. Il se conclut par un rapport écrit : constats, risque métier de chacun, et séquence de remédiation ordonnée par risque.",
+      },
+      {
+        q: "D’Yvix intervient-elle sur FortiGate ?",
+        a: "Oui. FortiGate a été déployé et exploité dans des missions clients, notamment un programme pluriannuel de modernisation de la sécurité. Fortinet figure également parmi les partenariats technologiques de l’entreprise.",
+      },
+      {
+        q: "D’Yvix est-elle certifiée ISO 27001 ?",
+        a: "Les pratiques de sécurité de l’information de l’entreprise sont alignées sur l’ISO/IEC 27001 : accords de confidentialité signés avant tout accès aux systèmes sensibles, accès au moindre privilège limité aux membres affectés, pratiques de développement sécurisé. Demandez-nous l’état exact de la certification avant de vous en prévaloir dans un appel d’offres : nous ne l’exagérerons pas.",
+      },
+      {
+        q: "Un audit perturbe-t-il l’activité ?",
+        a: "Non. Un audit est par défaut en lecture seule : revue de configuration, analyse passive et entretiens. Toute intervention intrusive, comme un scan actif en production, est planifiée et validée par écrit au préalable.",
+      },
+      {
+        q: "À quelle fréquence faut-il renouveler un audit ?",
+        a: "Une fois par an au minimum, et en plus après tout changement significatif — nouveau site, migration importante, fusion ou incident. L’exposition évolue : un audit ne décrit qu’un instant.",
+      },
     ],
     ctaLabel: "Demander un audit de sécurité",
   },
@@ -190,7 +476,8 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
   "ai-data": {
     name: "IA, data & automatisation",
     shortName: "IA & data",
-    summary: "Transformer les données et l’intelligence artificielle en leviers d’automatisation, de décision et de performance.",
+    summary:
+      "Transformer les données et l’intelligence artificielle en leviers d’automatisation, de décision et de performance.",
     headline: "Une intelligence qui travaille pour votre organisation.",
     standfirst:
       "Une IA utile en entreprise est ciblée, fondée sur vos propres sources et honnête sur ses incertitudes. Nous concevons, intégrons, déployons et exploitons des systèmes d’IA — et une personne reste responsable de chaque décision qui compte.",
@@ -210,23 +497,85 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
       "Des données trop éparpillées pour éclairer une décision",
     ],
     capabilities: [
-      { title: "AI Engineering", description: "Concevoir, intégrer, déployer et exploiter des systèmes d’IA de bout en bout — pas seulement appeler un modèle." },
-      { title: "Agents IA et systèmes multi-agents", description: "Des agents qui agissent sur les systèmes métiers via des outils définis, chaque étape importante restant vérifiable." },
-      { title: "Machine learning, langage et vision", description: "Des modèles de classification, d’extraction, de traitement du langage et de l’image, évalués face à une référence mesurée." },
-      { title: "IA privée et souveraine", description: "Des modèles auto-hébergés sur une infrastructure que vous contrôlez, lorsque la confidentialité ou la résidence des données l’exige." },
-      { title: "Automatisation des processus et RPA", description: "Supprimer les étapes répétitives entre systèmes, avec orchestration des workflows et supervision." },
-      { title: "Data engineering et analyse", description: "Des pipelines, entrepôts et tableaux de bord qui rendent les données fraîches, propres et exploitables." },
-      { title: "GED et numérisation", description: "Déploiement de GED, numérisation à grande échelle et indexation dans un référentiel maîtrisé et interrogeable." },
-      { title: "Données géospatiales", description: "PostgreSQL et PostGIS, éprouvés en production : les questions de localisation deviennent des requêtes ordinaires." },
+      {
+        title: "AI Engineering",
+        description:
+          "Concevoir, intégrer, déployer et exploiter des systèmes d’IA de bout en bout — pas seulement appeler un modèle.",
+      },
+      {
+        title: "Agents IA et systèmes multi-agents",
+        description:
+          "Des agents qui agissent sur les systèmes métiers via des outils définis, chaque étape importante restant vérifiable.",
+      },
+      {
+        title: "Machine learning, langage et vision",
+        description:
+          "Des modèles de classification, d’extraction, de traitement du langage et de l’image, évalués face à une référence mesurée.",
+      },
+      {
+        title: "IA privée et souveraine",
+        description:
+          "Des modèles auto-hébergés sur une infrastructure que vous contrôlez, lorsque la confidentialité ou la résidence des données l’exige.",
+      },
+      {
+        title: "Automatisation des processus et RPA",
+        description:
+          "Supprimer les étapes répétitives entre systèmes, avec orchestration des workflows et supervision.",
+      },
+      {
+        title: "Data engineering et analyse",
+        description:
+          "Des pipelines, entrepôts et tableaux de bord qui rendent les données fraîches, propres et exploitables.",
+      },
+      {
+        title: "GED et numérisation",
+        description:
+          "Déploiement de GED, numérisation à grande échelle et indexation dans un référentiel maîtrisé et interrogeable.",
+      },
+      {
+        title: "Données géospatiales",
+        description:
+          "PostgreSQL et PostGIS, éprouvés en production : les questions de localisation deviennent des requêtes ordinaires.",
+      },
     ],
     approach: [
-      { title: "Repérer le travail répétitif", description: "Identifier les tâches volumineuses, régies par des règles et aujourd’hui manuelles." },
-      { title: "Vérifier les données", description: "S’assurer que les données sont assez complètes et à jour pour soutenir la tâche." },
-      { title: "Définir l’erreur acceptable", description: "Convenir de la précision requise et du coût d’une mauvaise réponse." },
-      { title: "Piloter à petite échelle", description: "Un seul workflow, mesuré face au processus manuel qu’il remplace." },
-      { title: "Garder un humain dans la boucle", description: "Automatiser le travail ; laisser les décisions importantes à une personne." },
+      {
+        title: "Repérer le travail répétitif",
+        description:
+          "Identifier les tâches volumineuses, régies par des règles et aujourd’hui manuelles.",
+      },
+      {
+        title: "Vérifier les données",
+        description:
+          "S’assurer que les données sont assez complètes et à jour pour soutenir la tâche.",
+      },
+      {
+        title: "Définir l’erreur acceptable",
+        description: "Convenir de la précision requise et du coût d’une mauvaise réponse.",
+      },
+      {
+        title: "Piloter à petite échelle",
+        description: "Un seul workflow, mesuré face au processus manuel qu’il remplace.",
+      },
+      {
+        title: "Garder un humain dans la boucle",
+        description: "Automatiser le travail ; laisser les décisions importantes à une personne.",
+      },
     ],
-    technologies: ["Python", "Grands modèles de langage", "DeepSeek", "vLLM", "Génération augmentée par la recherche (RAG)", "FastAPI", "RPA", "PostgreSQL", "PostGIS", "SQL Server", "Dokmee", "TrueNAS"],
+    technologies: [
+      "Python",
+      "Grands modèles de langage",
+      "DeepSeek",
+      "vLLM",
+      "Génération augmentée par la recherche (RAG)",
+      "FastAPI",
+      "RPA",
+      "PostgreSQL",
+      "PostGIS",
+      "SQL Server",
+      "Dokmee",
+      "TrueNAS",
+    ],
     outcomes: [
       "Une réduction mesurée du temps passé sur les tâches répétitives",
       "Un savoir interne consultable et attribuable",
@@ -234,17 +583,48 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
       "Une automatisation au taux d’erreur défini et suivi",
     ],
     evidence: [
-      { claim: "Infrastructure LLM auto-hébergée, 2025", detail: "Des modèles DeepSeek servis avec vLLM sur une infrastructure que nous maîtrisons — l’option qui garde les données confidentielles dans le périmètre du client." },
-      { claim: "Supervision SOC assistée par IA, depuis 2022", detail: "Kaspersky EDR avec tri assisté par IA dans un contexte réel d’opérations de sécurité, sous contrôle humain." },
-      { claim: "Ministère des Travaux Publics — gestion électronique des documents", detail: "Environnement Windows Server et SQL Server, Dokmee Enterprise et Dokmee Web, numériseurs haut volume et deux NAS pour le référentiel d’archives." },
-      { claim: "Back-Node — workflows, RPA et IA", detail: "Une plateforme d’automatisation qui réunit iPaaS, workflows visuels, RPA et IA dans une interface sans code. En développement." },
-      { claim: "Des données géospatiales en production", detail: "Stockage et requêtes PostgreSQL/PostGIS dans la plateforme SaCrècheIci." },
+      {
+        claim: "Infrastructure LLM auto-hébergée, 2025",
+        detail:
+          "Des modèles DeepSeek servis avec vLLM sur une infrastructure que nous maîtrisons — l’option qui garde les données confidentielles dans le périmètre du client.",
+      },
+      {
+        claim: "Supervision SOC assistée par IA, depuis 2022",
+        detail:
+          "Kaspersky EDR avec tri assisté par IA dans un contexte réel d’opérations de sécurité, sous contrôle humain.",
+      },
+      {
+        claim: "Ministère des Travaux Publics — gestion électronique des documents",
+        detail:
+          "Environnement Windows Server et SQL Server, Dokmee Enterprise et Dokmee Web, numériseurs haut volume et deux NAS pour le référentiel d’archives.",
+      },
+      {
+        claim: "Back-Node — workflows, RPA et IA",
+        detail:
+          "Une plateforme d’automatisation qui réunit iPaaS, workflows visuels, RPA et IA dans une interface sans code. En développement.",
+      },
+      {
+        claim: "Des données géospatiales en production",
+        detail: "Stockage et requêtes PostgreSQL/PostGIS dans la plateforme SaCrècheIci.",
+      },
     ],
     faqs: [
-      { q: "Un assistant IA peut-il inventer des réponses ?", a: "Tout système fondé sur un modèle de langage peut produire une réponse erronée avec assurance. Ce risque se gère en ancrant les réponses dans des sources validées, en citant ces sources pour permettre la vérification, et en configurant le système pour qu’il s’abstienne plutôt que de deviner. Il est réduit par conception, pas supprimé — c’est pourquoi une revue humaine est obligatoire dans chacun de nos déploiements." },
-      { q: "Nos données sortent-elles de l’organisation ?", a: "Cela se décide explicitement à la conception, jamais par défaut. Lorsque la confidentialité ou la résidence des données l’exige, les modèles tournent en auto-hébergement sur une infrastructure que vous contrôlez — nous exploitons DeepSeek avec vLLM précisément pour ce cas." },
-      { q: "Par où une organisation doit-elle commencer ?", a: "Par une tâche ciblée, volumineuse et régie par des règles, dont le coût manuel est mesurable — l’extraction de documents ou la recherche interne, en général. Les grands programmes d’IA à l’échelle de toute l’organisation produisent plus souvent des démonstrations que des résultats." },
-      { q: "Qu’est-ce que la gestion électronique des documents ?", a: "Un système pour stocker, indexer, retrouver et conserver les documents d’une organisation, avec des droits d’accès et une politique de conservation définis — il remplace les disques personnels et les pièces jointes dispersées par un référentiel unique et maîtrisé." },
+      {
+        q: "Un assistant IA peut-il inventer des réponses ?",
+        a: "Tout système fondé sur un modèle de langage peut produire une réponse erronée avec assurance. Ce risque se gère en ancrant les réponses dans des sources validées, en citant ces sources pour permettre la vérification, et en configurant le système pour qu’il s’abstienne plutôt que de deviner. Il est réduit par conception, pas supprimé — c’est pourquoi une revue humaine est obligatoire dans chacun de nos déploiements.",
+      },
+      {
+        q: "Nos données sortent-elles de l’organisation ?",
+        a: "Cela se décide explicitement à la conception, jamais par défaut. Lorsque la confidentialité ou la résidence des données l’exige, les modèles tournent en auto-hébergement sur une infrastructure que vous contrôlez — nous exploitons DeepSeek avec vLLM précisément pour ce cas.",
+      },
+      {
+        q: "Par où une organisation doit-elle commencer ?",
+        a: "Par une tâche ciblée, volumineuse et régie par des règles, dont le coût manuel est mesurable — l’extraction de documents ou la recherche interne, en général. Les grands programmes d’IA à l’échelle de toute l’organisation produisent plus souvent des démonstrations que des résultats.",
+      },
+      {
+        q: "Qu’est-ce que la gestion électronique des documents ?",
+        a: "Un système pour stocker, indexer, retrouver et conserver les documents d’une organisation, avec des droits d’accès et une politique de conservation définis — il remplace les disques personnels et les pièces jointes dispersées par un référentiel unique et maîtrisé.",
+      },
     ],
     ctaLabel: "Parler d’un projet IA ou data",
   },
@@ -252,7 +632,8 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
   "networks-telecom": {
     name: "Réseaux, télécoms & connectivité",
     shortName: "Réseaux",
-    summary: "Connecter les personnes, les systèmes et les territoires avec des réseaux qui tiennent.",
+    summary:
+      "Connecter les personnes, les systèmes et les territoires avec des réseaux qui tiennent.",
     headline: "Chaque site connecté. Chaque lien sous contrôle.",
     standfirst:
       "La connectivité est la partie du parc que personne ne remarque jusqu’à ce qu’elle lâche — et dans une organisation multisite, elle lâche d’abord aux extrémités. Nous concevons les réseaux à partir du trafic réel et des vrais chemins de défaillance, puis nous les maintenons en fonctionnement.",
@@ -272,23 +653,85 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
       "Aucune visibilité sur l’état du réseau avant les plaintes des utilisateurs",
     ],
     capabilities: [
-      { title: "Architecture réseau", description: "Conception LAN et WAN, segmentation et adressage dimensionnés au trafic mesuré." },
-      { title: "Wi-Fi professionnel et maillé", description: "Couverture sans fil haute densité et multisite, en maillage là où le câblage n’est pas praticable." },
-      { title: "Routage, commutation et SD-WAN", description: "Un routage résilient, avec une bascule automatique pilotée par des sondes de santé et non par l’état des interfaces." },
-      { title: "Liaisons longue portée et intersites", description: "Liaisons sans fil point à point et interconnexions fibre entre bâtiments et sites." },
-      { title: "VPN et pare-feu", description: "Accès distant sécurisé et tunnels site à site derrière un périmètre réglé." },
-      { title: "Téléphonie et infrastructures télécoms", description: "Téléphonie IP, autocommutateur (PBX), trunks SIP et passerelles GSM intégrés au réseau de données." },
-      { title: "Supervision réseau", description: "Une surveillance sur chaque lien important, où la perte d’un lien déclenche une alerte plutôt qu’un silence." },
-      { title: "Connectivité industrielle et IoT", description: "Des réseaux pour équipements connectés et appareils de terrain, segmentés de l’informatique de bureau." },
+      {
+        title: "Architecture réseau",
+        description:
+          "Conception LAN et WAN, segmentation et adressage dimensionnés au trafic mesuré.",
+      },
+      {
+        title: "Wi-Fi professionnel et maillé",
+        description:
+          "Couverture sans fil haute densité et multisite, en maillage là où le câblage n’est pas praticable.",
+      },
+      {
+        title: "Routage, commutation et SD-WAN",
+        description:
+          "Un routage résilient, avec une bascule automatique pilotée par des sondes de santé et non par l’état des interfaces.",
+      },
+      {
+        title: "Liaisons longue portée et intersites",
+        description:
+          "Liaisons sans fil point à point et interconnexions fibre entre bâtiments et sites.",
+      },
+      {
+        title: "VPN et pare-feu",
+        description: "Accès distant sécurisé et tunnels site à site derrière un périmètre réglé.",
+      },
+      {
+        title: "Téléphonie et infrastructures télécoms",
+        description:
+          "Téléphonie IP, autocommutateur (PBX), trunks SIP et passerelles GSM intégrés au réseau de données.",
+      },
+      {
+        title: "Supervision réseau",
+        description:
+          "Une surveillance sur chaque lien important, où la perte d’un lien déclenche une alerte plutôt qu’un silence.",
+      },
+      {
+        title: "Connectivité industrielle et IoT",
+        description:
+          "Des réseaux pour équipements connectés et appareils de terrain, segmentés de l’informatique de bureau.",
+      },
     ],
     approach: [
-      { title: "Relever les sites", description: "Recenser les sites, les usages et l’infrastructure existante, sur le terrain." },
-      { title: "Mesurer le trafic et les chemins", description: "Quantifier les flux réels et repérer où des liens apparemment distincts convergent." },
-      { title: "Concevoir pour la panne", description: "Prévoir ce qui se passe quand chaque lien tombe, avant qu’il ne tombe." },
-      { title: "Déployer et tester la bascule", description: "Mettre en service, puis provoquer les pannes et chronométrer la reprise." },
-      { title: "Superviser", description: "Surveiller chaque lien et traiter les dégradations avant qu’elles ne deviennent des coupures." },
+      {
+        title: "Relever les sites",
+        description:
+          "Recenser les sites, les usages et l’infrastructure existante, sur le terrain.",
+      },
+      {
+        title: "Mesurer le trafic et les chemins",
+        description:
+          "Quantifier les flux réels et repérer où des liens apparemment distincts convergent.",
+      },
+      {
+        title: "Concevoir pour la panne",
+        description: "Prévoir ce qui se passe quand chaque lien tombe, avant qu’il ne tombe.",
+      },
+      {
+        title: "Déployer et tester la bascule",
+        description: "Mettre en service, puis provoquer les pannes et chronométrer la reprise.",
+      },
+      {
+        title: "Superviser",
+        description:
+          "Surveiller chaque lien et traiter les dégradations avant qu’elles ne deviennent des coupures.",
+      },
     ],
-    technologies: ["Cisco", "MikroTik", "Ubiquiti UniFi", "Ubiquiti NanoBeam", "Fortinet", "SD-WAN", "VPN", "Câblage structuré", "Fibre optique", "PBX TrixBox", "SIP", "Passerelles GSM"],
+    technologies: [
+      "Cisco",
+      "MikroTik",
+      "Ubiquiti UniFi",
+      "Ubiquiti NanoBeam",
+      "Fortinet",
+      "SD-WAN",
+      "VPN",
+      "Câblage structuré",
+      "Fibre optique",
+      "PBX TrixBox",
+      "SIP",
+      "Passerelles GSM",
+    ],
     outcomes: [
       "Des agences qui restent connectées quand un lien tombe",
       "Des temps de bascule mesurés et documentés",
@@ -296,15 +739,39 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
       "La voix et les données sur un même parc supervisé",
     ],
     evidence: [
-      { claim: "Cyberlink — près de 100 sites en Wi-Fi maillé", detail: "Déploiement et maintenance d’un réseau sans fil Ubiquiti UniFi avec portail captif MikroTik dans des cybercafés de Yaoundé, de 52 sites au départ à près de 100, entre 2013 et 2021." },
-      { claim: "SOPECAM — une liaison sans fil longue portée", detail: "Une liaison Ubiquiti NanoBeam longue portée pour l’entreprise nationale de presse et d’édition, exploitée depuis 2017." },
-      { claim: "WellDone Center — 200 postes, voix et données", detail: "Câblage réseau pour 200 postes, serveurs de gestion, clients légers et téléphonie avec un PBX TrixBox, des trunks SIP et des passerelles GSM." },
-      { claim: "FODECC — la fibre entre deux sites", detail: "Un réseau local sécurisé en fibre optique reliant deux sites, pour 135 postes." },
+      {
+        claim: "Cyberlink — près de 100 sites en Wi-Fi maillé",
+        detail:
+          "Déploiement et maintenance d’un réseau sans fil Ubiquiti UniFi avec portail captif MikroTik dans des cybercafés de Yaoundé, de 52 sites au départ à près de 100, entre 2013 et 2021.",
+      },
+      {
+        claim: "SOPECAM — une liaison sans fil longue portée",
+        detail:
+          "Une liaison Ubiquiti NanoBeam longue portée pour l’entreprise nationale de presse et d’édition, exploitée depuis 2017.",
+      },
+      {
+        claim: "WellDone Center — 200 postes, voix et données",
+        detail:
+          "Câblage réseau pour 200 postes, serveurs de gestion, clients légers et téléphonie avec un PBX TrixBox, des trunks SIP et des passerelles GSM.",
+      },
+      {
+        claim: "FODECC — la fibre entre deux sites",
+        detail: "Un réseau local sécurisé en fibre optique reliant deux sites, pour 135 postes.",
+      },
     ],
     faqs: [
-      { q: "D’Yvix peut-elle interconnecter nos sites ?", a: "Oui. L’interconnexion multisite — fibre, sans fil longue portée ou VPN — fait partie de nos réalisations, dont une liaison fibre sécurisée entre deux sites pour 135 postes et un réseau maillé sur près de cent sites." },
-      { q: "Comment rendre une bascule réellement efficace ?", a: "En la pilotant par des sondes qui mesurent la joignabilité à travers le lien, et non par l’état de l’interface ; en vérifiant par écrit que les deux liens ne partagent pas le même chemin physique ; et en testant de vraies pannes pendant les heures ouvrées. Notre article sur la bascule multi-WAN détaille la méthode." },
-      { q: "Prenez-vous en charge la téléphonie autant que les données ?", a: "Oui. Nous avons mis en place la téléphonie complète d’un centre d’appels de 200 postes — PBX, trunks SIP et passerelles GSM — intégrée au réseau de données." },
+      {
+        q: "D’Yvix peut-elle interconnecter nos sites ?",
+        a: "Oui. L’interconnexion multisite — fibre, sans fil longue portée ou VPN — fait partie de nos réalisations, dont une liaison fibre sécurisée entre deux sites pour 135 postes et un réseau maillé sur près de cent sites.",
+      },
+      {
+        q: "Comment rendre une bascule réellement efficace ?",
+        a: "En la pilotant par des sondes qui mesurent la joignabilité à travers le lien, et non par l’état de l’interface ; en vérifiant par écrit que les deux liens ne partagent pas le même chemin physique ; et en testant de vraies pannes pendant les heures ouvrées. Notre article sur la bascule multi-WAN détaille la méthode.",
+      },
+      {
+        q: "Prenez-vous en charge la téléphonie autant que les données ?",
+        a: "Oui. Nous avons mis en place la téléphonie complète d’un centre d’appels de 200 postes — PBX, trunks SIP et passerelles GSM — intégrée au réseau de données.",
+      },
     ],
     ctaLabel: "Planifier votre réseau",
   },
@@ -332,22 +799,76 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
       "Des données de localisation et de télémétrie qu’aucun système ne sait interroger",
     ],
     capabilities: [
-      { title: "Systèmes et passerelles IoT", description: "Capteurs, passerelles et gestion de flotte, avec un enrôlement et des mises à jour sécurisés." },
-      { title: "Systèmes embarqués", description: "Du logiciel pour appareils contraints, intégré au matériel sur lequel il tourne." },
-      { title: "Edge computing et edge AI", description: "Traitement et inférence sur site, pour que les décisions ne dépendent pas du lien." },
-      { title: "Télémétrie et géolocalisation", description: "Des chaînes de collecte et un stockage géospatial qui rendent les données de terrain interrogeables." },
-      { title: "Supervision à distance", description: "Surveiller des équipements dispersés depuis un seul point, avec des alertes dès la dégradation." },
-      { title: "Systèmes cyber-physiques et autonomes", description: "Drones, robotique et plateformes autonomes, sous réserve des autorisations et réglementations applicables." },
-      { title: "Intégration matériel–logiciel", description: "Faire fonctionner appareils, réseaux et applications comme un seul système." },
+      {
+        title: "Systèmes et passerelles IoT",
+        description:
+          "Capteurs, passerelles et gestion de flotte, avec un enrôlement et des mises à jour sécurisés.",
+      },
+      {
+        title: "Systèmes embarqués",
+        description:
+          "Du logiciel pour appareils contraints, intégré au matériel sur lequel il tourne.",
+      },
+      {
+        title: "Edge computing et edge AI",
+        description:
+          "Traitement et inférence sur site, pour que les décisions ne dépendent pas du lien.",
+      },
+      {
+        title: "Télémétrie et géolocalisation",
+        description:
+          "Des chaînes de collecte et un stockage géospatial qui rendent les données de terrain interrogeables.",
+      },
+      {
+        title: "Supervision à distance",
+        description:
+          "Surveiller des équipements dispersés depuis un seul point, avec des alertes dès la dégradation.",
+      },
+      {
+        title: "Systèmes cyber-physiques et autonomes",
+        description:
+          "Drones, robotique et plateformes autonomes, sous réserve des autorisations et réglementations applicables.",
+      },
+      {
+        title: "Intégration matériel–logiciel",
+        description: "Faire fonctionner appareils, réseaux et applications comme un seul système.",
+      },
     ],
     approach: [
-      { title: "Cartographier le terrain", description: "Recenser les équipements, les sites, et les contraintes d’énergie et de connectivité." },
-      { title: "Concevoir le chemin des données", description: "Décider quoi collecter, à quelle fréquence, et comment le faire remonter." },
-      { title: "Décider ce qui tourne en edge", description: "Garder sur site ce qui doit fonctionner sans lien, centraliser le reste." },
-      { title: "Piloter sur site", description: "Un premier déploiement réel, mesuré dans les conditions du terrain." },
-      { title: "Superviser et mettre à jour", description: "Surveiller la flotte et la faire évoluer sans intervenir sur chaque appareil." },
+      {
+        title: "Cartographier le terrain",
+        description:
+          "Recenser les équipements, les sites, et les contraintes d’énergie et de connectivité.",
+      },
+      {
+        title: "Concevoir le chemin des données",
+        description: "Décider quoi collecter, à quelle fréquence, et comment le faire remonter.",
+      },
+      {
+        title: "Décider ce qui tourne en edge",
+        description: "Garder sur site ce qui doit fonctionner sans lien, centraliser le reste.",
+      },
+      {
+        title: "Piloter sur site",
+        description: "Un premier déploiement réel, mesuré dans les conditions du terrain.",
+      },
+      {
+        title: "Superviser et mettre à jour",
+        description:
+          "Surveiller la flotte et la faire évoluer sans intervenir sur chaque appareil.",
+      },
     ],
-    technologies: ["Ubiquiti UniFi", "MikroTik", "Caméras IP", "PostgreSQL / PostGIS", "Inférence en edge", "Chaînes de télémétrie", "Grafana", "Zabbix", "Docker"],
+    technologies: [
+      "Ubiquiti UniFi",
+      "MikroTik",
+      "Caméras IP",
+      "PostgreSQL / PostGIS",
+      "Inférence en edge",
+      "Chaînes de télémétrie",
+      "Grafana",
+      "Zabbix",
+      "Docker",
+    ],
     outcomes: [
       "Des équipements de terrain supervisés depuis un seul point",
       "Des décisions disponibles sur site même quand le lien est coupé",
@@ -355,14 +876,34 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
       "Un système intégré plutôt qu’un assemblage de pièces",
     ],
     evidence: [
-      { claim: "SOPECAM — 92 caméras connectées en réseau maillé", detail: "Un déploiement d’équipements connectés à grande échelle pour une institution publique, avec un stockage de sauvegarde associé — en fonctionnement depuis 2017." },
-      { claim: "Cyberlink — des équipements de terrain maintenus à distance", detail: "Près de 100 sites supervisés et maintenus pendant huit ans, sans présence permanente sur chacun." },
-      { claim: "Des données géospatiales en production", detail: "Stockage et requêtes PostgreSQL/PostGIS dans la plateforme SaCrècheIci." },
+      {
+        claim: "SOPECAM — 92 caméras connectées en réseau maillé",
+        detail:
+          "Un déploiement d’équipements connectés à grande échelle pour une institution publique, avec un stockage de sauvegarde associé — en fonctionnement depuis 2017.",
+      },
+      {
+        claim: "Cyberlink — des équipements de terrain maintenus à distance",
+        detail:
+          "Près de 100 sites supervisés et maintenus pendant huit ans, sans présence permanente sur chacun.",
+      },
+      {
+        claim: "Des données géospatiales en production",
+        detail: "Stockage et requêtes PostgreSQL/PostGIS dans la plateforme SaCrècheIci.",
+      },
     ],
     faqs: [
-      { q: "D’Yvix travaille-t-elle avec des drones ?", a: "Les drones et technologies autonomes relèvent de ce domaine, sous réserve des autorisations, certifications et réglementations applicables à chaque déploiement. Tout projet de ce type commence par l’établissement du cadre réglementaire, avant le cadre technique." },
-      { q: "Qu’est-ce que l’edge computing, concrètement ?", a: "Traiter les données là où elles sont produites — sur le site, l’appareil ou la passerelle — plutôt que de tout envoyer vers un centre de données. Les systèmes réagissent plus vite, consomment moins de bande passante, et continuent de fonctionner quand la liaison est lente ou coupée." },
-      { q: "Pouvez-vous connecter des équipements que nous possédons déjà ?", a: "Souvent, oui. La première étape est un inventaire de ce que les appareils peuvent remonter, et comment. Lorsqu’ils ne peuvent pas être connectés en toute sécurité, ils sont isolés sur leur propre segment réseau." },
+      {
+        q: "D’Yvix travaille-t-elle avec des drones ?",
+        a: "Les drones et technologies autonomes relèvent de ce domaine, sous réserve des autorisations, certifications et réglementations applicables à chaque déploiement. Tout projet de ce type commence par l’établissement du cadre réglementaire, avant le cadre technique.",
+      },
+      {
+        q: "Qu’est-ce que l’edge computing, concrètement ?",
+        a: "Traiter les données là où elles sont produites — sur le site, l’appareil ou la passerelle — plutôt que de tout envoyer vers un centre de données. Les systèmes réagissent plus vite, consomment moins de bande passante, et continuent de fonctionner quand la liaison est lente ou coupée.",
+      },
+      {
+        q: "Pouvez-vous connecter des équipements que nous possédons déjà ?",
+        a: "Souvent, oui. La première étape est un inventaire de ce que les appareils peuvent remonter, et comment. Lorsqu’ils ne peuvent pas être connectés en toute sécurité, ils sont isolés sur leur propre segment réseau.",
+      },
     ],
     ctaLabel: "Parler d’un projet de systèmes connectés",
   },
@@ -390,22 +931,72 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
       "Aucun langage visuel commun d’un écran à l’autre",
     ],
     capabilities: [
-      { title: "Product discovery", description: "Établir quel problème mérite d’être résolu, et pour qui, avant de s’engager dans un développement." },
-      { title: "Architecture produit", description: "Structurer un produit pour qu’il puisse grandir sans être réécrit." },
-      { title: "Recherche UX et design UX/UI", description: "Des études avec de vrais utilisateurs, et des interfaces conçues autour de leurs tâches." },
-      { title: "Design systems et prototypage", description: "Des composants réutilisables et des prototypes interactifs qui rendent les décisions testables tôt." },
-      { title: "Web, mobile et PWA", description: "Des applications multi-appareils, y compris des applications web progressives adaptées aux connexions limitées." },
-      { title: "Qualité logicielle", description: "Tests fonctionnels, automatisés, de performance et de sécurité intégrés au développement, et non ajoutés après." },
-      { title: "Vérification et validation", description: "La preuve que le produit répond à ses exigences, prête pour une recette." },
+      {
+        title: "Product discovery",
+        description:
+          "Établir quel problème mérite d’être résolu, et pour qui, avant de s’engager dans un développement.",
+      },
+      {
+        title: "Architecture produit",
+        description: "Structurer un produit pour qu’il puisse grandir sans être réécrit.",
+      },
+      {
+        title: "Recherche UX et design UX/UI",
+        description:
+          "Des études avec de vrais utilisateurs, et des interfaces conçues autour de leurs tâches.",
+      },
+      {
+        title: "Design systems et prototypage",
+        description:
+          "Des composants réutilisables et des prototypes interactifs qui rendent les décisions testables tôt.",
+      },
+      {
+        title: "Web, mobile et PWA",
+        description:
+          "Des applications multi-appareils, y compris des applications web progressives adaptées aux connexions limitées.",
+      },
+      {
+        title: "Qualité logicielle",
+        description:
+          "Tests fonctionnels, automatisés, de performance et de sécurité intégrés au développement, et non ajoutés après.",
+      },
+      {
+        title: "Vérification et validation",
+        description: "La preuve que le produit répond à ses exigences, prête pour une recette.",
+      },
     ],
     approach: [
-      { title: "Découvrir", description: "Comprendre les utilisateurs, leurs tâches et ce qui les bloque aujourd’hui." },
-      { title: "Prototyper", description: "Tester les choix structurants sur un prototype avant d’écrire le produit." },
-      { title: "Construire par incréments", description: "Livrer des tranches utilisables et mesurer leur adoption." },
-      { title: "Vérifier", description: "Tests automatisés, revue de code et tests de sécurité avant chaque mise en production." },
-      { title: "Livrer et améliorer", description: "Déploiement supervisé, retour arrière prêt, puis amélioration continue." },
+      {
+        title: "Découvrir",
+        description: "Comprendre les utilisateurs, leurs tâches et ce qui les bloque aujourd’hui.",
+      },
+      {
+        title: "Prototyper",
+        description: "Tester les choix structurants sur un prototype avant d’écrire le produit.",
+      },
+      {
+        title: "Construire par incréments",
+        description: "Livrer des tranches utilisables et mesurer leur adoption.",
+      },
+      {
+        title: "Vérifier",
+        description:
+          "Tests automatisés, revue de code et tests de sécurité avant chaque mise en production.",
+      },
+      {
+        title: "Livrer et améliorer",
+        description: "Déploiement supervisé, retour arrière prêt, puis amélioration continue.",
+      },
     ],
-    technologies: ["React", "TypeScript", "Applications web progressives", "WebSocket", "Tests automatisés", "Tests de sécurité", "Design systems"],
+    technologies: [
+      "React",
+      "TypeScript",
+      "Applications web progressives",
+      "WebSocket",
+      "Tests automatisés",
+      "Tests de sécurité",
+      "Design systems",
+    ],
     outcomes: [
       "Un produit validé auprès des utilisateurs avant d’être déployé à grande échelle",
       "Moins de régressions en production",
@@ -413,14 +1004,35 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
       "Une interface cohérente sur tout le produit",
     ],
     evidence: [
-      { claim: "SaCrècheIci — un produit temps réel en production", detail: "Application web monopage React avec mises à jour en direct par WebSocket et tableau de bord temps réel." },
-      { claim: "Une discipline de revue sur chaque mission", detail: "Documentation continue, démonstrations hebdomadaires, et aucune fusion sans revue de code." },
-      { claim: "Des tests avant chaque mise en production", detail: "Tests fonctionnels et de sécurité avant la production, avec un déploiement supervisé et un plan de retour arrière." },
+      {
+        claim: "SaCrècheIci — un produit temps réel en production",
+        detail:
+          "Application web monopage React avec mises à jour en direct par WebSocket et tableau de bord temps réel.",
+      },
+      {
+        claim: "Une discipline de revue sur chaque mission",
+        detail:
+          "Documentation continue, démonstrations hebdomadaires, et aucune fusion sans revue de code.",
+      },
+      {
+        claim: "Des tests avant chaque mise en production",
+        detail:
+          "Tests fonctionnels et de sécurité avant la production, avec un déploiement supervisé et un plan de retour arrière.",
+      },
     ],
     faqs: [
-      { q: "Faites-vous du design, ou seulement du développement ?", a: "Les deux. La découverte, la recherche utilisateur et la conception d’interfaces précèdent le développement, et le même produit est ensuite construit, testé et livré par la même équipe — rien ne se perd entre la maquette et le code." },
-      { q: "Comment maintenir la qualité sans ralentir les livraisons ?", a: "En l’intégrant au développement : tests automatisés, revue de code systématique et démonstrations hebdomadaires. Les défauts sont trouvés quand ils coûtent le moins cher à corriger, ce qui accélère les livraisons au lieu de les freiner." },
-      { q: "Pouvez-vous travailler sous un processus de recette externe ?", a: "Oui. Notre méthode — documentation continue, démonstrations hebdomadaires, revue obligatoire — est conçue pour fonctionner sous la porte qualité d’un partenaire, et non à côté." },
+      {
+        q: "Faites-vous du design, ou seulement du développement ?",
+        a: "Les deux. La découverte, la recherche utilisateur et la conception d’interfaces précèdent le développement, et le même produit est ensuite construit, testé et livré par la même équipe — rien ne se perd entre la maquette et le code.",
+      },
+      {
+        q: "Comment maintenir la qualité sans ralentir les livraisons ?",
+        a: "En l’intégrant au développement : tests automatisés, revue de code systématique et démonstrations hebdomadaires. Les défauts sont trouvés quand ils coûtent le moins cher à corriger, ce qui accélère les livraisons au lieu de les freiner.",
+      },
+      {
+        q: "Pouvez-vous travailler sous un processus de recette externe ?",
+        a: "Oui. Notre méthode — documentation continue, démonstrations hebdomadaires, revue obligatoire — est conçue pour fonctionner sous la porte qualité d’un partenaire, et non à côté.",
+      },
     ],
     ctaLabel: "Parler de votre produit",
   },
@@ -448,22 +1060,72 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
       "Un savoir qui part avec les personnes",
     ],
     capabilities: [
-      { title: "Conseil", description: "Conseil IT, numérique, en architecture, en cybersécurité, en cloud et en IA, fondé sur la pratique plutôt que sur des présentations." },
-      { title: "Audit et expertise technique", description: "Audits de SI, d’infrastructure, de réseau, de sécurité et d’applications, avec des constats écrits ordonnés par risque." },
-      { title: "Diagnostic de maturité", description: "Où vous en êtes par rapport à où vous devez être, et dans quel ordre combler l’écart." },
-      { title: "R&D appliquée", description: "Prototypes, preuves de concept, MVP et démonstrateurs qui répondent vite à une question." },
-      { title: "Validation et industrialisation", description: "Faire passer ce qui a fonctionné en prototype à quelque chose qui tourne en production." },
-      { title: "Formation technique", description: "Cybersécurité, cloud, DevOps, développement, IA, réseaux et systèmes — sur votre propre environnement." },
-      { title: "Transfert de compétences", description: "Documentation et passation pour que les compétences restent dans votre équipe." },
+      {
+        title: "Conseil",
+        description:
+          "Conseil IT, numérique, en architecture, en cybersécurité, en cloud et en IA, fondé sur la pratique plutôt que sur des présentations.",
+      },
+      {
+        title: "Audit et expertise technique",
+        description:
+          "Audits de SI, d’infrastructure, de réseau, de sécurité et d’applications, avec des constats écrits ordonnés par risque.",
+      },
+      {
+        title: "Diagnostic de maturité",
+        description:
+          "Où vous en êtes par rapport à où vous devez être, et dans quel ordre combler l’écart.",
+      },
+      {
+        title: "R&D appliquée",
+        description:
+          "Prototypes, preuves de concept, MVP et démonstrateurs qui répondent vite à une question.",
+      },
+      {
+        title: "Validation et industrialisation",
+        description:
+          "Faire passer ce qui a fonctionné en prototype à quelque chose qui tourne en production.",
+      },
+      {
+        title: "Formation technique",
+        description:
+          "Cybersécurité, cloud, DevOps, développement, IA, réseaux et systèmes — sur votre propre environnement.",
+      },
+      {
+        title: "Transfert de compétences",
+        description:
+          "Documentation et passation pour que les compétences restent dans votre équipe.",
+      },
     ],
     approach: [
-      { title: "Cadrer la question", description: "Formuler précisément ce qu’il faut décider, et sur quels critères." },
-      { title: "Évaluer l’existant", description: "Mesurer la situation réelle plutôt que la situation supposée." },
-      { title: "Tester l’idée", description: "Un prototype ou une preuve de concept, borné dans le temps." },
-      { title: "Recommander, preuves à l’appui", description: "Un rapport écrit : ce qui a été mesuré, et ce qu’il faut en conclure." },
-      { title: "Transmettre", description: "Former les équipes et documenter, pour que la décision tienne sans nous." },
+      {
+        title: "Cadrer la question",
+        description: "Formuler précisément ce qu’il faut décider, et sur quels critères.",
+      },
+      {
+        title: "Évaluer l’existant",
+        description: "Mesurer la situation réelle plutôt que la situation supposée.",
+      },
+      {
+        title: "Tester l’idée",
+        description: "Un prototype ou une preuve de concept, borné dans le temps.",
+      },
+      {
+        title: "Recommander, preuves à l’appui",
+        description: "Un rapport écrit : ce qui a été mesuré, et ce qu’il faut en conclure.",
+      },
+      {
+        title: "Transmettre",
+        description: "Former les équipes et documenter, pour que la décision tienne sans nous.",
+      },
     ],
-    technologies: ["Audit de sécurité", "Revue d’architecture", "Preuve de concept", "MVP", "Documentation technique", "Procédures d’exploitation"],
+    technologies: [
+      "Audit de sécurité",
+      "Revue d’architecture",
+      "Preuve de concept",
+      "MVP",
+      "Documentation technique",
+      "Procédures d’exploitation",
+    ],
     outcomes: [
       "Une décision appuyée sur une évaluation technique",
       "Une idée testée avant d’être financée",
@@ -471,15 +1133,40 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
       "Une équipe capable d’exploiter ce qui a été livré",
     ],
     evidence: [
-      { claim: "L’audit et le conseil, une ligne de service historique", detail: "L’audit, le conseil et la sécurité informatique font partie des services historiques de l’entreprise." },
-      { claim: "Back-Node — R&D produit en interne", detail: "Une plateforme d’automatisation en microservices conçue et construite par l’équipe D’Yvix, actuellement en développement." },
-      { claim: "Infrastructure d’IA auto-hébergée, 2025", detail: "Des modèles DeepSeek servis avec vLLM — une compétence acquise sur une mission réelle." },
-      { claim: "Une documentation livrée avec chaque solution", detail: "La documentation technique et utilisateur fait partie intégrante de notre cadre de livraison." },
+      {
+        claim: "L’audit et le conseil, une ligne de service historique",
+        detail:
+          "L’audit, le conseil et la sécurité informatique font partie des services historiques de l’entreprise.",
+      },
+      {
+        claim: "Back-Node — R&D produit en interne",
+        detail:
+          "Une plateforme d’automatisation en microservices conçue et construite par l’équipe D’Yvix, actuellement en développement.",
+      },
+      {
+        claim: "Infrastructure d’IA auto-hébergée, 2025",
+        detail:
+          "Des modèles DeepSeek servis avec vLLM — une compétence acquise sur une mission réelle.",
+      },
+      {
+        claim: "Une documentation livrée avec chaque solution",
+        detail:
+          "La documentation technique et utilisateur fait partie intégrante de notre cadre de livraison.",
+      },
     ],
     faqs: [
-      { q: "Combien coûte un audit ?", a: "Cela dépend de la taille du parc et du nombre de sites : le montant est donc chiffré après un court échange de cadrage plutôt qu’estimé ici. Le périmètre, les livrables et le prix sont validés par écrit avant le démarrage, et le prix ne bouge pas tant que le périmètre ne bouge pas." },
-      { q: "Pouvez-vous mener une preuve de concept avant que nous nous engagions ?", a: "Oui. Une preuve de concept bornée dans le temps et dans son périmètre est souvent le meilleur moyen de lever un doute technique avant d’investir. Elle se conclut par une recommandation écrite — y compris celle de ne pas poursuivre." },
-      { q: "La formation est-elle facturée à part ?", a: "La documentation technique et utilisateur est livrée avec chaque solution, dans le cadre de la mission. Les programmes de formation plus larges sont chiffrés à part, car leur ampleur dépend du nombre de personnes à former." },
+      {
+        q: "Combien coûte un audit ?",
+        a: "Cela dépend de la taille du parc et du nombre de sites : le montant est donc chiffré après un court échange de cadrage plutôt qu’estimé ici. Le périmètre, les livrables et le prix sont validés par écrit avant le démarrage, et le prix ne bouge pas tant que le périmètre ne bouge pas.",
+      },
+      {
+        q: "Pouvez-vous mener une preuve de concept avant que nous nous engagions ?",
+        a: "Oui. Une preuve de concept bornée dans le temps et dans son périmètre est souvent le meilleur moyen de lever un doute technique avant d’investir. Elle se conclut par une recommandation écrite — y compris celle de ne pas poursuivre.",
+      },
+      {
+        q: "La formation est-elle facturée à part ?",
+        a: "La documentation technique et utilisateur est livrée avec chaque solution, dans le cadre de la mission. Les programmes de formation plus larges sont chiffrés à part, car leur ampleur dépend du nombre de personnes à former.",
+      },
     ],
     ctaLabel: "Demander un audit",
   },
@@ -487,7 +1174,8 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
   "managed-services": {
     name: "Services managés & support",
     shortName: "Infogérance",
-    summary: "Exploiter ce que vous faites tourner selon un niveau de service défini : support, supervision et maintenance.",
+    summary:
+      "Exploiter ce que vous faites tourner selon un niveau de service défini : support, supervision et maintenance.",
     headline: "Quelqu’un de responsable pour que tout fonctionne lundi matin.",
     standfirst:
       "La plupart des organisations n’ont pas besoin d’un grand service informatique interne. Elles ont besoin d’un niveau de service défini, d’un circuit d’escalade nommé, et de quelqu’un dont le métier est de repérer un problème avant les utilisateurs. Plusieurs de ces relations durent depuis plus de huit ans.",
@@ -507,21 +1195,63 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
       "Des sites trop éloignés ou trop nombreux pour être visités un par un",
     ],
     capabilities: [
-      { title: "Support à plusieurs niveaux", description: "Support de niveau 1, 2 et 3, en français ou en anglais, selon un niveau de réponse convenu." },
-      { title: "Administration des systèmes et des réseaux", description: "Exploitation, correctifs et maintenance continus selon un référentiel défini." },
-      { title: "Supervision des infrastructures", description: "Instrumentation Grafana, Prometheus et Zabbix, pour que les problèmes remontent vers nous et non vers vos utilisateurs." },
-      { title: "Maintenance préventive et corrective", description: "Interventions planifiées, gestion des incidents et astreinte sur les systèmes déployés." },
-      { title: "Environnements de travail collaboratif", description: "Espaces partagés et collaboration documentaire que les équipes adoptent réellement." },
-      { title: "Exploitation multisite", description: "Des parcs dispersés maintenus sans présence permanente sur chaque site." },
+      {
+        title: "Support à plusieurs niveaux",
+        description:
+          "Support de niveau 1, 2 et 3, en français ou en anglais, selon un niveau de réponse convenu.",
+      },
+      {
+        title: "Administration des systèmes et des réseaux",
+        description:
+          "Exploitation, correctifs et maintenance continus selon un référentiel défini.",
+      },
+      {
+        title: "Supervision des infrastructures",
+        description:
+          "Instrumentation Grafana, Prometheus et Zabbix, pour que les problèmes remontent vers nous et non vers vos utilisateurs.",
+      },
+      {
+        title: "Maintenance préventive et corrective",
+        description:
+          "Interventions planifiées, gestion des incidents et astreinte sur les systèmes déployés.",
+      },
+      {
+        title: "Environnements de travail collaboratif",
+        description:
+          "Espaces partagés et collaboration documentaire que les équipes adoptent réellement.",
+      },
+      {
+        title: "Exploitation multisite",
+        description: "Des parcs dispersés maintenus sans présence permanente sur chaque site.",
+      },
     ],
     approach: [
-      { title: "Inventorier et fixer le référentiel", description: "Documenter le parc et convenir du niveau auquel il sera tenu." },
+      {
+        title: "Inventorier et fixer le référentiel",
+        description: "Documenter le parc et convenir du niveau auquel il sera tenu.",
+      },
       { title: "Stabiliser", description: "Résorber l’arriéré de maintenance accumulé." },
-      { title: "Instrumenter", description: "Mettre en place la supervision, pour que les problèmes remontent vers nous et non vers vos utilisateurs." },
-      { title: "Exploiter", description: "Maintenance planifiée et support défini selon le niveau convenu." },
+      {
+        title: "Instrumenter",
+        description:
+          "Mettre en place la supervision, pour que les problèmes remontent vers nous et non vers vos utilisateurs.",
+      },
+      {
+        title: "Exploiter",
+        description: "Maintenance planifiée et support défini selon le niveau convenu.",
+      },
       { title: "Revoir", description: "Des revues de service régulières, chiffres à l’appui." },
     ],
-    technologies: ["Zabbix", "Grafana", "Prometheus", "Ubiquiti UniFi", "MikroTik", "Windows Server", "Linux", "Microsoft 365"],
+    technologies: [
+      "Zabbix",
+      "Grafana",
+      "Prometheus",
+      "Ubiquiti UniFi",
+      "MikroTik",
+      "Windows Server",
+      "Linux",
+      "Microsoft 365",
+    ],
     outcomes: [
       "Un coût informatique prévisible à la place des dépenses d’urgence",
       "Un responsable nommé et un circuit d’escalade défini",
@@ -529,15 +1259,39 @@ export const expertiseFr: Record<ExpertiseSlug, ExpertiseText> = {
       "Des dégradations détectées avant de devenir des coupures",
     ],
     evidence: [
-      { claim: "Cyberlink — près de 100 sites maintenus pendant huit ans", detail: "Déploiement puis maintenance matérielle et logicielle d’un réseau sans fil dans des cybercafés de Yaoundé, de 2013 à 2021." },
-      { claim: "SOPECAM — en exploitation depuis 2017", detail: "Une liaison sans fil longue portée et un réseau de vidéosurveillance de 92 caméras avec stockage de sauvegarde, toujours sous notre gestion." },
-      { claim: "Creolink — un partenariat de huit ans sur le stockage", detail: "Un suivi technique continu pendant que la plateforme du client passait de 580 To à plus de 3 500 To." },
-      { claim: "Une mission diplomatique européenne — depuis 2019", detail: "Une sécurité réseau assurée sans interruption depuis 2019." },
+      {
+        claim: "Cyberlink — près de 100 sites maintenus pendant huit ans",
+        detail:
+          "Déploiement puis maintenance matérielle et logicielle d’un réseau sans fil dans des cybercafés de Yaoundé, de 2013 à 2021.",
+      },
+      {
+        claim: "SOPECAM — en exploitation depuis 2017",
+        detail:
+          "Une liaison sans fil longue portée et un réseau de vidéosurveillance de 92 caméras avec stockage de sauvegarde, toujours sous notre gestion.",
+      },
+      {
+        claim: "Creolink — un partenariat de huit ans sur le stockage",
+        detail:
+          "Un suivi technique continu pendant que la plateforme du client passait de 580 To à plus de 3 500 To.",
+      },
+      {
+        claim: "Une mission diplomatique européenne — depuis 2019",
+        detail: "Une sécurité réseau assurée sans interruption depuis 2019.",
+      },
     ],
     faqs: [
-      { q: "D’Yvix propose-t-elle des services managés ?", a: "Oui. L’administration et la maintenance continues des systèmes et des réseaux sont au cœur de notre activité, avec un support de niveau 1, 2 et 3 en français ou en anglais. Plusieurs de ces relations durent depuis huit ans ou plus." },
-      { q: "Pouvez-vous travailler aux côtés de notre équipe informatique ?", a: "Oui. Un schéma courant : l’équipe interne assure le support aux utilisateurs, D’Yvix prend en charge l’infrastructure, la sécurité et l’escalade. Les responsabilités sont définies par écrit, pour que rien ne tombe entre les deux." },
-      { q: "Pouvez-vous prendre en charge des sites sans personnel ?", a: "Oui, c’est une grande part de notre activité d’infogérance. Un parc sans fil de près de cent sites a été maintenu pendant huit ans sans présence permanente sur chaque site." },
+      {
+        q: "D’Yvix propose-t-elle des services managés ?",
+        a: "Oui. L’administration et la maintenance continues des systèmes et des réseaux sont au cœur de notre activité, avec un support de niveau 1, 2 et 3 en français ou en anglais. Plusieurs de ces relations durent depuis huit ans ou plus.",
+      },
+      {
+        q: "Pouvez-vous travailler aux côtés de notre équipe informatique ?",
+        a: "Oui. Un schéma courant : l’équipe interne assure le support aux utilisateurs, D’Yvix prend en charge l’infrastructure, la sécurité et l’escalade. Les responsabilités sont définies par écrit, pour que rien ne tombe entre les deux.",
+      },
+      {
+        q: "Pouvez-vous prendre en charge des sites sans personnel ?",
+        a: "Oui, c’est une grande part de notre activité d’infogérance. Un parc sans fil de près de cent sites a été maintenu pendant huit ans sans présence permanente sur chaque site.",
+      },
     ],
     ctaLabel: "Parler de services managés",
   },

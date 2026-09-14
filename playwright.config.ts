@@ -26,7 +26,8 @@ export default defineConfig({
     // Workers share one source IP, so the production rate limit would throttle
     // the suite itself. The 429 path is covered by unit tests in
     // src/lib/rate-limit.test.ts instead.
-    command: "RATE_LIMIT_MAX=1000 npx next start -p 3100",
+    // The standalone server, i.e. exactly what gets deployed — not `next start`.
+    command: "RATE_LIMIT_MAX=1000 PORT=3100 HOSTNAME=127.0.0.1 node .next/standalone/server.js",
     url: "http://localhost:3100",
     reuseExistingServer: true,
     timeout: 120_000,

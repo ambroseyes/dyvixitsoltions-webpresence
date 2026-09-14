@@ -37,8 +37,17 @@ export default async function OpengraphImage() {
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: "18px" }}>
-        <div style={{ width: "30px", height: "30px", border: "2px solid #579C32", transform: "rotate(45deg)" }} />
-        <div style={{ fontSize: "34px", color: "#f7f1ea", fontWeight: 700, letterSpacing: "-1px" }}>D’Yvix</div>
+        <div
+          style={{
+            width: "30px",
+            height: "30px",
+            border: "2px solid #579C32",
+            transform: "rotate(45deg)",
+          }}
+        />
+        <div style={{ fontSize: "34px", color: "#f7f1ea", fontWeight: 700, letterSpacing: "-1px" }}>
+          D’Yvix
+        </div>
       </div>
 
       <div style={{ display: "flex", flexDirection: "column" }}>

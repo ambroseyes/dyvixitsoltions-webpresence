@@ -21,11 +21,36 @@ export const companyFr: CompanyContent = {
   ],
 
   timeline: [
-    { period: "2012", title: "Les fondations", detail: "Fondée à Yaoundé sur une conviction : l’Afrique centrale mérite la même rigueur technique que l’Europe." },
-    { period: "2015", title: "Les premières réalisations marquantes", detail: "Ministères, santé publique et assurance — une discipline de livraison qui n’a pas varié depuis." },
-    { period: "2017–19", title: "L’ouverture à l’international", detail: "Une mission diplomatique européenne et des agences des Nations unies nous confient leur infrastructure." },
-    { period: "2020–21", title: "La consolidation", detail: "Toutes les missions en cours maintenues sans exception, malgré l’incertitude mondiale." },
-    { period: "2022–25", title: "La diversification", detail: "Plateformes e-commerce, infrastructures de sécurité et vidéosurveillance à grande échelle." },
+    {
+      period: "2012",
+      title: "Les fondations",
+      detail:
+        "Fondée à Yaoundé sur une conviction : l’Afrique centrale mérite la même rigueur technique que l’Europe.",
+    },
+    {
+      period: "2015",
+      title: "Les premières réalisations marquantes",
+      detail:
+        "Ministères, santé publique et assurance — une discipline de livraison qui n’a pas varié depuis.",
+    },
+    {
+      period: "2017–19",
+      title: "L’ouverture à l’international",
+      detail:
+        "Une mission diplomatique européenne et des agences des Nations unies nous confient leur infrastructure.",
+    },
+    {
+      period: "2020–21",
+      title: "La consolidation",
+      detail:
+        "Toutes les missions en cours maintenues sans exception, malgré l’incertitude mondiale.",
+    },
+    {
+      period: "2022–25",
+      title: "La diversification",
+      detail:
+        "Plateformes e-commerce, infrastructures de sécurité et vidéosurveillance à grande échelle.",
+    },
   ],
 
   team: [
@@ -53,9 +78,17 @@ export const companyFr: CompanyContent = {
   },
 
   standards: [
-    { name: "ISO/IEC 27001", qualifier: "aligned", note: "Pratiques de gestion de la sécurité de l’information alignées sur la norme." },
+    {
+      name: "ISO/IEC 27001",
+      qualifier: "aligned",
+      note: "Pratiques de gestion de la sécurité de l’information alignées sur la norme.",
+    },
     { name: "ITIL Foundation", qualifier: "certified", note: "Gestion des services." },
-    { name: "AWS Certified Cloud Practitioner", qualifier: "certified", note: "Fondamentaux du cloud." },
+    {
+      name: "AWS Certified Cloud Practitioner",
+      qualifier: "certified",
+      note: "Fondamentaux du cloud.",
+    },
   ],
 
   sectors: [

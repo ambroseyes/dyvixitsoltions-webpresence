@@ -1,8 +1,12 @@
 # D’YVIX IT Solutions — web presence
 
-Production web platform for **D’YVIX IT Solutions**, a technology engineering
-company delivering infrastructure, cybersecurity, cloud, software engineering,
-DevOps and managed IT services in Cameroon and across Africa.
+Production web platform for **D’YVIX IT Solutions**, a digital and technology
+engineering company working across nine domains — software, cloud and
+infrastructure, cybersecurity, AI and data, networks and telecom, IoT and edge,
+product and quality engineering, consulting and R&D, managed services — in
+Cameroon and across Africa.
+
+Bilingual: English at the root (`/about`), French under `/fr` (`/fr/about`).
 
 Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4
 
@@ -20,32 +24,39 @@ The site runs at http://localhost:3000.
 
 ## Scripts
 
-| Script | What it does |
-| --- | --- |
-| `npm run dev` | Development server |
-| `npm run build` | Production build |
-| `npm start` | Serve the production build |
-| `npm run typecheck` | `tsc --noEmit` |
-| `npm run lint` | ESLint |
-| `npm test` | Unit tests (Vitest) |
-| `npm run test:coverage` | Unit tests with coverage thresholds |
-| `npm run test:e2e` | Playwright, all browser projects |
-| `npm run audit:geo` | Score every page for AI/search discoverability |
-| `npm run verify` | typecheck → lint → test → build |
+| Script                     | What it does                                          |
+| -------------------------- | ----------------------------------------------------- |
+| `npm run dev`              | Development server                                    |
+| `npm run build`            | Production build                                      |
+| `npm start`                | Serve the production build with `next start`          |
+| `npm run start:standalone` | Serve the self-contained build — what production runs |
+| `npm run typecheck`        | `tsc --noEmit`                                        |
+| `npm run lint`             | ESLint                                                |
+| `npm test`                 | Unit tests (Vitest)                                   |
+| `npm run test:coverage`    | Unit tests with coverage thresholds                   |
+| `npm run test:e2e`         | Playwright, all browser projects                      |
+| `npm run audit:geo`        | Score every page for AI/search discoverability        |
+| `npm run verify`           | typecheck → lint → test → build                       |
 
 `audit:geo` and the Playwright suite both need a server on port 3100
-(`npm run build && npx next start -p 3100`). Playwright starts one itself.
+(`npm run build && PORT=3100 npm run start:standalone`). Playwright starts one
+itself, bound to `127.0.0.1` on purpose — see [Locale routing](#locale-routing).
 
 ## Architecture
 
 ```text
 src/
 ├── app/                    Routes (App Router). Server Components by default.
+│   ├── [lang]/             Every page, once per locale (en, fr)
+│   │   ├── expertise/      Nine domain pages from one template
+│   │   ├── solutions/      D’Yvix platforms — a page once documented
+│   │   ├── industries/     Six sector pages
+│   │   ├── insights/       Articles
+│   │   └── …               about, projects, contact, request-audit, legal, privacy
 │   ├── api/contact/        Enquiry endpoint: rate limit → origin → validate
-│   ├── solutions/[slug]/   Seven service pages from one template
-│   ├── industries/[slug]/  Six sector pages
-│   ├── insights/[slug]/    Articles
-│   ├── sitemap.ts          Generated from content
+│   ├── api/search/[lang]/  Command-palette index, static JSON per locale
+│   ├── not-found.tsx       404 with full chrome, in the URL's language
+│   ├── sitemap.ts          Both locales, with hreflang alternates
 │   ├── robots.ts           Crawl policy (AI crawlers allowed — see below)
 │   └── opengraph-image.tsx Social card, generated
 ├── components/
@@ -55,11 +66,27 @@ src/
 │   ├── forms/              Multi-step enquiry form
 │   ├── seo/                JSON-LD renderer
 │   └── ui/                 Primitives (Button, Card, Section, SpecRow, …)
-├── content/                Typed content models — CMS-ready, no CMS yet
-├── lib/                    site (entity facts), schema, seo, search, colour,
+├── content/                Typed content: locale-free base + EN/FR text per entity
+├── i18n/                   Locales, path helpers, dictionaries, French typography
+├── lib/                    site (entity facts), schema, seo, nav, search, colour,
 │                           validation, rate limiting
-└── proxy.ts                Per-request nonce CSP
+└── proxy.ts                Per-request nonce CSP, locale header, /en redirect
 ```
+
+### Locale routing
+
+English has no prefix. `next.config.ts` rewrites unprefixed URLs onto
+`app/[lang]` with `lang=en` (an `afterFiles` rewrite); `/fr/...` matches
+`[lang]` directly; `/en/...` is redirected to the public URL by `proxy.ts`, so
+each page has one address. The locale reaches `<html lang>` through an
+`x-locale` request header.
+
+The rewrite is deliberately not done in the proxy. A proxy rewrite is an
+absolute URL, which Next compares with an origin built from the server's bind
+address, while `NextURL` normalises loopback hosts to `localhost`. On a server
+bound to `127.0.0.1` the two differ, Next proxies the rewrite as an external
+request, and the English homepage loops on 308. `src/proxy.test.ts` and
+`src/i18n/rewrites.test.ts` pin both halves.
 
 ### Client/server split
 
@@ -72,11 +99,14 @@ The site's own JavaScript is **≈33 kB gzipped**. See
 
 ### Content is data
 
-`src/content/` holds typed models rather than JSX. Adding a solution to
-`solutions.ts` puts it in the mega menu, the footer, the sitemap, the
-`Organization` schema's service catalogue, the command palette index and the
-internal-link graph automatically — enforced by tests in
-`src/content/integrity.test.ts`.
+`src/content/` holds typed models rather than JSX. Each entity has a
+locale-independent base (slugs, relations, links) and a text file per locale,
+typed `Record<Slug, Text>` — so an entity without its French text does not
+compile. Adding a domain to `content/expertise/` puts it in the mega menu, the
+footer, the sitemap, the `Organization` schema's service catalogue, the command
+palette index and the internal-link graph, in both languages — enforced by
+`src/content/integrity.test.ts`, which also checks EN/FR parity and French
+typography.
 
 ## Design system
 
@@ -88,14 +118,14 @@ from the two slanted strokes of the D'Yvix mark.
 
 **Everything visual derives from real brand assets, not invention:**
 
-| Token | Source |
-| --- | --- |
-| `#579C32` brand green | Sampled from the logo PNG |
-| `#E72E36` brand red | Sampled from the logo PNG |
-| `#2B4222` forest ground | Company pitch deck |
-| `#F9EEE7` cream paper | Company pitch deck |
-| Quattrocento | The serif used throughout the pitch deck |
-| Quattrocento Sans | Its designed companion, for body text |
+| Token                   | Source                                   |
+| ----------------------- | ---------------------------------------- |
+| `#579C32` brand green   | Sampled from the logo PNG                |
+| `#E72E36` brand red     | Sampled from the logo PNG                |
+| `#2B4222` forest ground | Company pitch deck                       |
+| `#F9EEE7` cream paper   | Company pitch deck                       |
+| Quattrocento            | The serif used throughout the pitch deck |
+| Quattrocento Sans       | Its designed companion, for body text    |
 
 All tokens live in `src/app/globals.css`. Nothing hardcodes a colour, size or
 duration.
@@ -108,7 +138,7 @@ duration.
   holds the same hue and chroma at a solved lightness and carries all text and
   buttons. `src/lib/color.test.ts` pins both facts so they are never merged.
 - **Contrast** — the lightness of `--c-ink-faint`, `--c-brass` and
-  `--c-line-strong` is *solved*, not chosen: each is the value at which the
+  `--c-line-strong` is _solved_, not chosen: each is the value at which the
   token clears WCAG against the darkest surface it appears on.
   `src/lib/color.test.ts` converts OKLCH → sRGB → relative luminance and fails
   the build if any pairing drops below AA. Run `npx tsx scripts/contrast-report.mjs`
@@ -170,11 +200,11 @@ decorative SVGs kept out of the accessibility tree.
 
 Measured with `node scripts/bundle-report.mjs` against a production server.
 
-| Page | HTML | JS | CSS |
-| --- | --- | --- | --- |
-| `/` | 32.9 kB | 211.9 kB | 11.7 kB |
+| Page                       | HTML    | JS       | CSS     |
+| -------------------------- | ------- | -------- | ------- |
+| `/`                        | 32.9 kB | 211.9 kB | 11.7 kB |
 | `/solutions/cybersecurity` | 21.2 kB | 205.2 kB | 11.7 kB |
-| `/contact` | ~13 kB | ~208 kB | 11.7 kB |
+| `/contact`                 | ~13 kB  | ~208 kB  | 11.7 kB |
 
 All gzipped.
 
@@ -191,10 +221,10 @@ Zod was removed from the client bundle by splitting validation rules
 
 ## Testing
 
-| Suite | Count | Command |
-| --- | --- | --- |
-| Unit (Vitest) | 185 | `npm test` |
-| E2E (Playwright ×4 projects) | 194 | `npm run test:e2e` |
+| Suite                        | Count                     | Command            |
+| ---------------------------- | ------------------------- | ------------------ |
+| Unit (Vitest)                | 294                       | `npm test`         |
+| E2E (Playwright ×4 projects) | 340 (5 skipped by design) | `npm run test:e2e` |
 
 Coverage on `src/lib` and `src/content`: 95% statements, 90% branches, 97%
 functions, 97% lines.
@@ -213,17 +243,29 @@ provider or a CRM webhook before launch.
 
 ## Deployment
 
-Any Node host supporting Next.js 16.
+Any host that runs Node.js 20.9 or later. The build is self-contained
+(`output: "standalone"`): after `npm run build`, `.next/standalone/server.js`
+runs with only its traced dependencies, and the postbuild step copies the
+static assets next to it.
 
 ```bash
 npm ci
 npm run build
-npm start
+node .next/standalone/server.js
 ```
+
+Step-by-step guide for cPanel (Setup Node.js App + Git Version Control), in
+French: [docs/deploiement-cpanel.md](docs/deploiement-cpanel.md) — including
+how to replace the previous site on the main domain and roll back.
+
+`next.config.ts` redirects `www.dyvixitsolutions.com` to the bare domain, and
+the previous site's addresses (`/service/:id`, `/news`, `/politics`) to their
+closest French pages, all with 308. HTTP → HTTPS is left to the host.
 
 Before going live:
 
-1. Set `NEXT_PUBLIC_SITE_URL` to the production origin.
+1. Check `site.url` in `src/lib/site.ts`: it is the production origin used by
+   canonical links, the sitemap and structured data (no environment variable).
 2. Implement enquiry delivery in the contact route.
 3. Fill the placeholders in `/legal` (company registration, hosting) and
    `/privacy` (data controller, legal basis, supervisory authority).
@@ -244,7 +286,7 @@ company history and nine named client engagements all come from those sources.
 
 - **Street address** — not published in any source, so `LocalBusiness` schema
   stays withheld. Two cities (Yaoundé, Douala) are stated; no street is.
-- **ISO/IEC 27001** — the profile describes the company as *aligned* in prose
+- **ISO/IEC 27001** — the profile describes the company as _aligned_ in prose
   while listing it under certifications. The site publishes the conservative
   reading ("aligned") and the schema emits no ISO credential. Confirm the real
   position before a tender relies on it.

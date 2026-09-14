@@ -24,8 +24,19 @@ export function Logo({
   className?: string;
 }) {
   return (
-    <Link href={href} className={`group inline-flex items-center gap-2.5 ${className ?? ""}`} aria-label={label}>
-      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true" className="shrink-0">
+    <Link
+      href={href}
+      className={`group inline-flex items-center gap-2.5 ${className ?? ""}`}
+      aria-label={label}
+    >
+      <svg
+        width="26"
+        height="26"
+        viewBox="0 0 26 26"
+        fill="none"
+        aria-hidden="true"
+        className="shrink-0"
+      >
         {/* Upright stem of the Y */}
         <rect x="18.1" y="1" width="3.5" height="24" className="fill-brand" />
 

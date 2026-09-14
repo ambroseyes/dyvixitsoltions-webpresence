@@ -27,6 +27,10 @@ export function SiteHeader({ lang, nav, labels, theme, command, homeLabel }: Pro
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const navRef = useRef<HTMLDivElement>(null);
+  // A pointer that hovers a trigger has already opened its panel, so the
+  // click that follows must not toggle it shut again. Keyboard activation
+  // never hovers, so Enter and Space still toggle.
+  const hoverOpened = useRef<string | null>(null);
 
   // Locale-agnostic, so it is the same whether the router reports the public
   // URL (/about) or the internal rewrite target (/en/about).
@@ -109,14 +113,26 @@ export function SiteHeader({ lang, nav, labels, theme, command, homeLabel }: Pro
                 <div
                   key={group.match}
                   className="relative"
-                  onMouseEnter={() => setOpenGroup(group.match)}
-                  onMouseLeave={() => setOpenGroup(null)}
+                  onMouseEnter={() => {
+                    hoverOpened.current = group.match;
+                    setOpenGroup(group.match);
+                  }}
+                  onMouseLeave={() => {
+                    hoverOpened.current = null;
+                    setOpenGroup(null);
+                  }}
                 >
                   <button
                     type="button"
                     aria-expanded={isOpen}
                     aria-controls={panelId}
-                    onClick={() => setOpenGroup(isOpen ? null : group.match)}
+                    onClick={() => {
+                      if (hoverOpened.current === group.match) {
+                        hoverOpened.current = null;
+                        return;
+                      }
+                      setOpenGroup(isOpen ? null : group.match);
+                    }}
                     className={cn(
                       "inline-flex items-center gap-1.5 rounded-(--radius-sm) px-3 py-2 text-(length:--text-sm) transition-colors duration-(--duration-fast)",
                       active || isOpen ? "text-primary" : "text-ink-muted hover:text-ink",
@@ -127,12 +143,18 @@ export function SiteHeader({ lang, nav, labels, theme, command, homeLabel }: Pro
                       size={13}
                       strokeWidth={2}
                       aria-hidden="true"
-                      className={cn("transition-transform duration-(--duration-fast)", isOpen && "rotate-180")}
+                      className={cn(
+                        "transition-transform duration-(--duration-fast)",
+                        isOpen && "rotate-180",
+                      )}
                     />
                   </button>
 
                   {isOpen && (
-                    <div id={panelId} className="absolute top-full left-1/2 w-[min(46rem,calc(100vw-3rem))] -translate-x-1/2 pt-2">
+                    <div
+                      id={panelId}
+                      className="absolute top-full left-1/2 w-[min(46rem,calc(100vw-3rem))] -translate-x-1/2 pt-2"
+                    >
                       <div className="brackets border border-line bg-surface-raised p-2 shadow-[0_18px_50px_-24px_rgb(0_0_0/0.4)]">
                         <ul className="grid grid-cols-2 gap-0.5">
                           {group.children.map((leaf) => (
@@ -164,7 +186,10 @@ export function SiteHeader({ lang, nav, labels, theme, command, homeLabel }: Pro
                             {group.allLabel ?? group.label} →
                           </Link>
                           {group.feature && (
-                            <Link href={group.feature.href} className="text-(length:--text-sm) text-primary hover:underline">
+                            <Link
+                              href={group.feature.href}
+                              className="text-(length:--text-sm) text-primary hover:underline"
+                            >
                               {group.feature.label}
                             </Link>
                           )}
@@ -180,7 +205,7 @@ export function SiteHeader({ lang, nav, labels, theme, command, homeLabel }: Pro
           <div className="flex items-center gap-1">
             <button
               type="button"
-              onClick={openCommandMenu}
+              onClick={(e) => openCommandMenu(e.currentTarget)}
               aria-label={labels.searchAria}
               className="hidden items-center gap-2 rounded-(--radius-sm) border border-line px-3 py-2 text-(length:--text-sm) text-ink-faint transition-colors duration-(--duration-fast) hover:border-line-strong hover:text-ink md:inline-flex"
             >
@@ -218,7 +243,11 @@ export function SiteHeader({ lang, nav, labels, theme, command, homeLabel }: Pro
               aria-label={mobileOpen ? labels.closeMenu : labels.openMenu}
               className="inline-flex size-11 items-center justify-center rounded-(--radius-sm) border border-line text-ink lg:hidden"
             >
-              {mobileOpen ? <X size={17} aria-hidden="true" /> : <Menu size={17} aria-hidden="true" />}
+              {mobileOpen ? (
+                <X size={17} aria-hidden="true" />
+              ) : (
+                <Menu size={17} aria-hidden="true" />
+              )}
             </button>
           </div>
         </div>

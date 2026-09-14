@@ -20,8 +20,14 @@ export const industriesEn: Record<IndustrySlug, IndustryText> = {
       "Audit findings on privileged access and change control",
     ],
     faqs: [
-      { q: "Can D’Yvix work within our regulator’s requirements?", a: "Engagements are scoped against the specific obligations you are held to. Where a control is mandated, it becomes an explicit requirement of the design rather than a recommendation, and the resulting documentation is written to support audit." },
-      { q: "How is branch connectivity made resilient?", a: "Through independent links that do not share a failure path, with automatic failover configured and tested. The design begins by identifying where apparently separate links converge on the same physical infrastructure — which is more common than most estates assume." },
+      {
+        q: "Can D’Yvix work within our regulator’s requirements?",
+        a: "Engagements are scoped against the specific obligations you are held to. Where a control is mandated, it becomes an explicit requirement of the design rather than a recommendation, and the resulting documentation is written to support audit.",
+      },
+      {
+        q: "How is branch connectivity made resilient?",
+        a: "Through independent links that do not share a failure path, with automatic failover configured and tested. The design begins by identifying where apparently separate links converge on the same physical infrastructure — which is more common than most estates assume.",
+      },
     ],
   },
   government: {
@@ -43,8 +49,14 @@ export const industriesEn: Record<IndustrySlug, IndustryText> = {
       "Undocumented systems nobody is able to change safely",
     ],
     faqs: [
-      { q: "Can data be kept within national jurisdiction?", a: "Yes. Where residency is required, architectures keep the relevant data on infrastructure located and operated within jurisdiction. This is a common driver toward on-premises or hybrid designs rather than full public cloud." },
-      { q: "How is knowledge retained across staff rotation?", a: "By treating documentation and handover as deliverables rather than by-products. Topology, runbooks and decision records are written for a reader who was not present, so operational capability does not leave with an individual." },
+      {
+        q: "Can data be kept within national jurisdiction?",
+        a: "Yes. Where residency is required, architectures keep the relevant data on infrastructure located and operated within jurisdiction. This is a common driver toward on-premises or hybrid designs rather than full public cloud.",
+      },
+      {
+        q: "How is knowledge retained across staff rotation?",
+        a: "By treating documentation and handover as deliverables rather than by-products. Topology, runbooks and decision records are written for a reader who was not present, so operational capability does not leave with an individual.",
+      },
     ],
   },
   healthcare: {
@@ -66,8 +78,14 @@ export const industriesEn: Record<IndustrySlug, IndustryText> = {
       "Medical devices on the network that cannot be patched",
     ],
     faqs: [
-      { q: "How are unpatchable medical devices handled?", a: "Through network segmentation. Devices that cannot be patched are isolated so that compromise cannot spread laterally, with monitored and tightly controlled access paths in and out." },
-      { q: "How is maintenance scheduled where there is no downtime window?", a: "By building redundancy that allows components to be taken out of service individually while the system stays available, so maintenance does not require an outage." },
+      {
+        q: "How are unpatchable medical devices handled?",
+        a: "Through network segmentation. Devices that cannot be patched are isolated so that compromise cannot spread laterally, with monitored and tightly controlled access paths in and out.",
+      },
+      {
+        q: "How is maintenance scheduled where there is no downtime window?",
+        a: "By building redundancy that allows components to be taken out of service individually while the system stays available, so maintenance does not require an outage.",
+      },
     ],
   },
   education: {
@@ -89,8 +107,14 @@ export const industriesEn: Record<IndustrySlug, IndustryText> = {
       "Research or administrative data lost without recoverable backup",
     ],
     faqs: [
-      { q: "How is seasonal peak load handled economically?", a: "By sizing owned infrastructure for normal load and using elastic capacity for the peak, where the workload permits it. Sizing an entire estate for a few days a year is rarely the efficient choice." },
-      { q: "How are unmanaged devices kept from becoming a risk?", a: "By separating them onto their own network segment with no route to administrative or academic record systems, so an infected student laptop reaches nothing that matters." },
+      {
+        q: "How is seasonal peak load handled economically?",
+        a: "By sizing owned infrastructure for normal load and using elastic capacity for the peak, where the workload permits it. Sizing an entire estate for a few days a year is rarely the efficient choice.",
+      },
+      {
+        q: "How are unmanaged devices kept from becoming a risk?",
+        a: "By separating them onto their own network segment with no route to administrative or academic record systems, so an infected student laptop reaches nothing that matters.",
+      },
     ],
   },
   sme: {
@@ -112,8 +136,14 @@ export const industriesEn: Record<IndustrySlug, IndustryText> = {
       "Ransomware against an estate with no detection at all",
     ],
     faqs: [
-      { q: "Is this affordable for a small business?", a: "Engagements are scoped to the estate. A small organisation needs verified backups, current patching, controlled access and a recovery plan — that is a proportionate piece of work, not an enterprise programme. The alternative cost is usually discovered during an incident." },
-      { q: "Where should a small business start?", a: "With backup verification and access control. They are the two controls that most reliably determine whether an incident is an inconvenience or an existential event, and both are inexpensive relative to their effect." },
+      {
+        q: "Is this affordable for a small business?",
+        a: "Engagements are scoped to the estate. A small organisation needs verified backups, current patching, controlled access and a recovery plan — that is a proportionate piece of work, not an enterprise programme. The alternative cost is usually discovered during an incident.",
+      },
+      {
+        q: "Where should a small business start?",
+        a: "With backup verification and access control. They are the two controls that most reliably determine whether an incident is an inconvenience or an existential event, and both are inexpensive relative to their effect.",
+      },
     ],
   },
   "critical-infrastructure": {
@@ -135,8 +165,14 @@ export const industriesEn: Record<IndustrySlug, IndustryText> = {
       "Extended recovery times on specialised equipment",
     ],
     faqs: [
-      { q: "How is OT separated from IT?", a: "Through enforced segmentation with controlled, monitored and minimal crossing points. The objective is that a compromise of corporate IT has no path to operational systems, and that every legitimate crossing is deliberate and logged." },
-      { q: "How are remote unmanned sites monitored?", a: "With local instrumentation reporting over redundant paths, designed so that the loss of a single link is itself a detected and alerted event rather than silence." },
+      {
+        q: "How is OT separated from IT?",
+        a: "Through enforced segmentation with controlled, monitored and minimal crossing points. The objective is that a compromise of corporate IT has no path to operational systems, and that every legitimate crossing is deliberate and logged.",
+      },
+      {
+        q: "How are remote unmanned sites monitored?",
+        a: "With local instrumentation reporting over redundant paths, designed so that the loss of a single link is itself a detected and alerted event rather than silence.",
+      },
     ],
   },
 };

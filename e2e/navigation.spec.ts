@@ -1,34 +1,32 @@
 import { test, expect } from "@playwright/test";
+import { openPaletteWithShortcut } from "./helpers";
 
 test.describe("navigation", () => {
   test.skip(({ isMobile }) => !!isMobile, "desktop mega menu");
 
   test("mega menu opens, exposes leaves and closes on Escape", async ({ page }) => {
     await page.goto("/");
-    const trigger = page.getByRole("button", { name: "Solutions" });
+    const trigger = page.getByRole("button", { name: "Expertise" });
     await trigger.click();
     await expect(trigger).toHaveAttribute("aria-expanded", "true");
     await expect(
-      page.getByRole("link", { name: "Cybersecurity & DevSecOps", exact: true }),
+      page.getByRole("link", { name: "Cybersecurity & Digital Resilience", exact: true }),
     ).toBeVisible();
 
     await page.keyboard.press("Escape");
     await expect(trigger).toHaveAttribute("aria-expanded", "false");
   });
 
-  test("command palette opens on the keyboard shortcut and navigates", async ({ page }) => {
+  test("command palette loads its index, filters and navigates", async ({ page }) => {
     await page.goto("/");
-    // Control rather than Meta: headless shell swallows Cmd+K on macOS.
-    // The handler accepts either modifier, so this covers the same path.
-    await page.keyboard.press("Control+k");
-    const dialog = page.getByRole("dialog", { name: "Search and commands" });
-    await expect(dialog).toBeVisible();
+    await openPaletteWithShortcut(page);
 
     await page.getByRole("combobox", { name: "Search" }).fill("firewall");
-    // Deterministic wait: assert the list has narrowed before acting on it.
-    await expect(page.getByRole("option")).toHaveCount(1);
+    // Deterministic wait: the lazily fetched index has arrived and narrowed.
+    const first = page.getByRole("option").first();
+    await expect(first).toHaveText("Cybersecurity & Digital Resilience");
     await page.keyboard.press("Enter");
-    await expect(page).toHaveURL(/\/solutions\/cybersecurity$/);
+    await expect(page).toHaveURL(/\/expertise\/cybersecurity$/);
   });
 
   test("command palette closes on Escape and restores focus", async ({ page }) => {
@@ -43,7 +41,7 @@ test.describe("navigation", () => {
 
   test("theme toggle cycles light, dark and system", async ({ page }) => {
     await page.goto("/");
-    const toggle = page.getByRole("button", { name: /Theme|theme/ });
+    const toggle = page.getByRole("button", { name: /theme/i });
     const isDark = () => page.evaluate(() => document.documentElement.classList.contains("dark"));
 
     await toggle.click();
@@ -56,7 +54,7 @@ test.describe("navigation", () => {
 test.describe("mobile navigation", () => {
   test.use({ viewport: { width: 375, height: 812 } });
 
-  test("drawer opens, lists solutions and navigates", async ({ page }) => {
+  test("drawer opens, lists the domains and navigates", async ({ page }) => {
     await page.goto("/");
     // Located by aria-controls: the accessible name flips to "Close menu"
     // once open, so a name-based locator would stop resolving after the click.
@@ -66,8 +64,10 @@ test.describe("mobile navigation", () => {
 
     const nav = page.getByRole("navigation", { name: "Mobile navigation" });
     await expect(nav).toBeVisible();
-    await nav.getByRole("link", { name: "Cybersecurity & DevSecOps", exact: true }).click();
-    await expect(page).toHaveURL(/\/solutions\/cybersecurity$/);
+    await nav
+      .getByRole("link", { name: "Cybersecurity & Digital Resilience", exact: true })
+      .click();
+    await expect(page).toHaveURL(/\/expertise\/cybersecurity$/);
   });
 });
 
@@ -91,9 +91,8 @@ test.describe("overlay geometry", () => {
 
   test("command palette overlay covers the whole viewport", async ({ page }) => {
     await page.goto("/");
-    await page.keyboard.press("Control+k");
-    const overlay = page.locator('[role="dialog"]').locator("xpath=..");
-    const box = await overlay.boundingBox();
+    const dialog = await openPaletteWithShortcut(page);
+    const box = await dialog.locator("xpath=..").boundingBox();
     expect(box!.height).toBeGreaterThan(700);
   });
 });

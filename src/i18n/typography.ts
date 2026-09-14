@@ -11,7 +11,17 @@ const NBSP = " ";
 const NNBSP = " ";
 
 /** Keys whose values are identifiers or code, never prose. */
-const SKIP_KEYS = new Set(["href", "slug", "code", "id", "url", "src", "email", "phone", "ctaHref"]);
+const SKIP_KEYS = new Set([
+  "href",
+  "slug",
+  "code",
+  "id",
+  "url",
+  "src",
+  "email",
+  "phone",
+  "ctaHref",
+]);
 
 export function frenchTypography(text: string): string {
   return text

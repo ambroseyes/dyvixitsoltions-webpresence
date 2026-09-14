@@ -28,15 +28,15 @@ test.describe("homepage interactions", () => {
     await expect(first).toHaveAttribute("aria-selected", "false");
   });
 
-  test("ecosystem diagram is keyboard operable and swaps its detail panel", async ({ page }) => {
+  test("capability graph shows all nine domains and swaps its detail panel", async ({ page }) => {
     await page.goto("/");
     const detail = page.locator("#ecosystem-detail");
-    await expect(detail).toContainText("Software");
+    await expect(detail).toContainText("Digital & Software Engineering");
+    await expect(
+      page.locator("#ecosystem-detail").locator("xpath=preceding-sibling::div//button"),
+    ).toHaveCount(9);
 
-    await page
-      .getByRole("button", { name: /Security/ })
-      .first()
-      .click();
-    await expect(detail).toContainText("diplomatic mission");
+    await page.getByRole("button", { name: "Security", exact: true }).click();
+    await expect(detail).toContainText("digital threats");
   });
 });

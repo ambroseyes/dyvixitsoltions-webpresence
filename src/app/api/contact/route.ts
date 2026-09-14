@@ -54,7 +54,12 @@ export async function POST(request: Request) {
   if (!parsed.success) {
     const { fieldErrors } = parsed.error.flatten();
     return json(
-      { success: false, data: null, error: "review", fieldErrors: fieldErrors as Record<string, string[]> },
+      {
+        success: false,
+        data: null,
+        error: "review",
+        fieldErrors: fieldErrors as Record<string, string[]>,
+      },
       422,
     );
   }
@@ -79,7 +84,9 @@ export async function POST(request: Request) {
    * Deliberately NOT logging the submission body: it contains personal data,
    * and application logs are the wrong place for it.
    */
-  console.info(`[enquiry] ${reference} scopes=${parsed.data.scopes.join(",")} timeline=${parsed.data.timeline}`);
+  console.info(
+    `[enquiry] ${reference} scopes=${parsed.data.scopes.join(",")} timeline=${parsed.data.timeline}`,
+  );
 
   return json({ success: true, data: { reference }, error: null }, 200);
 }

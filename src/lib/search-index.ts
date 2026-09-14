@@ -91,15 +91,55 @@ export function buildSearchIndex(lang: Locale): SearchEntry[] {
   const a = dict.command.actions;
   const n = dict.nav;
   const fixed: SearchEntry[] = [
-    { label: a.assessment, href: L("/request-audit"), group: "actions", keywords: words(a.assessment, KEYWORDS.assessment) },
-    { label: a.project, href: L("/contact"), group: "actions", keywords: words(a.project, KEYWORDS.project) },
-    { label: a.finder, href: L("/#solution-finder"), group: "actions", keywords: words(a.finder, KEYWORDS.finder) },
-    { label: n.expertise, href: L("/expertise"), group: "pages", keywords: words(n.expertise, KEYWORDS.expertise) },
-    { label: n.solutions, href: L("/solutions"), group: "pages", keywords: words(n.solutions, KEYWORDS.solutions) },
-    { label: n.projects, href: L("/projects"), group: "pages", keywords: words(n.projects, KEYWORDS.projects) },
-    { label: n.insights, href: L("/insights"), group: "pages", keywords: words(n.insights, KEYWORDS.insights) },
+    {
+      label: a.assessment,
+      href: L("/request-audit"),
+      group: "actions",
+      keywords: words(a.assessment, KEYWORDS.assessment),
+    },
+    {
+      label: a.project,
+      href: L("/contact"),
+      group: "actions",
+      keywords: words(a.project, KEYWORDS.project),
+    },
+    {
+      label: a.finder,
+      href: L("/#solution-finder"),
+      group: "actions",
+      keywords: words(a.finder, KEYWORDS.finder),
+    },
+    {
+      label: n.expertise,
+      href: L("/expertise"),
+      group: "pages",
+      keywords: words(n.expertise, KEYWORDS.expertise),
+    },
+    {
+      label: n.solutions,
+      href: L("/solutions"),
+      group: "pages",
+      keywords: words(n.solutions, KEYWORDS.solutions),
+    },
+    {
+      label: n.projects,
+      href: L("/projects"),
+      group: "pages",
+      keywords: words(n.projects, KEYWORDS.projects),
+    },
+    {
+      label: n.insights,
+      href: L("/insights"),
+      group: "pages",
+      keywords: words(n.insights, KEYWORDS.insights),
+    },
     { label: n.about, href: L("/about"), group: "pages", keywords: words(n.about, KEYWORDS.about) },
-    { label: n.contact, href: L("/contact"), group: "pages", keywords: words(n.contact, KEYWORDS.contact) },
+    {
+      label: n.contact,
+      href: L("/contact"),
+      group: "pages",
+      keywords: words(n.contact, KEYWORDS.contact),
+    },
   ];
 
   return [...expertise, ...products, ...industries, ...articles, ...fixed];

@@ -51,7 +51,10 @@ const jsonLd = (html) => {
   return nodes;
 };
 
-/** Each criterion returns 0-10. */
+/**
+ * Each criterion returns 0-10. Patterns accept English and French: the
+ * sitemap lists both locales, and a French page is scored on French copy.
+ */
 function score(html, path) {
   const text = strip(html);
   const nodes = jsonLd(html);
@@ -65,11 +68,17 @@ function score(html, path) {
     "Entity clarity": clamp(
       (/D.Yvix IT Solutions/i.test(text) ? 5 : 0) +
         (types.includes("Organization") ? 3 : 0) +
-        (/\b(IT|technology) engineering company\b/i.test(text) ? 2 : 0),
+        (/\b(IT|technology) engineering company\b|soci[eé]t[eé] d.ing[eé]nierie/i.test(text)
+          ? 2
+          : 0),
     ),
     "Service clarity": clamp(
       (types.some((t) => ["Service", "ItemList", "Offer"].includes(t)) ? 4 : 0) +
-        (/(designs?|builds?|secures?|operates?|provides?)/i.test(text) ? 3 : 0) +
+        (/(designs?|builds?|secures?|operates?|provides?|con[cç]oit|d[eé]veloppe|s[eé]curise|exploite|fournit)/i.test(
+          text,
+        )
+          ? 3
+          : 0) +
         (text.length > 1500 ? 3 : text.length > 700 ? 2 : 0),
     ),
     "Topical depth": clamp(text.split(" ").length / 130),
@@ -81,9 +90,13 @@ function score(html, path) {
           : 0),
     ),
     "First-party evidence": clamp(
-      (/(Delivered|Verified|aligned|certified|projects delivered|Outcome)/i.test(text) ? 5 : 0) +
+      (/(Delivered|Verified|align(ed|é)|certifi(ed|é)|projects delivered|projets livrés|Outcome|Résultat)/i.test(
+        text,
+      )
+        ? 5
+        : 0) +
         (/contact@dyvixitsolutions\.com/.test(text) ? 3 : 0) +
-        (/(assessment|engagement|deliverable)/i.test(text) ? 2 : 0),
+        (/(assessment|engagement|deliverable|audit|mission|livrable)/i.test(text) ? 2 : 0),
     ),
     "Internal linking": clamp(internalLinks.size / 4),
     "Content extractability": clamp(
@@ -96,15 +109,16 @@ function score(html, path) {
         (/D.Yvix Engineering|D.Yvix IT Solutions/i.test(text) ? 4 : 0),
     ),
     "Local relevance": clamp(
-      (/Cameroon/.test(text) ? 4 : 0) +
-        (/Africa/.test(text) ? 3 : 0) +
-        (/(Yaound|Central Africa)/.test(text) ? 3 : 0),
+      (/Cameroon|Cameroun/.test(text) ? 4 : 0) +
+        (/Africa|Afrique/.test(text) ? 3 : 0) +
+        (/(Yaound|Central Africa|Afrique centrale)/.test(text) ? 3 : 0),
     ),
     "Technical crawlability": clamp(
-      (has(/rel="canonical"/) ? 3 : 0) +
+      (has(/rel="canonical"/) ? 2 : 0) +
         (has(/<meta name="description"/) ? 3 : 0) +
-        (has(/property="og:title"/) ? 2 : 0) +
-        (has(/<html lang="/) ? 2 : 0),
+        (has(/property="og:title"/) ? 1 : 0) +
+        (has(/<html lang="/) ? 2 : 0) +
+        (has(/hreflang="/i) ? 2 : 0),
     ),
   };
 }

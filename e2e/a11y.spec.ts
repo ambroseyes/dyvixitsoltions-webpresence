@@ -3,11 +3,13 @@ import AxeBuilder from "@axe-core/playwright";
 
 const PAGES = [
   "/",
+  "/expertise",
+  "/expertise/cybersecurity",
+  "/expertise/iot-edge",
   "/solutions",
-  "/solutions/cybersecurity",
+  "/solutions/back-node",
   "/industries",
   "/industries/healthcare",
-  "/expertise",
   "/projects",
   "/insights",
   "/insights/multi-wan-failover-that-actually-fails-over",
@@ -16,7 +18,19 @@ const PAGES = [
   "/request-audit",
   "/privacy",
   "/legal",
+  "/fr",
+  "/fr/expertise/cybersecurity",
+  "/fr/solutions",
+  "/fr/about",
+  "/fr/contact",
 ];
+
+/**
+ * WebKit follows the macOS default, where Tab skips links and buttons unless
+ * "Press Tab to highlight each item" is turned on; Option+Tab reaches every
+ * control, which is what a keyboard user on Safari actually presses.
+ */
+const tabKey = (browserName: string) => (browserName === "webkit" ? "Alt+Tab" : "Tab");
 
 test.describe("accessibility", () => {
   for (const path of PAGES) {
@@ -28,7 +42,13 @@ test.describe("accessibility", () => {
 
       // Surface the rule ids in the failure message rather than a raw dump.
       expect(
-        results.violations.map((v) => `${v.id} (${v.nodes.length})`),
+        results.violations.map(
+          (v) =>
+            `${v.id} (${v.nodes.length}): ${v.nodes
+              .slice(0, 3)
+              .map((n) => n.target.join(" "))
+              .join(", ")}`,
+        ),
         `axe violations on ${path}`,
       ).toEqual([]);
     });
@@ -41,20 +61,26 @@ test.describe("accessibility", () => {
     expect(results.violations.map((v) => v.id)).toEqual([]);
   });
 
-  test("skip link is the first focusable element and reaches main", async ({ page }) => {
+  test("skip link is the first focusable element and reaches main", async ({
+    page,
+    browserName,
+  }) => {
     await page.goto("/");
-    await page.keyboard.press("Tab");
+    await page.keyboard.press(tabKey(browserName));
     const skip = page.getByRole("link", { name: "Skip to main content" });
     await expect(skip).toBeFocused();
     await skip.press("Enter");
     await expect(page.locator("#main")).toBeVisible();
   });
 
-  test("every interactive control is reachable by keyboard in the header", async ({ page }) => {
+  test("every interactive control is reachable by keyboard in the header", async ({
+    page,
+    browserName,
+  }) => {
     await page.goto("/");
     const reached: string[] = [];
-    for (let i = 0; i < 14; i++) {
-      await page.keyboard.press("Tab");
+    for (let i = 0; i < 16; i++) {
+      await page.keyboard.press(tabKey(browserName));
       reached.push(
         await page.evaluate(() => {
           const el = document.activeElement as HTMLElement | null;
@@ -64,7 +90,9 @@ test.describe("accessibility", () => {
         }),
       );
     }
-    expect(reached.join(" | ")).toMatch(/Solutions/);
+    // Case-insensitive: on mobile the header nav is in the drawer, and the
+    // first "expertise" reached is the hero's "Explore our expertise".
+    expect(reached.join(" | ")).toMatch(/expertise/i);
     expect(reached.join(" | ")).toMatch(/Start a Project/);
   });
 

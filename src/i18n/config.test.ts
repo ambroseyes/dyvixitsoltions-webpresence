@@ -1,11 +1,5 @@
 import { describe, expect, test } from "vitest";
-import {
-  alternatePath,
-  isLocale,
-  localeFromPathname,
-  localePath,
-  stripLocale,
-} from "./config";
+import { alternatePath, isLocale, localeFromPathname, localePath, stripLocale } from "./config";
 
 describe("localePath", () => {
   test("leaves English paths unprefixed", () => {
@@ -23,7 +17,9 @@ describe("localePath", () => {
   });
 
   test("keeps query strings and hashes on the right side of the prefix", () => {
-    expect(localePath("fr", "/contact?scope=cybersecurity")).toBe("/fr/contact?scope=cybersecurity");
+    expect(localePath("fr", "/contact?scope=cybersecurity")).toBe(
+      "/fr/contact?scope=cybersecurity",
+    );
     expect(localePath("fr", "/#solution-finder")).toBe("/fr#solution-finder");
     expect(localePath("fr", "/projects#creolink-storage")).toBe("/fr/projects#creolink-storage");
   });

@@ -15,8 +15,14 @@ export function MethodTimeline({ lang, index = "06" }: { lang: Locale; index?: s
   const steps = getHome(lang).method;
 
   return (
-    <section aria-labelledby="method-heading" className="panel-inverse grain relative overflow-hidden">
-      <div className="schematic-grid-fine pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
+    <section
+      aria-labelledby="method-heading"
+      className="panel-inverse grain relative overflow-hidden"
+    >
+      <div
+        className="schematic-grid-fine pointer-events-none absolute inset-0 opacity-40"
+        aria-hidden="true"
+      />
 
       <Container className="relative">
         <div className="py-(--spacing-section)">
@@ -29,11 +35,23 @@ export function MethodTimeline({ lang, index = "06" }: { lang: Locale; index?: s
           <h2 id="method-heading" className="max-w-[20ch] text-(length:--text-h2)">
             {t.title}
           </h2>
-          <p className="mt-5 max-w-(--container-prose) text-(length:--text-lead) text-ink-muted">{t.standfirst}</p>
+          <p className="mt-5 max-w-(--container-prose) text-(length:--text-lead) text-ink-muted">
+            {t.standfirst}
+          </p>
 
-          <ol className="mt-14 flex snap-x snap-mandatory gap-px overflow-x-auto pb-4 lg:grid lg:grid-cols-4 lg:overflow-visible lg:pb-0 xl:grid-cols-8">
+          {/* Scrolls sideways on narrow screens. Its steps contain nothing
+              focusable, so the list itself takes focus — otherwise it could
+              only be scrolled with a pointer (WCAG 2.1.1). */}
+          <ol
+            tabIndex={0}
+            aria-labelledby="method-heading"
+            className="mt-14 flex snap-x snap-mandatory gap-px overflow-x-auto pb-4 lg:grid lg:grid-cols-4 lg:overflow-visible lg:pb-0 xl:grid-cols-8"
+          >
             {steps.map((m, i) => (
-              <li key={m.title} className="relative w-56 shrink-0 snap-start border-t border-line pt-8 pr-6 lg:w-auto lg:pr-4">
+              <li
+                key={m.title}
+                className="relative w-56 shrink-0 snap-start border-t border-line pt-8 pr-6 lg:w-auto lg:pr-4"
+              >
                 {/* Station marker sitting on the dimension line. */}
                 <span
                   aria-hidden="true"
@@ -41,8 +59,12 @@ export function MethodTimeline({ lang, index = "06" }: { lang: Locale; index?: s
                   style={{ backgroundColor: i === 0 ? "var(--c-primary)" : undefined }}
                 />
                 <span className="rail-index">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="mt-3 text-(length:--text-h4) font-semibold tracking-[-0.02em]">{m.title}</h3>
-                <p className="mt-2.5 text-(length:--text-sm) leading-relaxed text-ink-muted">{m.description}</p>
+                <h3 className="mt-3 text-(length:--text-h4) font-semibold tracking-[-0.02em]">
+                  {m.title}
+                </h3>
+                <p className="mt-2.5 text-(length:--text-sm) leading-relaxed text-ink-muted">
+                  {m.description}
+                </p>
               </li>
             ))}
           </ol>

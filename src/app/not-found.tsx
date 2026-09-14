@@ -30,7 +30,9 @@ export default async function NotFound() {
             >
               {dict.notFound.title}
             </h1>
-            <p className="mt-7 max-w-[52ch] text-(length:--text-lead) text-ink-muted">{dict.notFound.body}</p>
+            <p className="mt-7 max-w-[52ch] text-(length:--text-lead) text-ink-muted">
+              {dict.notFound.body}
+            </p>
 
             <nav aria-label={dict.notFound.suggestions} className="mt-12">
               <p className="rail-label mb-4">{dict.notFound.suggestions}</p>
@@ -53,7 +55,9 @@ export default async function NotFound() {
               </ul>
             </nav>
 
-            <p className="mt-10 text-(length:--text-sm) text-ink-faint">{dict.notFound.searchHint}</p>
+            <p className="mt-10 text-(length:--text-sm) text-ink-faint">
+              {dict.notFound.searchHint}
+            </p>
           </div>
         </Container>
       </section>
