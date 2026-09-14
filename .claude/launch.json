@@ -12,6 +12,27 @@
       "runtimeExecutable": "node",
       "runtimeArgs": [".next/standalone/server.js"],
       "port": 3000
+    },
+    {
+      "name": "smtp-sink",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["e2e/support/smtp-sink.mjs"],
+      "port": 2526
+    },
+    {
+      "name": "dyvix-local",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "PORT=3000",
+        "HOSTNAME=127.0.0.1",
+        "SMTP_HOST=127.0.0.1",
+        "SMTP_PORT=2525",
+        "SMTP_USER=site@dyvixitsolutions.com",
+        "SMTP_PASS=test-sink-only",
+        "node",
+        ".next/standalone/server.js"
+      ],
+      "port": 3000
     }
   ]
 }
