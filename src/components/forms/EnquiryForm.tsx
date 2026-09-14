@@ -126,7 +126,8 @@ export function EnquiryForm({
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        // The page's language travels with the enquiry, so the team replies in it.
+        body: JSON.stringify({ ...values, locale: lang }),
       });
       const body: unknown = await res.json();
       if (!res.ok || field(body, "success") !== true) {

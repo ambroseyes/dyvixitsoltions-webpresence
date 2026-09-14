@@ -431,6 +431,7 @@ export const en = {
       review: "Please review your answers.",
       rateLimited: "Too many submissions in a short time. Please try again in a minute.",
       rejected: "This enquiry could not be accepted. Please email us directly.",
+      delivery: "We could not send your enquiry. Please copy your message and email us directly.",
       generic: "Something went wrong. Please email us directly.",
       network: "We could not reach the server. Please email us directly.",
     },

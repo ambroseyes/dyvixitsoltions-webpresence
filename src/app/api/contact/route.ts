@@ -1,4 +1,8 @@
 import { NextResponse } from "next/server";
+import { newEnquiryReference } from "@/lib/enquiry-reference";
+import { readMailConfig } from "@/lib/mail/config";
+import { composeEnquiryEmail } from "@/lib/mail/enquiry-email";
+import { describeMailError, sendMail } from "@/lib/mail/send";
 import { enquirySchema } from "@/lib/validation";
 import { clientKey, rateLimit } from "@/lib/rate-limit";
 
@@ -10,7 +14,7 @@ export const dynamic = "force-dynamic";
  * Error codes, not sentences: the form renders them from the dictionary of
  * the page that submitted, so one endpoint serves every locale.
  */
-type ApiError = "rateLimited" | "rejected" | "review" | "generic";
+type ApiError = "rateLimited" | "rejected" | "review" | "delivery" | "generic";
 
 /** Consistent envelope, per the API response format rule. */
 type ApiResponse = {
@@ -70,23 +74,31 @@ export async function POST(request: Request) {
     return json({ success: true, data: { reference: "DYX-000000" }, error: null }, 200);
   }
 
-  const reference = `DYX-${Date.now().toString(36).toUpperCase().slice(-6)}`;
+  const reference = newEnquiryReference();
 
-  /**
-   * PLACEHOLDER — delivery is not wired up.
-   *
-   * The submission is validated and accepted but not yet sent anywhere. Wire
-   * one of these before launch, using credentials from environment variables
-   * only (see .env.example):
-   *   - transactional email to site.contact.email (Resend / Postmark / SES)
-   *   - or a CRM webhook
-   *
-   * Deliberately NOT logging the submission body: it contains personal data,
-   * and application logs are the wrong place for it.
-   */
-  console.info(
-    `[enquiry] ${reference} scopes=${parsed.data.scopes.join(",")} timeline=${parsed.data.timeline}`,
-  );
+  // 5. Delivery. Never report success for an enquiry nobody will receive:
+  //    without mail settings, or when the mail server refuses, the visitor is
+  //    told to write directly. The log line — stderr.log on cPanel — carries
+  //    the reference and the cause, never the visitor's personal data.
+  const mail = readMailConfig(process.env);
+  if (!mail.ok) {
+    console.error(
+      `[enquiry] ${reference} not sent: mail is not configured (${mail.problems.join("; ")})`,
+    );
+    return json({ success: false, data: null, error: "delivery" }, 503);
+  }
+
+  try {
+    const message = composeEnquiryEmail(parsed.data, {
+      reference,
+      from: mail.config.user,
+      to: mail.config.to,
+    });
+    await sendMail(mail.config, message);
+  } catch (error) {
+    console.error(`[enquiry] ${reference} not sent: ${describeMailError(error)}`);
+    return json({ success: false, data: null, error: "delivery" }, 502);
+  }
 
   return json({ success: true, data: { reference }, error: null }, 200);
 }

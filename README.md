@@ -223,23 +223,27 @@ Zod was removed from the client bundle by splitting validation rules
 
 | Suite                        | Count                     | Command            |
 | ---------------------------- | ------------------------- | ------------------ |
-| Unit (Vitest)                | 294                       | `npm test`         |
-| E2E (Playwright ×4 projects) | 340 (5 skipped by design) | `npm run test:e2e` |
+| Unit (Vitest)                | 330                       | `npm test`         |
+| E2E (Playwright ×4 projects) | 352 (5 skipped by design) | `npm run test:e2e` |
 
-Coverage on `src/lib` and `src/content`: 95% statements, 90% branches, 97%
-functions, 97% lines.
+Coverage on `src/lib` and `src/content`: 97% statements, 97% branches, 94%
+functions, 98% lines.
 
 E2E projects: Chromium, Firefox, WebKit, and Pixel 7. Specs cover navigation,
 the command palette, the solution finder, the problem tabs, the enquiry form
-end to end, the API contract, SEO/schema output, security headers, responsive
-overflow at six widths, and accessibility.
+end to end — through real SMTP to a local sink, both delivered and refused —
+the API contract, SEO/schema output, security headers, responsive overflow at
+six widths, and accessibility.
 
 ## Environment
 
-See `.env.example`. No secret is needed to run the site. Enquiry **delivery is
-not wired up** — `src/app/api/contact/route.ts` validates and accepts
-submissions but does not send them anywhere yet. Connect a transactional email
-provider or a CRM webhook before launch.
+See `.env.example`. No secret is needed to build the site. Enquiries are
+delivered by e-mail over SMTP (`src/lib/mail/`), from a mailbox on the host,
+once `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER` and `SMTP_PASS` are set on the
+server. Until then, or when the mail server refuses, the API answers
+`delivery` and the form tells visitors to email directly — it never reports a
+send that did not happen. The e2e suite runs a local SMTP sink
+(`e2e/support/smtp-sink.mjs`) and checks what actually arrives.
 
 ## Deployment
 
@@ -266,7 +270,8 @@ Before going live:
 
 1. Check `site.url` in `src/lib/site.ts`: it is the production origin used by
    canonical links, the sitemap and structured data (no environment variable).
-2. Implement enquiry delivery in the contact route.
+2. Create the sending mailbox and set the `SMTP_*` variables on the server
+   (guide, step 7), then send a test enquiry.
 3. Fill the placeholders in `/legal` (company registration, hosting) and
    `/privacy` (data controller, legal basis, supervisory authority).
 4. Confirm the postal address, then enable `LocalBusiness` schema in
