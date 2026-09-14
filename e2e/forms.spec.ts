@@ -53,6 +53,26 @@ test.describe("enquiry form", () => {
     await expect(page.getByRole("group", { name: "Give us the context." })).toBeVisible();
   });
 
+  /**
+   * Regression: "Continue" and "Send" used to be one reused <button> whose
+   * type flipped to submit during the click, so the browser submitted the
+   * form the moment the last step appeared and flagged every empty field.
+   */
+  test("opens the details step without submitting or flagging anything", async ({ page }) => {
+    await page.goto("/contact");
+    const form = page.locator("form");
+    await form.getByText("Cybersecurity", { exact: true }).click();
+    await page.getByRole("button", { name: "Continue" }).click();
+    await form.getByText("This quarter", { exact: true }).click();
+    await page
+      .getByLabel("What should we know?")
+      .fill("Our branch links drop weekly and we have never tested a restore.");
+    await page.getByRole("button", { name: "Continue" }).click();
+
+    await expect(page.getByLabel("Your name")).toBeVisible();
+    await expect(form.getByRole("alert")).toHaveCount(0);
+  });
+
   test("prefills the scope from the query string", async ({ page }) => {
     await page.goto("/contact?scope=ai-data");
     const preset = page.locator("label").filter({ hasText: /^AI, data & automation$/ });
