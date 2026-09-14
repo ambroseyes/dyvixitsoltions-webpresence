@@ -209,6 +209,70 @@ semaines avant de les supprimer.
 
 ---
 
+## 7. Recevoir les demandes du formulaire par e-mail
+
+Chaque demande envoyée depuis le formulaire de contact arrive par e-mail à
+`contact@dyvixitsolutions.com`. Le site l'envoie depuis une boîte mail dédiée de
+votre cPanel : aucun service extérieur n'est nécessaire.
+
+Tant que ce réglage n'est pas fait, le formulaire dit aux visiteurs que leur demande
+n'a pas pu être envoyée et les invite à vous écrire directement. Aucune demande ne
+se perd sans prévenir.
+
+### 7.1 Créer la boîte d'envoi
+
+1. cPanel → **Comptes de messagerie** (Email Accounts) → **Créer**.
+2. Nom d'utilisateur : `site`. L'adresse devient `site@dyvixitsolutions.com`.
+3. Mot de passe : cliquez sur **Générer**, puis copiez-le dans un endroit sûr (un
+   gestionnaire de mots de passe, par exemple).
+4. Cliquez sur **Créer**.
+
+### 7.2 Relever les réglages d'envoi
+
+Sur la ligne de `site@dyvixitsolutions.com`, cliquez sur **Connect Devices**
+(Connecter des appareils). Dans le cadre **Paramètres SSL/TLS sécurisés
+(recommandé)**, notez :
+
+- le **serveur sortant** (Outgoing Server), souvent `mail.dyvixitsolutions.com` ;
+- le **port SMTP**, souvent `465`.
+
+### 7.3 Donner ces réglages au site
+
+cPanel → **Setup Node.js App** → crayon (modifier) sur l'application →
+**Environment variables** → **Add Variable**, une variable à la fois. Recopiez les
+noms exactement, en majuscules :
+
+| Nom                | Valeur                                                                   |
+| ------------------ | ------------------------------------------------------------------------ |
+| `SMTP_HOST`        | le serveur sortant noté en 7.2                                           |
+| `SMTP_PORT`        | le port noté en 7.2 (`465` en général)                                   |
+| `SMTP_USER`        | `site@dyvixitsolutions.com`                                              |
+| `SMTP_PASS`        | le mot de passe de la boîte `site@`                                      |
+| `ENQUIRY_TO_EMAIL` | facultatif : une autre adresse que `contact@` pour recevoir les demandes |
+
+Cliquez sur **Save**, puis sur **Restart**. Inutile de recompiler.
+
+> Le mot de passe ne va **que** là : jamais dans le code, jamais sur GitHub.
+
+### 7.4 Tester
+
+1. Envoyez une demande depuis `https://dyvixitsolutions.com/contact`.
+2. Elle arrive dans la boîte `contact@` en quelques secondes, avec la même
+   référence `DYX-…` que celle affichée au visiteur.
+3. Cliquez sur **Répondre** : votre réponse part directement au visiteur.
+
+Si le formulaire affiche « Votre demande n'a pas pu être envoyée », ouvrez le
+fichier `stderr.log` du dossier `dyvix-site` (Gestionnaire de fichiers). La dernière
+ligne qui commence par `[enquiry]` en donne la cause :
+
+| La ligne contient                       | Solution                                                                                     |
+| --------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `mail is not configured`                | Une variable manque ou son nom est mal écrit (elle est citée) : revoir 7.3, puis **Restart** |
+| `EAUTH`                                 | Adresse ou mot de passe incorrects dans `SMTP_USER` ou `SMTP_PASS`                           |
+| `ESOCKET`, `ECONNECTION` ou `ETIMEDOUT` | Serveur ou port incorrects : revoir 7.2 ; si `465` ne passe pas, essayer `587`               |
+
+---
+
 ## Mettre à jour le site après une modification
 
 À chaque nouvelle version poussée sur GitHub :
@@ -251,9 +315,6 @@ réglages GitHub du dépôt, les identifiants FTP ou SSH de votre hébergement.
 
 ## Ce qui n'est pas encore branché
 
-- **Formulaire de contact** : les demandes sont validées mais **pas encore envoyées
-  par e-mail**. Il faudra configurer un service d'envoi (Resend, Postmark…). Ses
-  identifiants iront dans **Setup Node.js App** → **Environment variables**, jamais
-  dans le code.
 - **Générateur de cahier des charges** : en préparation. Sa partie IA aura besoin
-  d'une clé API Anthropic, à placer au même endroit.
+  d'une clé API Anthropic, à placer dans **Setup Node.js App** → **Environment
+  variables**, comme les réglages d'e-mail de l'étape 7. Jamais dans le code.

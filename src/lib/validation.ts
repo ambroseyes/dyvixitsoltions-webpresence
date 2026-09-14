@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { LOCALES } from "@/i18n/config";
 import { LIMITS, SCOPES, TIMELINES, type ErrorCode } from "./enquiry-rules";
 
 export * from "./enquiry-rules";
@@ -29,6 +30,8 @@ export const enquirySchema = z.object({
     .trim()
     .min(LIMITS.message.min, code("message"))
     .max(LIMITS.message.max, code("messageLong")),
+  /** Language of the page the enquiry came from, so the team replies in it. */
+  locale: z.enum(LOCALES).optional(),
   /**
    * Honeypot. Real users never see this field, so any value means a bot.
    * Preferred over a CAPTCHA, which taxes every legitimate visitor —

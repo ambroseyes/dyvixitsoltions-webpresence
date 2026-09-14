@@ -45,6 +45,10 @@ const nextConfig: NextConfig = {
   // or the standalone folder nests the whole home-directory path.
   outputFileTracingRoot: __dirname,
 
+  // nodemailer opens raw TCP/TLS sockets: load it with Node's own require
+  // rather than bundling it into the route. Standalone tracing still copies it.
+  serverExternalPackages: ["nodemailer"],
+
   poweredByHeader: false,
   reactStrictMode: true,
 

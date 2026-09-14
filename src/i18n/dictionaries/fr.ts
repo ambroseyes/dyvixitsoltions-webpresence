@@ -438,6 +438,8 @@ export const fr: Dictionary = {
       review: "Vérifiez vos réponses.",
       rateLimited: "Trop d’envois en peu de temps. Réessayez dans une minute.",
       rejected: "Cette demande n’a pas pu être acceptée. Écrivez-nous directement.",
+      delivery:
+        "Votre demande n’a pas pu être envoyée. Copiez votre message et écrivez-nous directement.",
       generic: "Une erreur est survenue. Écrivez-nous directement.",
       network: "Le serveur est injoignable. Écrivez-nous directement.",
     },

@@ -1,0 +1,8 @@
+{
+  "host": "127.0.0.1",
+  "smtpPort": 2525,
+  "httpPort": 2526,
+  "user": "site@dyvixitsolutions.com",
+  "password": "test-sink-only",
+  "rejectMarker": "[sink:reject]"
+}

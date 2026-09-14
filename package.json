@@ -21,6 +21,7 @@
     "clsx": "^2.1.1",
     "lucide-react": "^1.34.0",
     "next": "16.3.3",
+    "nodemailer": "10.0.9",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "tailwind-merge": "^3.6.0",
@@ -40,7 +41,9 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.3",
     "jsdom": "^29.1.1",
+    "mailparser": "3.9.26",
     "prettier": "^3.9.6",
+    "smtp-server": "3.19.12",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.1.11"
