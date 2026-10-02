@@ -15,6 +15,7 @@ import { breadcrumbSchema, graph } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
+import { PRODUCT_GLYPHS } from "@/components/illustrations/product-glyphs";
 import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
 import { CTABand } from "@/components/ui/CTABand";
@@ -85,7 +86,10 @@ export default async function SolutionsPage({ params }: Props) {
                   id={p.slug}
                   className="grid scroll-mt-24 gap-6 border-b border-line py-10 lg:grid-cols-[minmax(0,4rem)_minmax(0,18rem)_minmax(0,1fr)] lg:gap-10"
                 >
-                  <span className="rail-index">{String(i + 1).padStart(2, "0")}</span>
+                  <div className="flex items-center gap-4 lg:block">
+                    <span className="rail-index">{String(i + 1).padStart(2, "0")}</span>
+                    <div className="lg:mt-5 [&>svg]:size-10">{PRODUCT_GLYPHS[p.slug]()}</div>
+                  </div>
 
                   <div>
                     <h3 className="text-(length:--text-h3) font-semibold tracking-[-0.025em]">

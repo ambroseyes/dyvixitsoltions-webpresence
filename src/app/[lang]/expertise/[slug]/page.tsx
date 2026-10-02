@@ -18,6 +18,7 @@ import { breadcrumbSchema, faqSchema, graph, serviceSchema } from "@/lib/schema"
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
+import { EXPERTISE_GLYPHS } from "@/components/illustrations/expertise-glyphs";
 import { Container } from "@/components/ui/Container";
 import { SpecRow } from "@/components/ui/SpecRow";
 import { Button } from "@/components/ui/Button";
@@ -88,7 +89,13 @@ export default async function ExpertiseDomainPage({ params }: Props) {
 
       <Breadcrumbs trail={trail} label={dict.nav.breadcrumbLabel} />
 
-      <PageHero index={e.index} label={t.label} title={e.headline} standfirst={e.standfirst}>
+      <PageHero
+        index={e.index}
+        label={t.label}
+        title={e.headline}
+        standfirst={e.standfirst}
+        visual={EXPERTISE_GLYPHS[e.slug]()}
+      >
         <div className="flex flex-wrap items-center gap-3">
           <Button href={L(e.ctaHref)} size="lg">
             {e.ctaLabel}
