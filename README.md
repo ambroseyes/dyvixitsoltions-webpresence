@@ -149,6 +149,12 @@ duration.
   forces hierarchy through size and colour rather than weight.
 - **Motion** — tokens only; `prefers-reduced-motion` collapses every
   transition globally.
+- **Service glyphs** — one drawing per domain and per product
+  (`src/components/illustrations/`), in the same vocabulary as the sheet:
+  hairline strokes, registration marks, the brand green on the single
+  element that carries the idea. Server-rendered SVG, so they add no
+  JavaScript; they move on hover and settle as they scroll into view, both
+  of which the reduced-motion rule removes.
 
 ## SEO and GEO
 
