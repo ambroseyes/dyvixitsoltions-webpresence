@@ -11,12 +11,15 @@ export function PageHero({
   label,
   title,
   standfirst,
+  visual,
   children,
 }: {
   index?: string;
   label: string;
   title: string;
   standfirst: string;
+  /** Decorative drawing for the domain or product this page is about. */
+  visual?: React.ReactNode;
   children?: React.ReactNode;
 }) {
   return (
@@ -31,6 +34,14 @@ export function PageHero({
         aria-hidden="true"
       />
       <Container className="relative">
+        {visual && (
+          <div
+            className="glyph-reveal pointer-events-none absolute top-1/2 right-(--spacing-gutter) hidden -translate-y-1/2 text-ink-faint lg:block [&>svg]:size-36"
+            aria-hidden="true"
+          >
+            {visual}
+          </div>
+        )}
         <div className="max-w-4xl py-(--spacing-section-tight)">
           <p className="rail-label flex items-center gap-3">
             {index && <span className="rail-index">{index}</span>}

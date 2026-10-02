@@ -17,6 +17,7 @@ import { breadcrumbSchema, graph, softwareSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
+import { PRODUCT_GLYPHS } from "@/components/illustrations/product-glyphs";
 import { Container } from "@/components/ui/Container";
 import { SpecRow } from "@/components/ui/SpecRow";
 import { Button } from "@/components/ui/Button";
@@ -82,7 +83,12 @@ export default async function ProductPage({ params }: Props) {
 
       <Breadcrumbs trail={trail} label={dict.nav.breadcrumbLabel} />
 
-      <PageHero label={t.label} title={p.name} standfirst={p.tagline ?? description}>
+      <PageHero
+        label={t.label}
+        title={p.name}
+        standfirst={p.tagline ?? description}
+        visual={PRODUCT_GLYPHS[p.slug]()}
+      >
         <div className="flex flex-wrap items-center gap-3">
           <Badge tone={STATUS_TONE[p.status]}>{dict.solutions.status[p.status]}</Badge>
           <Button href={L("/contact")} size="lg">

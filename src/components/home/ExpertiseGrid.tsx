@@ -5,6 +5,7 @@ import { localePath, type Locale } from "@/i18n/config";
 import { format } from "@/i18n/format";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { getExpertise } from "@/content/expertise";
+import { EXPERTISE_GLYPHS } from "@/components/illustrations/expertise-glyphs";
 import { Section } from "@/components/ui/Section";
 import { cn } from "@/lib/utils";
 
@@ -59,6 +60,12 @@ export function ExpertiseGrid({ lang }: { lang: Locale }) {
                     aria-hidden="true"
                     className="-translate-x-1 translate-y-1 text-primary opacity-0 transition-all duration-(--duration-normal) ease-(--ease-out-expo) group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100"
                   />
+                </div>
+
+                <div
+                  className={cn("mt-7", tier === "wide" ? "[&>svg]:size-16" : "[&>svg]:size-11")}
+                >
+                  {EXPERTISE_GLYPHS[d.slug]()}
                 </div>
 
                 <h3
